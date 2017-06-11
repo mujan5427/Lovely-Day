@@ -36,10 +36,16 @@ const distributionPaths = {
  * * * * * * * * * * * * */
 
 
-// ======   Clean   ======
+// ======   Clean For SCSS   ======
 
-gulp.task('clean', function() {
-  return del(['src/dist', 'static/js', 'static/css', '!static/css', '!static/css/fonts/**']);
+gulp.task('cleanForSCSS', function() {
+  return del(['static/css', '!static/css', '!static/css/fonts/**']);
+});
+
+// ======   Clean For Babel   ======
+
+gulp.task('cleanForBabel', function() {
+  return del(['src/dist', 'static/js']);
 });
 
 // ======   Copy   ======
@@ -51,7 +57,7 @@ gulp.task('copy', () => {
 
 // ======   SCSS   ======
 
-gulp.task('scss', ['clean'], () => {
+gulp.task('scss', ['cleanForSCSS'], () => {
   return gulp.src(sourcePaths.scss)
           .pipe(sass({outputStyle: 'compressed'}))
           .pipe(gulp.dest(distributionPaths.scss));
@@ -59,7 +65,7 @@ gulp.task('scss', ['clean'], () => {
 
 // ======   Babel   ======
 
-gulp.task('babel', ['clean'], () => {
+gulp.task('babel', ['cleanForBabel'], () => {
   return gulp.src(sourcePaths.js)
           .pipe(babel({
             presets: ['env', 'react']
