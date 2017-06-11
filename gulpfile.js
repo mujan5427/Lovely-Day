@@ -14,16 +14,18 @@ const del         = require('del');
 
 
 const sourcePaths = {
-  js           : ['src/js/**/*.js'],
+  js           : 'src/js/**/*.js',
   copy         : 'node_modules/font-awesome/fonts/**',
   scssForWatch : 'src/css/**/*.scss',
   scss         : 'src/css/main.scss',
-  webpack      : ['static/dist/index.js']
+  webpack      : 'src/dist/index.js'
 };
 
 const distributionPaths = {
+  babel        : 'src/dist',
   scss         : 'static/css',
-  copy         : 'static/css/fonts'
+  copy         : 'static/css/fonts',
+  webpack      : 'static/js'
 };
 
 
@@ -37,7 +39,7 @@ const distributionPaths = {
 // ======   Clean   ======
 
 gulp.task('clean', function() {
-  return del(['static/dist', 'static/js', 'static/css', '!static/css', '!static/css/fonts/**']);
+  return del(['src/dist', 'static/js', 'static/css', '!static/css', '!static/css/fonts/**']);
 });
 
 // ======   Copy   ======
@@ -58,11 +60,11 @@ gulp.task('scss', ['clean'], () => {
 // ======   Babel   ======
 
 gulp.task('babel', ['clean'], () => {
-  return gulp.src(paths.js)
+  return gulp.src(sourcePaths.js)
           .pipe(babel({
-            "presets": ['env', 'react']
+            presets: ['env', 'react']
           }))
-          .pipe(gulp.dest('static/dist'));
+          .pipe(gulp.dest(distributionPaths.babel));
 });
 
 // ======   Webpack   ======
@@ -83,23 +85,20 @@ gulp.task('webpack',['babel'], () => {
     ]
   };
 
-  return gulp.src(paths.webpack)
+  return gulp.src(sourcePaths.webpack)
           .pipe(gulpWebpack(options, webpack))
-          .pipe(gulp.dest('static/js/'));
+          .pipe(gulp.dest(distributionPaths.webpack));
 });
 
 // ======   Watch   ======
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-  // gulp.watch(paths.js, ['webpack']);
-
   gulp.watch(sourcePaths.scssForWatch, ['scss']);
+  gulp.watch(sourcePaths.js, ['webpack']);
 });
 
 // ======   Default   ======
 
 // called when you run `gulp` from cli
-// gulp.task('default', ['watch', 'webpack']);
-
-gulp.task('default', ['watch', 'copy', 'scss']);
+gulp.task('default', ['watch', 'copy', 'scss', 'webpack']);
