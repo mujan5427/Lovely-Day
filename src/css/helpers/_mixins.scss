@@ -1,0 +1,11 @@
+@mixin mq-medium {
+  @media (max-width: $screen-medium) {
+    @content;
+  }
+}
+
+@mixin mq-medium-up {
+  @media (min-width: $screen-medium) {
+    @content;
+  }
+}
