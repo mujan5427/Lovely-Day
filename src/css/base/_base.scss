@@ -5,7 +5,9 @@
 }
 
 body {
-  font-family: 'Hiragino Sans GB' ,华文细黑, STHeiti, 微软雅黑, 'Microsoft YaHei', SimHei, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // font-family: 'Hiragino Sans GB' ,华文细黑, STHeiti, 微软雅黑, 'Microsoft YaHei', SimHei, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+  font-weight: 300;
   color: #484848;
   -webkit-font-smoothing: antialiased;
 }
