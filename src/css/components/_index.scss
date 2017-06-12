@@ -1,0 +1,17 @@
+.index-carousel {
+  overflow: hidden;
+
+  img {
+    display: block;
+    height: 200px;
+    left: -25%;
+    max-width: 150%;
+    position: relative;
+  }
+}
+
+.index-experience {
+  margin: 40px 0;
+}
+
+@import 'experience';
