@@ -1,0 +1,46 @@
+header {
+  background: $official-blue;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  color: #ffffff;
+  height: 70px;
+  line-height: 70px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}
+
+.logo {
+  display: inline-block;
+
+  @include mq-medium {
+    font-size: 1.4em;
+  }
+
+  @include mq-medium-up {
+    font-size: 2.625em;
+  }
+}
+
+header > nav {
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 1.4em;
+  justify-content: space-around;
+
+  a {
+    padding: 0 15px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2)
+    }
+  }
+}
+
+.headerLeftNav {
+  float: left;
+}
+
+.headerRightNav {
+  float: right;
+}
