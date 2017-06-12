@@ -1,7 +1,7 @@
 footer {
-  padding-top: 30px;
   background: $footer-background;
   color: $footer-color;
+  padding-top: 30px;
 
   h1 {
     font-size: 20px;
@@ -16,10 +16,10 @@ footer {
 
 .footer-section-main {
   @include mq-medium {
+    align-items: center;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: center;
     text-align: center;
   }
 
@@ -27,30 +27,30 @@ footer {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    max-width: 1170px;
     margin: 0 auto;
+    max-width: 1170px;
   }
 }
 
 .footer-section-legal-declaration {
   @include mq-medium {
+    align-items: center;
+    border-top: 1px solid #cccccc;
     display: flex;
     flex-flow: column wrap;
-    align-items: center;
-    padding: 50px 0;
     margin-top: 70px;
-    border-top: 1px solid #cccccc;
+    padding: 50px 0;
   }
 
   @include mq-medium-up {
+    border-top: 1px solid #cccccc;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    max-width: 1170px;
     margin: 0 auto;
-    padding: 50px 0;
     margin-top: 70px;
-    border-top: 1px solid #cccccc;
+    max-width: 1170px;
+    padding: 50px 0;
   }
 }
 
