@@ -1,0 +1,21 @@
+.button-filters-wrapper {
+  bottom: 16px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+}
+
+.button-filters {
+  background-color: white;
+  border-radius: 80px;
+  box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.14);
+  font-size: .75em;
+  padding: 10px 14px;
+
+  span {
+    font-weight: 500;
+    margin-right: 8px;
+  }
+}
