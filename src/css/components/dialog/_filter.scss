@@ -1,0 +1,138 @@
+.dialog-box-background {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: block;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.dialog-box {
+  background: #ffffff;
+  height: 100%;
+  max-width: 500px;
+  position: relative;
+
+  > div {
+    padding: 16px 24px;
+  }
+}
+
+.dialog-header {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  text-align: right;
+
+  > * {
+    width: 33%;
+  }
+
+  :nth-child(1) {
+    text-align: left;
+  }
+
+  :nth-child(2) {
+    text-align: center;
+  }
+
+  :nth-child(3) {
+    color: $official-blue;
+  }
+}
+
+.dialog-footer {
+  background-color: #ffffff;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+
+  > a {
+    background-color: $official-red;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: 700;
+    padding: 12px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.dialog-content {
+  background-color: #ffffff;
+  border-bottom: 1px solid $horizontal-line-color;
+  border-top: 1px solid $horizontal-line-color;
+  bottom: 72px;
+  font-size: 1.1875em;
+  overflow: auto;
+  position: absolute;
+  top: 64px;
+  width: 100%;
+
+  section {
+    padding: 20px 0;
+
+    > .dialog-item-name {
+      margin: 16px 0 32px;
+    }
+  }
+
+  & > section:not(:first-child) {
+    border-top: 1px solid $horizontal-line-color;
+  }
+}
+
+/* Check Box */
+
+.checkbox {
+  display: block;
+  margin: 16px 0;
+}
+
+.checkbox > input[type=checkbox] {
+  display: none;
+}
+
+.checkbox > label {
+  color: #76787a;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 24px;
+  padding-left: 1.5em;
+  position: relative;
+}
+
+.checkbox > label::before {
+  border: 2px solid #aaaaaa;
+  content: '';
+  cursor: pointer;
+  height: 18px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 18px;
+}
+
+.checkbox > input[type=checkbox]:checked + label::before {
+  background-color: $official-blue;
+  border: 2px solid $official-blue;
+}
+
+.checkbox > input[type=checkbox]:checked + label::after {
+  -webkit-transform: rotate(37deg);
+  -webkit-transform-origin: bottom right;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid transparent;
+  border-right: 2px solid #fff;
+  border-top: 2px solid transparent;
+  content: '';
+  height: 12px;
+  left: 1px;
+  position: absolute;
+  top: 1px;
+  transform: rotate(37deg);
+  transform-origin: bottom right;
+  width: 4px;
+}
