@@ -1,7 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Index from '../components/Index';
+import Search from '../components/Search';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,11 +12,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <Index />
-        <Footer />
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <Route exact path='/' component={Index} />
+          <Route path='/search' component={Search} />
+          <Footer />
+        </div>
+      </Router>
     );
   }
 }
