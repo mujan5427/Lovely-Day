@@ -8,10 +8,12 @@ class Filter extends React.Component {
   render() {
     return (
       <div className='button-filters-wrapper'>
-        <div className='button-filters'>
-          <span>篩選條件</span>
-          <i className='fa fa-sliders' aria-hidden='true'></i>
-        </div>
+        <a href>
+          <div className='button-filters'>
+            <span>篩選條件</span>
+            <i className='fa fa-sliders' aria-hidden='true'></i>
+          </div>
+        </a>
       </div>
     );
   }
