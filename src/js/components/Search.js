@@ -1,6 +1,6 @@
 import React from 'react';
 import Experience from './Experience';
-import Filter from './Filter';
+import Filter from './button/Filter';
 
 class Search extends React.Component {
   constructor(props) {
