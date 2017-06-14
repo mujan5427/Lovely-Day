@@ -1,3 +1,6 @@
+@import 'dialog/filter';
+@import 'dialog/login';
+
 .content {
   @include mq-medium {
     padding: 70px 0 0;
@@ -8,4 +11,83 @@
   }
 }
 
-@import 'dialog/filter';
+// Input
+
+.input-box {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 10px;
+  width: 100%;
+}
+
+/* 擁有 icon 的 input 元件 */
+
+.input-box > input[type=text],
+.input-box > input[type=password],
+.input-box > input[type=email] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: inherit;
+  border: 0;
+  font-size: inherit;
+  // height: 44px;
+  outline: none;
+  width: 100%;
+}
+
+.input-box-icon-right {
+  flex-direction: row-reverse;
+
+  > i {
+    color: #9c9c9c;
+    font-size: 1.3em;
+  }
+}
+
+.input-box-light {
+  background-color: #ffffff;
+  border: 1px solid #aaaaaa;
+  color: #484848;
+}
+
+.input-box-light > input[type=text],
+.input-box-light > input[type=password],
+.input-box-light > input[type=email] {
+  color: #484848;
+}
+
+// Button
+
+.button-solid {
+  align-items: center;
+  background-color: $official-red;
+  border-radius: 4px;
+  color: #ffffff;
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  padding: 12px;
+  width: 100%;
+}
+
+.button-hollow {
+  border: 1px solid #ff5a5f;
+  border-radius: 4px;
+  color: #ff5a5f;
+  padding: 7px 18px;
+}
+
+// Typesetting
+
+.space-between {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.height-64 {
+  height: 64px;
+}
