@@ -1,5 +1,5 @@
 import React from 'react';
-import Experience from './Experience';
+import Experience from '../Experience';
 
 class Index extends React.Component {
   constructor(props) {

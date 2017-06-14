@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 import Filter from '../components/dialog/Filter';
-import Index from '../components/Index';
-import Search from '../components/Search';
+import Index from '../components/layout/Index';
+import Search from '../components/layout/Search';
 
 class App extends React.Component {
   constructor(props) {
