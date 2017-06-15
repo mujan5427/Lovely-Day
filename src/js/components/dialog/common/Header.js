@@ -6,13 +6,30 @@ class Header extends React.Component {
   }
 
   render() {
-    return (
-      <div className='dialog-header'>
-        <a href className='custom-close-dialog-button'>
-          <i className='fa fa-times fa-2x' aria-hidden='true'></i>
-        </a>
-      </div>
-    );
+    const { type } = this.props;
+
+    switch (type) {
+      case 'TYPE-2':
+        return (
+          <div className='dialog-header'>
+            <a href className='custom-close-dialog-button'>
+              <i className='fa fa-times fa-2x' aria-hidden='true'></i>
+            </a>
+            <span>篩選條件</span>
+            <a href className='href-highlight'>重設</a>
+          </div>
+        );
+
+      case 'TYPE-1':
+      default:
+        return (
+          <div className='dialog-header'>
+            <a href className='custom-close-dialog-button'>
+              <i className='fa fa-times fa-2x' aria-hidden='true'></i>
+            </a>
+          </div>
+        );
+    }
   }
 }
 
