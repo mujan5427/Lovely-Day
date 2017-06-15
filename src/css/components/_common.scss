@@ -1,5 +1,7 @@
+@import 'dialog/common';
 @import 'dialog/filter';
 @import 'dialog/login';
+@import 'dialog/signup';
 
 .content {
   @include mq-medium {
@@ -88,6 +90,11 @@
   justify-content: space-between;
 }
 
-.height-64 {
-  height: 64px;
+.href-highlight {
+  color: $official-blue;
+}
+
+.hr {
+  border: 0;
+  border-top: 1px solid $horizontal-line-color;
 }

@@ -1,0 +1,86 @@
+.dialog-box-background {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: block;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.dialog-box {
+  background: #ffffff;
+  height: 100%;
+  max-width: 500px;
+  position: relative;
+
+  > div {
+    padding: 16px 24px;
+  }
+}
+
+.dialog-header {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  text-align: right;
+
+  > * {
+    width: 33%;
+  }
+
+  :nth-child(1) {
+    text-align: left;
+  }
+
+  :nth-child(2) {
+    text-align: center;
+  }
+}
+
+.dialog-footer {
+  background-color: #ffffff;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+
+  > a {
+    background-color: $official-red;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: 700;
+    padding: 12px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.dialog-content {
+  background-color: #ffffff;
+  border-color: $horizontal-line-color !important;
+  overflow: auto;
+  position: absolute;
+  width: 100%;
+
+  section {
+    padding: 20px 0;
+
+    > .dialog-item-name {
+      margin: 16px 0 32px;
+    }
+
+    > span {
+      margin-bottom: 10px;
+      display: block;
+    }
+  }
+
+  & >section:not(:nth-of-type(1)) {
+    border-top: 1px solid $horizontal-line-color;
+  }
+
+  > div {
+    margin: 16px 0;
+  }
+}
