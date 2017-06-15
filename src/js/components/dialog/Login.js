@@ -1,5 +1,5 @@
 import React from 'react';
-import Dialog from './Dialog';
+import Wrapper from './common/Wrapper';
 import Header from './common/Header';
 
 class Login extends React.Component {
@@ -13,10 +13,10 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Dialog>
+      <Wrapper>
 
         {/* Header */}
-        <Header />
+        <Header type='TYPE-1' />
 
         {/* Content */}
         <div className='dialog-content'>
@@ -47,7 +47,7 @@ class Login extends React.Component {
             <a className='button-hollow'>註冊</a>
           </div>
         </div>
-      </Dialog>
+      </Wrapper>
     );
   }
 }
