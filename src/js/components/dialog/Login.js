@@ -5,6 +5,10 @@ import Header from './common/Header';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
+    this.hrCSS = {
+      margin: '30px 0'
+    };
   }
 
   render() {
@@ -15,13 +19,13 @@ class Login extends React.Component {
         <Header />
 
         {/* Content */}
-        <div>
-          <div className='input-box input-box-icon-right input-box-light height-64' style={ {margin: '10px 0'} }>
+        <div className='dialog-content'>
+          <div className='input-box input-box-icon-right input-box-light'>
             <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
             <input type='email' placeholder='電子郵件' />
           </div>
 
-          <div className='input-box input-box-icon-right input-box-light height-64'>
+          <div className='input-box input-box-icon-right input-box-light'>
             <i className='fa fa-key fa-fw' aria-hidden='true'></i>
             <input type='password' placeholder='密碼' />
           </div>
@@ -31,12 +35,12 @@ class Login extends React.Component {
               <input id='rememberme' type='checkbox' />
               <label htmlFor='rememberme'>記住我</label>
             </div>
-            <a href className='forgetme'>忘記密碼?</a>
+            <a href className='href-highlight'>忘記密碼?</a>
           </div>
 
-          <a className='button-solid height-64'>登入</a>
+          <a className='button-solid'>登入</a>
 
-          <hr className='hr' />
+          <hr className='hr' style={ this.hrCSS } />
 
           <div className='space-between'>
             <span>還沒有帳號嗎?</span>

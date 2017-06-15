@@ -3,6 +3,14 @@ import React from 'react';
 class Filter extends React.Component {
   constructor(props) {
     super(props);
+
+    this.dialogContentCSS = {
+      'border-bottom': '1px solid',
+      'border-top': '1px solid',
+      bottom: '72px',
+      'font-size': '1.1875em',
+      top: '64px'
+    };
   }
 
   render() {
@@ -16,13 +24,11 @@ class Filter extends React.Component {
               <i className='fa fa-times fa-2x' aria-hidden='true'></i>
             </a>
             <span>篩選條件</span>
-            <a href>
-              重設
-            </a>
+            <a href className='href-highlight'>重設</a>
           </div>
 
           {/* Content */}
-          <div className='dialog-content'>
+          <div className='dialog-content' style={ this.dialogContentCSS }>
 
             {/* Dialog Item : Region */}
             <section>
