@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Dialog extends React.Component {
+class Wrapper extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,4 +16,4 @@ class Dialog extends React.Component {
   }
 }
 
-export default Dialog;
+export default Wrapper;
