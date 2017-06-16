@@ -1,0 +1,31 @@
+.button {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+}
+
+// Type : solid、hollow
+
+.solid {
+  font-weight: 700;
+  padding: 12px;
+  width: 100%;
+}
+
+.hollow {
+  background-color: #ffffff !important;
+  padding: 7px 18px;
+}
+
+// Theme
+
+.solid-theme-pink {
+  background-color: $official-red;
+  color: #ffffff;
+}
+
+.hollow-theme-pink {
+  border: 1px solid $official-red;
+  color: $official-red;
+}
