@@ -1,0 +1,16 @@
+/**
+ *  Form Component Theme
+ *
+ *  support type : Input、Select
+ */
+
+.form-component-theme-gray {
+  background-color: #ffffff;
+  border: 1px solid $horizontal-line-color;
+  color: #484848;
+
+  i {
+    color: #9c9c9c;
+    font-size: 1.3em;
+  }
+}
