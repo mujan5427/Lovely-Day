@@ -51,7 +51,7 @@ class Signup extends React.Component {
 
             <div className='space-between'>
               <div className='selectbox'>
-                <select className='input select' value='feb'>
+                <select className='form-component-theme-gray' value='feb'>
                   <option value=''>一月</option>
                   <option value='feb'>二月</option>
                   <option value=''>三月</option>
@@ -67,7 +67,7 @@ class Signup extends React.Component {
                 </select>
               </div>
               <div className='selectbox'>
-                <select className='input select' value='2'>
+                <select className='form-component-theme-gray' value='2'>
                   <option value=''>1</option>
                   <option value='2'>2</option>
                   <option value=''>3</option>
@@ -102,7 +102,7 @@ class Signup extends React.Component {
                 </select>
               </div>
               <div className='selectbox'>
-                <select className='input select' value='1989'>
+                <select className='form-component-theme-gray' value='1989'>
                   <option value='1999'>1999</option>
                   <option value='1998'>1998</option>
                   <option value='1997'>1997</option>
