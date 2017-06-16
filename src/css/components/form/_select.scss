@@ -1,0 +1,32 @@
+.selectbox {
+  display: inline-block;
+  position: relative;
+
+  &::before {
+    -webkit-transform: scale(0.84, 0.42);
+    color: #767676;
+    content: '\25bc';
+    padding-top: 1.4em;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    transform: scale(0.84, 0.42);
+    width: 2em;
+  }
+
+  > select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: inherit;
+    line-height: 1.2em;
+    padding: 14px 2em 14px 12px;
+    width: 100%;
+
+    &:focus {
+      border: 1px solid $official-blue;
+      outline: none;
+    }
+  }
+}
