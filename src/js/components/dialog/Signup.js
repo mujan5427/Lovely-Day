@@ -192,7 +192,7 @@ class Signup extends React.Component {
           </section>
 
           {/* Check Box */}
-          <div className='checkbox'>
+          <div className='checkbox form-component-theme-gray'>
             <input id='i-agree' type='checkbox' />
             <label htmlFor='i-agree'>
               我同意 Lovely Day 的

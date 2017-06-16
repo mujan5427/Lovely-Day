@@ -31,7 +31,7 @@ class Login extends React.Component {
           </div>
 
           <div className='space-between'>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray'>
               <input id='rememberme' type='checkbox' />
               <label htmlFor='rememberme'>記住我</label>
             </div>
