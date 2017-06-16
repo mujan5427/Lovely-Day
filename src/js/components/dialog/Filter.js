@@ -14,6 +14,11 @@ class Filter extends React.Component {
       'font-size': '1.1875em',
       top: '64px'
     };
+
+    this.dialogCheckboxCSS = {
+      display: 'block',
+      margin: '16px 0'
+    };
   }
 
   render() {
@@ -29,19 +34,19 @@ class Filter extends React.Component {
           {/* Dialog Section : Region */}
           <section>
             <div className='dialog-item-name'>地區</div>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray' style={ this.dialogCheckboxCSS }>
               <input id='region-1' type='checkbox' />
               <label htmlFor='region-1'>大台北</label>
             </div>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray' style={ this.dialogCheckboxCSS }>
               <input id='region-2' type='checkbox' />
               <label htmlFor='region-2'>桃竹苗</label>
             </div>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray' style={ this.dialogCheckboxCSS }>
               <input id='region-3' type='checkbox' />
               <label htmlFor='region-3'>宜蘭</label>
             </div>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray' style={ this.dialogCheckboxCSS }>
               <input id='region-4' type='checkbox' />
               <label htmlFor='region-4'>中彰投</label>
             </div>
@@ -50,15 +55,15 @@ class Filter extends React.Component {
           {/* Dialog Section : Type */}
           <section>
             <div className='dialog-item-name'>類型</div>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray' style={ this.dialogCheckboxCSS }>
               <input id='type-1' type='checkbox' />
               <label htmlFor='type-1'>藝文手作</label>
             </div>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray' style={ this.dialogCheckboxCSS }>
               <input id='type-2' type='checkbox' />
               <label htmlFor='type-2'>玩樂廚房</label>
             </div>
-            <div className='checkbox'>
+            <div className='checkbox form-component-theme-gray' style={ this.dialogCheckboxCSS }>
               <input id='type-3' type='checkbox' />
               <label htmlFor='type-3'>愛上戶外</label>
             </div>
