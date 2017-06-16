@@ -38,13 +38,13 @@ class Login extends React.Component {
             <a href className='href-highlight'>忘記密碼?</a>
           </div>
 
-          <a className='button-solid'>登入</a>
+          <a className='button solid solid-theme-pink'>登入</a>
 
           <hr className='hr' style={ this.hrCSS } />
 
           <div className='space-between'>
             <span>還沒有帳號嗎?</span>
-            <a className='button-hollow'>註冊</a>
+            <a className='button hollow hollow-theme-pink'>註冊</a>
           </div>
         </div>
       </Wrapper>

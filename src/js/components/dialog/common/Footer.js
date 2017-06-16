@@ -8,7 +8,7 @@ class Footer extends React.Component {
   render() {
     return (
       <div className='dialog-footer'>
-        <a>查看體驗</a>
+        <a href className='button solid solid-theme-pink'>查看體驗</a>
       </div>
     );
   }

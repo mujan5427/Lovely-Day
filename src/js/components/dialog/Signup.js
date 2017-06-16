@@ -205,13 +205,13 @@ class Signup extends React.Component {
             </div>
           </div>
 
-          <a className='button-solid'>註冊</a>
+          <a className='button solid solid-theme-pink'>註冊</a>
 
           <hr className='hr' style={ this.hrCSS } />
 
           <div className='space-between'>
             <span>已經有 Lovely Day 帳號?</span>
-            <a className='button-hollow'>登入</a>
+            <a className='button hollow hollow-theme-pink'>登入</a>
           </div>
         </div>
       </Wrapper>
