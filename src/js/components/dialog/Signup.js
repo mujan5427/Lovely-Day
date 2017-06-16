@@ -24,22 +24,22 @@ class Signup extends React.Component {
 
         {/* Content */}
         <div className='dialog-content' style={ this.dialogContentCSS }>
-          <div className='input-box input-box-icon-right input-box-light'>
+          <div className='input-box icon-right form-component-theme-gray'>
             <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
             <input type='email' placeholder='電子郵件' />
           </div>
 
-          <div className='input-box input-box-icon-right input-box-light'>
+          <div className='input-box icon-right form-component-theme-gray'>
             <i className='fa fa-user-o fa-fw' aria-hidden='true'></i>
             <input type='text' placeholder='名字' />
           </div>
 
-          <div className='input-box input-box-icon-right input-box-light'>
+          <div className='input-box icon-right form-component-theme-gray'>
             <i className='fa fa-user-o fa-fw' aria-hidden='true'></i>
             <input type='text' placeholder='姓氏' />
           </div>
 
-          <div className='input-box input-box-icon-right input-box-light'>
+          <div className='input-box icon-right form-component-theme-gray'>
             <i className='fa fa-key fa-fw' aria-hidden='true'></i>
             <input type='password' placeholder='密碼' />
           </div>
