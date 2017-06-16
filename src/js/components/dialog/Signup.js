@@ -192,17 +192,14 @@ class Signup extends React.Component {
           </section>
 
           {/* Check Box */}
-
-          <div className='space-between'>
-            <div className='checkbox'>
-              <input id='i-agree' type='checkbox' />
-              <label htmlFor='i-agree'>
-                我同意 Lovely Day 的
-                <a className='href-highlight' href>服務條款</a>
-                、
-                <a className='href-highlight' href>隱私政策</a>
-              </label>
-            </div>
+          <div className='checkbox'>
+            <input id='i-agree' type='checkbox' />
+            <label htmlFor='i-agree'>
+              我同意 Lovely Day 的
+              <a className='href-highlight' href>服務條款</a>
+              、
+              <a className='href-highlight' href>隱私政策</a>
+            </label>
           </div>
 
           <a className='button solid solid-theme-pink'>註冊</a>
