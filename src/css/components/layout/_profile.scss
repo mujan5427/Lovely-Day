@@ -1,0 +1,31 @@
+.signup-section {
+  @include mq-medium {
+    margin: 30px 10px;
+  }
+
+  @include mq-medium-up {
+    margin: 30px 20%;
+  }
+}
+
+.signup-section > h1 {
+  font-size: 2.2em;
+  margin-bottom: 40px;
+}
+
+.signup-section .custom-button {
+  width: 260px;
+  margin: 0 auto;
+}
+
+.signup-section .radiobox,
+.signup-section .checkbox {
+  margin-top: 17px;
+}
+
+.input-item-tip {
+  font-size: 16px;
+  line-height: 1.5em;
+  margin-top: 10px;
+  color: #aaaaaa;
+}
