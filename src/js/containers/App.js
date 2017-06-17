@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import MenuMain from '../components/menu/Main';
 import DialogFilter from '../components/dialog/Filter';
 import DialogLogin from '../components/dialog/Login';
 import DialogSignup from '../components/dialog/Signup';
@@ -20,6 +21,7 @@ class App extends React.Component {
           <Header />
           <Route exact path='/' component={Index} />
           <Route path='/search' component={Search} />
+          <MenuMain hasLoggedIn={ true } />
           <DialogFilter />
           <DialogLogin />
           <DialogSignup />
