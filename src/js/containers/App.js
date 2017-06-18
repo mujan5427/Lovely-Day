@@ -9,6 +9,7 @@ import DialogLogin from '../components/dialog/Login';
 import DialogSignup from '../components/dialog/Signup';
 import Index from '../components/layout/Index';
 import Search from '../components/layout/Search';
+import ExperienceDetail from '../components/layout/ExperienceDetail';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends React.Component {
           <Header />
           <Route exact path='/' component={Index} />
           <Route path='/search' component={Search} />
+          <Route path='/experiences/:id' component={ExperienceDetail} />
           <MenuMain hasLoggedIn={ true } />
           <MenuNavigation />
           <DialogFilter />

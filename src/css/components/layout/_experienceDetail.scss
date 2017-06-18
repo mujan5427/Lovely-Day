@@ -1,0 +1,52 @@
+.experience-detail-carousel {
+  > img {
+    display: block;
+    width: 100%;
+  }
+
+  > .carousel-picker {
+    display: flex;
+    flex-flow: row nowrap;
+
+    > img {
+      height: 100%;
+      margin: 4px 2px;
+      width: calc(25% - 4px);
+    }
+  }
+}
+
+.experience-detail-section {
+  padding: 24px 0;
+  margin: 0 20px;
+}
+
+.experienceDetail-title {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+
+.experience-detail-host-information-panel {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  font-size: 1.1em;
+
+  .host-name {
+    > div {
+      padding: 9px 0;
+    }
+  }
+
+  .portrait-circle {
+    border-radius: 50%;
+    overflow: hidden;
+
+    > img {
+      display: block;
+      height: 70px;
+      width: 70px;
+    }
+  }
+}
