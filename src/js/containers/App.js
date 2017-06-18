@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import MenuMain from '../components/menu/Main';
+import MenuNavigation from '../components/menu/Navigation';
 import DialogFilter from '../components/dialog/Filter';
 import DialogLogin from '../components/dialog/Login';
 import DialogSignup from '../components/dialog/Signup';
@@ -22,6 +23,7 @@ class App extends React.Component {
           <Route exact path='/' component={Index} />
           <Route path='/search' component={Search} />
           <MenuMain hasLoggedIn={ true } />
+          <MenuNavigation />
           <DialogFilter />
           <DialogLogin />
           <DialogSignup />
