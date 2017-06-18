@@ -38,14 +38,6 @@
   }
 }
 
-.menu-list {
-  > a {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-  }
-}
-
 .menu-item-theme-navigation {
   > a {
     border-top: 1px solid $horizontal-line-color;
