@@ -14,12 +14,12 @@ class Main extends React.Component {
           <div>
 
             {/* has logged out */}
-            <section>
+            <section className='menu-list menu-item-theme-main'>
               <a href>註冊</a>
               <a href>登入</a>
             </section>
 
-            <section>
+            <section className='menu-list menu-item-theme-main'>
               <a href>幫助</a>
             </section>
           </div>
@@ -27,7 +27,7 @@ class Main extends React.Component {
           <div>
 
             {/* has logged in */}
-            <section>
+            <section className='menu-list menu-item-theme-main'>
               <a href>
                 <label>個人資料</label>
                 <i className='fa fa-user-o fa-fw' aria-hidden='true'></i>
@@ -41,8 +41,8 @@ class Main extends React.Component {
                 <i className='fa fa-heart-o fa-fw' aria-hidden='true'></i>
               </a>
             </section>
-            
-            <section>
+
+            <section className='menu-list menu-item-theme-main'>
               <a href>幫助</a>
               <a href>登出</a>
             </section>

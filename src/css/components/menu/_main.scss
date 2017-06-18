@@ -10,22 +10,22 @@
   > div {
     > section {
       padding: 16px 0;
-
-      > a {
-        align-items: center;
-        display: flex;
-        font-size: 24px;
-        justify-content: space-between;
-        margin: 30px 0;
-
-        > i {
-          font-size: 1.3em;
-        }
-      }
-
-      &:not(:nth-of-type(1)) {
-        border-top: 1px solid $horizontal-line-color;
-      }
     }
+  }
+}
+
+.menu-item-theme-main {
+  > a {
+    font-size: 24px;
+    justify-content: space-between;
+    margin: 30px 0;
+
+    > i {
+      font-size: 1.3em;
+    }
+  }
+
+  &:not(:nth-of-type(1)) {
+    border-top: 1px solid $horizontal-line-color;
   }
 }
