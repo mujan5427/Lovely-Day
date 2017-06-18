@@ -1,4 +1,4 @@
-header {
+.layout-header {
   background: $official-blue;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
   color: #ffffff;
@@ -8,6 +8,21 @@ header {
   text-align: center;
   width: 100%;
   z-index: 1;
+
+  > nav {
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 1.4em;
+    justify-content: space-around;
+
+    a {
+      padding: 0 15px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2)
+      }
+    }
+  }
 }
 
 .logo {
@@ -19,21 +34,6 @@ header {
 
   @include mq-medium-up {
     font-size: 2.625em;
-  }
-}
-
-header > nav {
-  display: flex;
-  flex-flow: row nowrap;
-  font-size: 1.4em;
-  justify-content: space-around;
-
-  a {
-    padding: 0 15px;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.2)
-    }
   }
 }
 

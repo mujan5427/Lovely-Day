@@ -7,7 +7,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header>
+      <header className='layout-header'>
         <nav className='headerLeftNav'>
           <a href><i className='fa fa-reorder' aria-hidden='true'></i></a>
         </nav>
