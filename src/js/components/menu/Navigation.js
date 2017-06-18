@@ -9,7 +9,7 @@ class Navigation extends React.Component {
     return (
       <div className='menu-box-background'>
         <div className='menu-box'>
-          <header className='menu-title'>
+          <header className='menu-header'>
             <h1>Lovely Day</h1>
             <div>Book Amazing Activities, Tours, and more</div>
           </header>
