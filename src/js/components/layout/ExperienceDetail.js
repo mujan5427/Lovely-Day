@@ -57,7 +57,7 @@ class ExperienceDetail extends React.Component {
           </ul>
 
           <div className='article-show-more'>
-            <a href>看更多+</a>
+            <a>看更多</a>
           </div>
         </section>
 
@@ -75,7 +75,7 @@ class ExperienceDetail extends React.Component {
           <p>玩不夠嗎?更多海科館探索X水上活動體驗行程等著你！</p>
 
           <div className='article-show-more'>
-            <a href>看更多+</a>
+            <a>看更多</a>
           </div>
         </section>
 
@@ -93,30 +93,60 @@ class ExperienceDetail extends React.Component {
           </ol>
 
           <div className='article-show-more'>
-            <a href>看更多+</a>
+            <a>看更多</a>
           </div>
         </section>
 
         <section className='experience-detail-section'>
           <h1 style={ this.recommendationPanel }>
-            You May Also Like
+            你可能會喜歡
           </h1>
         </section>
 
         {/* Recommendation Panel */}
-        <ul className='channel-list'>
-          <li className='channel-item'>
-            <div className='channel-photo'>
+        <ul className='recommendation-list'>
+          <li>
+            <div className='recommendation-photo'>
               <img src='/assets/product5.jpg' />
             </div>
-            <div className='channel-description'>
+            <div className='recommendation-description'>
               <h1>墾丁國家公園，帆船之旅，日初東方至晚霞染起</h1>
               <div>
-                <span>TWD 1,599</span>
+                <span>$ 1,599</span>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div className='recommendation-photo'>
+              <img src='/assets/product4.jpg' />
+            </div>
+            <div className='recommendation-description'>
+              <h1>遙望基隆嶼，敞洋最美麗的東北角海域！</h1>
+              <div>
+                <span>$ 950</span>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div className='recommendation-photo'>
+              <img src='/assets/product6.jpg' />
+            </div>
+            <div className='recommendation-description'>
+              <h1>鹿野高台，熱氣球遨遊天際</h1>
+              <div>
+                <span>$ 2,599</span>
               </div>
             </div>
           </li>
         </ul>
+
+        <div className='experience-detail-footer'>
+          <span>$ 1,599</span>
+          <span>/ 每人</span>
+          <a className='button solid solid-theme-pink'>申請預訂</a>
+        </div>
 
       </div>
     );

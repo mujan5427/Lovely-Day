@@ -68,14 +68,8 @@
   > a {
     color: #3b99f0;
     display: inline-block;
-    padding: 5px 0 24px;
+    padding: 12px 0 24px;
   }
-}
-
-.experienceDetail-title {
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.5em;
 }
 
 .experience-detail-host-information-panel {
@@ -102,101 +96,86 @@
   }
 }
 
+// Recommendation List
 
-
-
-
-.channel-list {
-  margin-bottom: 50px;
+.recommendation-list {
   font-size: .9em;
-  line-height: 1.25em;
   letter-spacing: .1em;
+  line-height: 1.25em;
 
   @include mq-medium-up {
-    margin-bottom: 50px;
     font-size: 1.4em;
+    margin-bottom: 50px;
+  }
+
+  > li {
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0 10px 15px;
+
+    > .recommendation-photo {
+      margin-right: 10px;
+      overflow: hidden;
+
+      @include mq-medium {
+        height: 90px;
+        min-width: 130px;
+      }
+
+      @include mq-medium-up {
+        height: 300px;
+        max-width: 300px;
+        min-width: 300px;
+      }
+
+      > img {
+        @include mq-medium {
+          margin-left: -25%;
+          max-height: 100%;
+        }
+
+        @include mq-medium-up {
+          margin-left: -25%;
+          max-height: 100%;
+        }
+      }
+    }
+
+    > .recommendation-description {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+
+      > h1 {
+        display: block;
+        font-size: 1.2em;
+        font-weight: bold;
+        line-height: 1.25em;
+        max-height: 2.5em;
+        overflow: hidden;
+      }
+    }
   }
 }
 
-.channel-list > li:nth-child(1) {
-  @include mq-medium-up {
-    flex-flow: column nowrap;
-    padding: 0 0 15px;
-  }
-}
-
-.channel-list > li:nth-child(1) > .channel-photo {
-  @include mq-medium-up {
-    height: inherit;
-    max-width: inherit;
-    margin-right: 0;
-  }
-}
-
-.channel-list > li:nth-child(1) > .channel-photo img {
-  @include mq-medium-up {
-    margin-left: 0;
-  }
-}
-
-.channel-list > li:nth-child(1) > .channel-description > a:nth-child(2) {
-  @include mq-medium-up {
-    display: none;
-  }
-}
-
-.channel-list > li:nth-child(1) > .channel-description * {
-  @include mq-medium-up {
-    margin: 15px 0;
-  }
-}
-
-.channel-item {
+.experience-detail-footer {
+  align-items: center;
+  background-color: #ffffff;
+  border-top: 1px solid $horizontal-line-color;
+  bottom: 0;
   display: flex;
   flex-flow: row nowrap;
-  border-bottom: 1px solid $official-red;
-  padding: 0 10px 15px;
-}
+  padding: 10px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
 
-.channel-photo {
-  overflow: hidden;
-  margin-right: 10px;
-
-  @include mq-medium {
-    min-width: 130px;
-    height: 90px;
+  > span {
+    font-size: 1.3em;
+    width: 30%;
   }
 
-  @include mq-medium-up {
-    min-width: 300px;
-    max-width: 300px;
-    height: 300px;
-  }
-}
-
-.channel-photo > img {
-  @include mq-medium {
-    max-height: 100%;
-    margin-left: -25%;
-  }
-
-  @include mq-medium-up {
-    max-height: 100%;
-    margin-left: -25%;
-  }
-}
-
-.channel-description {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-
-  > h1 {
-    display: block;
-    font-size: 1.2em;
-    font-weight: bold;
-    line-height: 1.25em;
-    max-height: 2.5em;
-    overflow: hidden;
+  > *:last-child {
+    width: 40%;
   }
 }
