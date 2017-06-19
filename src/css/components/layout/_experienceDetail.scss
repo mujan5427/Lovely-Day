@@ -48,8 +48,8 @@
     text-indent: 2em;
   }
 
-  > ul, ol {
-    list-style: initial;
+  > ul {
+    list-style-type: disc;
 
     > li {
       line-height: 1.5em;
@@ -73,25 +73,15 @@
 }
 
 .experience-detail-host-information-panel {
+  align-items: center;
   display: flex;
   flex-flow: row nowrap;
   font-size: 1.1em;
   justify-content: space-between;
 
-  .host-name {
+  & > div:nth-child(1) {
     > div {
       padding: 9px 0;
-    }
-  }
-
-  .portrait-circle {
-    border-radius: 50%;
-    overflow: hidden;
-
-    > img {
-      display: block;
-      height: 70px;
-      width: 70px;
     }
   }
 }
@@ -115,28 +105,30 @@
 
     > .recommendation-photo {
       margin-right: 10px;
-      overflow: hidden;
 
       @include mq-medium {
         height: 90px;
+        max-width: 130px;
         min-width: 130px;
+        width: 100%;
       }
 
       @include mq-medium-up {
         height: 300px;
         max-width: 300px;
         min-width: 300px;
+        width: 100%;
       }
 
       > img {
         @include mq-medium {
-          margin-left: -25%;
-          max-height: 100%;
+          min-height: 100%;
+          max-width: inherit;
         }
 
         @include mq-medium-up {
-          margin-left: -25%;
-          max-height: 100%;
+          min-height: 100%;
+          max-width: inherit;
         }
       }
     }

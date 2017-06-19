@@ -39,3 +39,12 @@
   border: 0;
   border-top: 1px solid $horizontal-line-color;
 }
+
+.portrait-circle {
+  border-radius: 50%;
+  overflow: hidden;
+
+  > img {
+    display: block;
+  }
+}
