@@ -171,3 +171,11 @@
     width: 40%;
   }
 }
+
+.linear-gradient-block {
+  background: linear-gradient(to top,#ffffff,rgba(255,255,255,0));
+  position: absolute;
+  bottom: 52px;
+  height: 30%;
+  width: 100%;
+}

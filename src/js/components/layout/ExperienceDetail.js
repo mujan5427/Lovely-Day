@@ -63,6 +63,7 @@ class ExperienceDetail extends React.Component {
               <li>工作室至划舟點來回接送</li>
             </ul>
 
+            <div className='linear-gradient-block'></div>
             <div className='article-show-more'>
               <a>看更多</a>
             </div>
@@ -81,6 +82,8 @@ class ExperienceDetail extends React.Component {
             <p></p>
             <p>玩不夠嗎?更多海科館探索X水上活動體驗行程等著你！</p>
 
+
+            <div className='linear-gradient-block'></div>
             <div className='article-show-more'>
               <a>看更多</a>
             </div>
@@ -99,6 +102,7 @@ class ExperienceDetail extends React.Component {
               <li>如因天災等不可抗力因素，Lovely Day 將主動聯繫延期或退款。</li>
             </ul>
 
+            <div className='linear-gradient-block'></div>
             <div className='article-show-more'>
               <a>看更多</a>
             </div>
