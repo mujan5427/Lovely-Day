@@ -3,10 +3,19 @@
 
   img {
     display: block;
-    height: 200px;
-    left: -25%;
-    max-width: 150%;
     position: relative;
+
+    @include mq-medium {
+      height: 200px;
+      left: -25%;
+      max-width: 150%;
+    }
+
+    @include mq-medium-up {
+      height: 300px;
+      padding: 15px;
+      width: 100%;
+    }
   }
 }
 

@@ -8,7 +8,19 @@
   @include mq-medium-up {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
+  }
+
+  > div {
+
+    @include mq-medium-up {
+      margin: 15px 15px 0;
+      width: calc(33.33% - 30px);
+    }
+
+    > a {
+      display: block;
+    }
   }
 }
 
@@ -35,5 +47,11 @@
   i {
     color: #cccccc;
     font-size: 1.8em;
+  }
+}
+
+.button-heart:hover {
+  > i {
+    color: #ff5a5f;
   }
 }
