@@ -5,7 +5,7 @@
 }
 
 @mixin mq-medium-up {
-  @media (min-width: $screen-medium) {
+  @media (min-width: ($screen-medium + 1px)) {
     @content;
   }
 }
