@@ -10,9 +10,8 @@ class Filter extends React.Component {
     this.dialogContentCSS = {
       'border-bottom': '1px solid',
       'border-top': '1px solid',
-      bottom: '72px',
       'font-size': '1.1875em',
-      top: '64px'
+      height: 'calc(100% - 64px - 72px)'
     };
 
     this.dialogCheckboxCSS = {

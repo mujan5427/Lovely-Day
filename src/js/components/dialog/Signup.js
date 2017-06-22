@@ -6,10 +6,6 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
 
-    this.dialogContentCSS = {
-      height: 'calc(100% - 64px)'
-    };
-
     this.hrCSS = {
       margin: '30px 0'
     };
@@ -23,7 +19,7 @@ class Signup extends React.Component {
         <Header type='TYPE-1' />
 
         {/* Content */}
-        <div className='dialog-content' style={ this.dialogContentCSS }>
+        <div className='dialog-content'>
           <div className='input-box icon-right form-component-theme-gray'>
             <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
             <input type='email' placeholder='電子郵件' />
@@ -49,7 +45,7 @@ class Signup extends React.Component {
           <section>
             <span>生日</span>
 
-            <div className='space-between'>
+            <div className='selectbox-for-birthday'>
               <div className='selectbox'>
                 <select className='form-component-theme-gray' value='feb'>
                   <option value=''>一月</option>

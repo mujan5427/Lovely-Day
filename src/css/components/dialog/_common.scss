@@ -1,7 +1,9 @@
 .dialog-box-background {
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  display: block;
+  display: flex;
   height: 100%;
+  justify-content: center;
   position: fixed;
   top: 0;
   width: 100%;
@@ -10,9 +12,13 @@
 
 .dialog-box {
   background: #ffffff;
-  height: 100%;
   max-width: 500px;
   position: relative;
+  width: 100%;
+
+  @include mq-medium {
+    height: 100%;
+  }
 
   > div {
     padding: 16px 24px;
@@ -41,15 +47,14 @@
 .dialog-footer {
   background-color: #ffffff;
   bottom: 0;
-  position: absolute;
   width: 100%;
 }
 
 .dialog-content {
   background-color: #ffffff;
   border-color: $horizontal-line-color !important;
+  height: calc(100% - 64px);
   overflow: auto;
-  position: absolute;
   width: 100%;
 
   section {
@@ -60,8 +65,8 @@
     }
 
     > span {
-      margin-bottom: 10px;
       display: block;
+      margin-bottom: 10px;
     }
   }
 
