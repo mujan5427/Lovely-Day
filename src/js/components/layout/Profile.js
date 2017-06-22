@@ -39,7 +39,7 @@ class Profile extends React.Component {
 
           <div>
             <label>出生日期</label>
-            <div className='space-between'>
+            <div className='selectbox-for-birthday'>
               <div className='selectbox'>
                 <select className='form-component-theme-gray' value='feb'>
                 <option value=''>一月</option>
