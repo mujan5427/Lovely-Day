@@ -187,7 +187,7 @@ class Profile extends React.Component {
             <div className='input-box form-component-theme-gray'>
               <input type='email' />
             </div>
-            <div className='profile-form-component-description'>我們不會向其他Levely Day用戶透露您的個人電子郵件地址。</div>
+            <div className='profile-form-component-description'>我們不會向其他 Levely Day 用戶透露您的個人電子郵件地址。</div>
           </div>
 
           <div>
