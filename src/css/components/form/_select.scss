@@ -30,3 +30,14 @@
     }
   }
 }
+
+.selectbox-for-birthday {
+  > .selectbox {
+    max-width: 144px;
+    width: calc(33.33% - 6px);
+
+    &:nth-child(2) {
+      margin: 0 calc(6px * 3 / 2);
+    }
+  }
+}
