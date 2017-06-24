@@ -6,6 +6,10 @@
   top: 0;
   width: 100%;
   z-index: 1;
+
+  @include mq-medium-up {
+    display: none;
+  }
 }
 
 .menu-box {
@@ -44,9 +48,9 @@
     padding: 17px;
 
     > i {
+      color: #777777;
       font-size: 1.4em;
       margin-right: 40px;
-      color: #777777;
     }
 
     > label {

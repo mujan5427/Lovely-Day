@@ -7,6 +7,10 @@
   top: 70px;
   width: 100%;
 
+  @include mq-medium-up {
+    display: none;
+  }
+
   > div {
     > section {
       padding: 16px 0;
