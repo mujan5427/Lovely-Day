@@ -1,12 +1,30 @@
 .experience-detail-carousel {
-  > img {
-    display: block;
-    width: 100%;
+  @include mq-medium-up {
+    max-height: 500px;
+    overflow: hidden;
+  }
+
+  > .carousel-image {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @include mq-medium {
+      height: 250px;
+    }
+
+    @include mq-medium-up {
+      height: 500px;
+    }
   }
 
   > .carousel-picker {
     display: flex;
     flex-flow: row nowrap;
+
+    @include mq-medium-up {
+      display: none;
+    }
 
     > img {
       height: 100%;
@@ -14,6 +32,41 @@
       width: calc(25% - 4px);
     }
   }
+}
+
+.experience-detail-left-panel {
+  display: inline-block;
+
+  @include mq-medium {
+    width: 100%;
+  }
+
+  @include mq-medium-up {
+    float: left;
+    width: 60%;
+  }
+}
+
+.experience-detail-right-panel {
+  display: inline-block;
+
+  @include mq-medium {
+    display: none;
+  }
+
+  @include mq-medium-up {
+    background-color: #eeeeee;
+    float: right;
+    font-size: 2em;
+    height: 700px;
+    text-align: center;
+    width: 40%;
+  }
+}
+
+.experience-detail-bottom-panel {
+  clear: both;
+  margin-bottom: 30px;
 }
 
 .experience-detail-section {
@@ -93,59 +146,67 @@
   letter-spacing: .1em;
   line-height: 1.25em;
 
-  @include mq-medium-up {
-    font-size: 1.4em;
-    margin-bottom: 50px;
-  }
-
   > li {
-    display: flex;
-    flex-flow: row nowrap;
-    padding: 0 10px 15px;
+    display: inline-block;
 
-    > .recommendation-photo {
-      margin-right: 10px;
-
-      @include mq-medium {
-        height: 90px;
-        max-width: 130px;
-        min-width: 130px;
-        width: 100%;
-      }
-
-      @include mq-medium-up {
-        height: 300px;
-        max-width: 300px;
-        min-width: 300px;
-        width: 100%;
-      }
-
-      > img {
-        @include mq-medium {
-          min-height: 100%;
-          max-width: inherit;
-        }
-
-        @include mq-medium-up {
-          min-height: 100%;
-          max-width: inherit;
-        }
-      }
+    @include mq-medium-up {
+      max-width: calc(33.33% - 20px);
     }
 
-    > .recommendation-description {
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: space-between;
-
-      > h1 {
-        display: block;
-        font-size: 1.2em;
-        font-weight: bold;
-        line-height: 1.25em;
-        max-height: 2.5em;
-        overflow: hidden;
+    &:nth-child(3n+2) {
+      @include mq-medium-up {
+        margin: 0 calc(20px * 3 / 2);
       }
+    }
+  }
+}
+
+.recommendation-block {
+  display: flex;
+
+  @include mq-medium {
+    flex-flow: row nowrap;
+    padding: 0 10px 15px;
+  }
+
+  @include mq-medium-up {
+    flex-flow: column nowrap;
+  }
+
+  > img {
+    height: 100%;
+    width: 100%;
+
+    @include mq-medium {
+      max-width: 150px;
+    }
+  }
+}
+
+.recommendation-description {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+
+  @include mq-medium {
+    margin-left: 10px;
+  }
+
+  @include mq-medium-up {
+    margin-top: 20px;
+    min-height: 90px;
+  }
+
+  > h1 {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.25em;
+    max-height: 2.5em;
+    overflow: hidden;
+
+    @include mq-medium-up {
+      margin-bottom: 20px;
     }
   }
 }
@@ -162,6 +223,10 @@
   text-align: center;
   width: 100%;
 
+  @include mq-medium-up {
+    display: none;
+  }
+
   > span {
     font-size: 1.3em;
     width: 30%;
@@ -174,8 +239,8 @@
 
 .linear-gradient-block {
   background: linear-gradient(to top,#ffffff,rgba(255,255,255,0));
-  position: absolute;
   bottom: 52px;
   height: 30%;
+  position: absolute;
   width: 100%;
 }
