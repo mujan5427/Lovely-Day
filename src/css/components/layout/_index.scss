@@ -20,6 +20,10 @@
 
 .index-experience {
   margin: 40px 0;
+
+  @include mq-medium-up {
+    padding: 0 5%;
+  }  
 }
 
 @import '../experience';

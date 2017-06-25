@@ -9,7 +9,6 @@
   @include mq-medium-up {
     flex-flow: row wrap;
     justify-content: flex-start;
-    padding: 0 5%;
   }
 
   > div {
@@ -54,6 +53,7 @@
 
   @include mq-medium-up {
     padding: 0;
+    height: 62px;
   }
 }
 
