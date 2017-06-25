@@ -1,10 +1,17 @@
 .button-filters-wrapper {
   bottom: 16px;
-  display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   position: fixed;
   width: 100%;
+
+  @include mq-medium {
+    display: flex;
+  }
+
+  @include mq-medium-up {
+    display: none;
+  }
 }
 
 .button-filters {
