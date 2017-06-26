@@ -21,7 +21,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header />
+          <Header hasLoggedIn={ true } />
           <Route exact path='/' component={Index} />
           <Route path='/search' component={Search} />
           <Route path='/profile' component={Profile} />
