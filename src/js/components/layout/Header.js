@@ -47,7 +47,19 @@ class Header extends React.Component {
 
             {/* has logged in */}
             { hasLoggedIn &&
-              <a href>user name</a>
+              <a className='header-username' href>
+                user name
+
+                {/* Drop-Down-Menu Main */}
+                <section className='drop-down-menu-wrapper drop-down-menu-type-1'>
+                  <nav>
+                    <a href>個人資料</a>
+                    <a href>訊息</a>
+                    <a href>心願單</a>
+                    <a href>登出</a>
+                  </nav>
+                </section>
+              </a>
             }
           </nav>
         </section>

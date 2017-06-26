@@ -80,3 +80,41 @@
     margin: 0 30px;
   }
 }
+
+.header-username:hover {
+  > section {
+    display: inline-block;
+  }
+}
+
+// Drop Down Menu
+.drop-down-menu-wrapper {
+  background-color: #ffffff;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,.3);
+  position: fixed;
+  top: 70px;
+  color: #484848;
+  font-weight: 300;
+  line-height: initial;
+  display: none;
+}
+
+// TYPE-1 : Main
+.drop-down-menu-type-1 {
+  right: 0;
+
+  > nav {
+    display: inline-flex;
+    flex-flow: column nowrap;
+
+    > a {
+      min-width: 200px;
+      padding: 20px 0;
+      margin: 0 20px;
+
+      &:not(:nth-of-type(1)) {
+        border-top: 1px solid $horizontal-line-color;
+      }
+    }
+  }
+}
