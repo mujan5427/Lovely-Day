@@ -36,7 +36,7 @@ class Header extends React.Component {
               <i className='fa fa-angle-down' aria-hidden='true'></i>
             </a>
 
-            {/* Drop-Down-Menu Main */}
+            {/* Drop-Down-Menu Navigation */}
             <div className='drop-down-menu-wrapper drop-down-menu-type-2'>
               <div>
                 <section>
