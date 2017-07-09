@@ -18,7 +18,7 @@ const sourcePaths = {
   copy         : 'node_modules/font-awesome/fonts/**',
   scssForWatch : 'src/css/**/*.scss',
   scss         : 'src/css/main.scss',
-  webpack      : 'src/dist/index.js'
+  webpack      : 'src/dist/App.js'
 };
 
 const distributionPaths = {
