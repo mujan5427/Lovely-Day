@@ -11,7 +11,7 @@
     justify-content: flex-start;
   }
 
-  > div {
+  > a {
     @include mq-medium {
       margin-bottom: 10px;
     }
@@ -27,16 +27,11 @@
         margin-right: calc(24px * 3 / 2);
       }
     }
-
-    > a {
-      display: block;
-    }
   }
 }
 
 .experience-image {
   display: block;
-  height: 100%;
   width: 100%;
 }
 
@@ -77,8 +72,16 @@
   }
 }
 
-.button-heart:hover {
-  > i {
-    color: $official-red;
+.experience-favorite {
+  &-active {
+    > i {
+      color: $official-red !important;
+    }
+  }
+
+  &:hover {
+    > i {
+      color: $official-red;
+    }
   }
 }

@@ -6,61 +6,19 @@ class Experience extends React.Component {
   }
 
   render() {
+    const { image, title, price, favorited } = this.props;
+
     return (
-      <div className='experience-list'>
-        <div>
-          <a href>
-            <img className='experience-image' src='/assets/product1.jpg' />
-            <figcaption className='experience-title'>遙望福爾摩沙的純粹，獨木舟敞洋忘憂藍海</figcaption>
-            <div className='experience-description'>
-              <span>TWD 1,599</span>
-              <a className='button-heart' href><i className='fa fa-heart-o' aria-hidden='true'></i></a>
-            </div>
+      <a href>
+        <img className='experience-image' src={ image } />
+        <figcaption className='experience-title'>{ title }</figcaption>
+        <div className='experience-description'>
+          <span>TWD { price }</span>
+          <a className={ favorited ? 'experience-favorite-active' : 'experience-favorite' } href>
+            <i className='fa fa-heart-o' aria-hidden='true'></i>
           </a>
         </div>
-
-        <div>
-          <a href>
-            <img className='experience-image' src='/assets/product3.jpg' />
-            <figcaption className='experience-title'>來漢諾威馬場當個一日牛仔吧！</figcaption>
-            <div className='experience-description'>
-              <span>TWD 2,500</span>
-              <a className='button-heart' href><i className='fa fa-heart-o' aria-hidden='true'></i></a>
-            </div>
-          </a>
-        </div>
-
-        <div>
-          <a href>
-            <img className='experience-image' src='/assets/product3.jpg' />
-            <figcaption className='experience-title'>來漢諾威馬場當個一日牛仔吧！</figcaption>
-            <div className='experience-description'>
-              <span>TWD 2,500</span>
-              <a className='button-heart' href><i className='fa fa-heart-o' aria-hidden='true'></i></a>
-            </div>
-          </a>
-        </div>
-        <div>
-          <a href>
-            <img className='experience-image' src='/assets/product3.jpg' />
-            <figcaption className='experience-title'>來漢諾威馬場當個一日牛仔吧！</figcaption>
-            <div className='experience-description'>
-              <span>TWD 2,500</span>
-              <a className='button-heart' href><i className='fa fa-heart-o' aria-hidden='true'></i></a>
-            </div>
-          </a>
-        </div>
-        <div>
-          <a href>
-            <img className='experience-image' src='/assets/product3.jpg' />
-            <figcaption className='experience-title'>來漢諾威馬場當個一日牛仔吧！</figcaption>
-            <div className='experience-description'>
-              <span>TWD 2,500</span>
-              <a className='button-heart' href><i className='fa fa-heart-o' aria-hidden='true'></i></a>
-            </div>
-          </a>
-        </div>
-      </div>
+      </a>
     );
   }
 }
