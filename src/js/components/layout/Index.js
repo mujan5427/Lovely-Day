@@ -1,5 +1,5 @@
 import React from 'react';
-import Experience from '../Experience';
+import FilteredExperienceList from '../../containers/FilteredExperienceList';
 
 class Index extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Index extends React.Component {
           <img src='/assets/carousel1.jpg' />
         </section>
         <section className='index-experience'>
-          <Experience />
+          <FilteredExperienceList />
         </section>
       </div>
     );
