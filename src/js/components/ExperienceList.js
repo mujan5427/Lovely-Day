@@ -8,7 +8,7 @@ class ExperienceList extends React.Component {
 
   componentWillMount() {
     const { fetchExperienceList } = this.props;
-    
+
     fetchExperienceList();
   }
 
@@ -21,6 +21,7 @@ class ExperienceList extends React.Component {
           experiences.map(experience =>
             <Experience
               key={ experience.id }
+              id={ experience.id }
               image={ experience.image }
               title={ experience.title }
               price={ experience.price }
