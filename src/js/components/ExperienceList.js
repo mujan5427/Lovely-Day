@@ -6,12 +6,18 @@ class ExperienceList extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    const { fetchExperienceList } = this.props;
+    
+    fetchExperienceList();
+  }
+
   render() {
     const { experiences } = this.props;
 
     return (
       <div className='experience-list'>
-        {
+        {!isEmpty(experiences) &&
           experiences.map(experience =>
             <Experience
               key={ experience.id }
