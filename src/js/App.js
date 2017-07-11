@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducer from './reducers/index';
+import reducer from './reducers/reducer';
 
 
 /* * * * * * * * * * * * *
