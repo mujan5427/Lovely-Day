@@ -1,19 +1,11 @@
 .index-carousel {
-  overflow: hidden;
-
   img {
-    display: block;
-    position: relative;
-
     @include mq-medium {
-      height: 200px;
-      left: -25%;
-      max-width: 150%;
+      min-height: 166px;
     }
 
     @include mq-medium-up {
-      height: 300px;
-      width: 100%;
+      max-height: 373px;
     }
   }
 }
@@ -23,7 +15,7 @@
 
   @include mq-medium-up {
     padding: 0 5%;
-  }  
+  }
 }
 
 @import '../experience';
