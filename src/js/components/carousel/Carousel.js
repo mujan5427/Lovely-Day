@@ -18,11 +18,12 @@ class Carousel extends React.Component {
     this.END                    = 4;
     this.CAROUSEL_WIDTH         = 0;
     this.CAROUSEL_HALF_WIDTH    = 0;
+    this.CAROUDEL_WIDTH_CHECKED = false;
+    this.MOUSE_DOWN_COORDINATE  = 0;
+    this.MOUSE_UP_COORDINATE    = 0;
     this.CARD_TOTAL             = this.props.carouselData.length;
     this.USE_AUTOMATIC_LOOP     = this.props.useAutomaticLoop !== undefined ? this.props.useAutomaticLoop : false;
     this.INTERVAL               = 5000;
-    this.CAN_CLICK              = true;
-    this.CAROUDEL_WIDTH_CHECKED = false;
 
 
     /* * * * * * * * * * * * *
@@ -36,9 +37,11 @@ class Carousel extends React.Component {
     this.btnNext                         = this.btnNext.bind(this);
     this.animationEndHandler             = this.animationEndHandler.bind(this);
     this.PanHandler                      = this.PanHandler.bind(this);
-    this.contentDataLoaded                      = this.contentDataLoaded.bind(this);
+    this.contentDataLoaded               = this.contentDataLoaded.bind(this);
     this.preventDefaultBehavior          = this.preventDefaultBehavior.bind(this);
     this.preventUnexpectedEventTriggered = this.preventUnexpectedEventTriggered.bind(this);
+    this.recordMouseDownCoordinate       = this.recordMouseDownCoordinate.bind(this);
+    this.recordMouseUpCoordinate         = this.recordMouseUpCoordinate.bind(this);
 
     window.addEventListener('resize', this.updateCarouselWidth);
 
@@ -251,15 +254,21 @@ class Carousel extends React.Component {
   }
 
   preventUnexpectedEventTriggered(event) {
-    if (!this.CAN_CLICK && window.browserInfo.name === 'firefox') {
-      this.CAN_CLICK = true;
+    if (this.MOUSE_DOWN_COORDINATE !== this.MOUSE_UP_COORDINATE && window.browserInfo.name === 'firefox') {
       event.preventDefault();
     }
   }
 
   preventDefaultBehavior(event) {
-    this.CAN_CLICK = false;
     event.preventDefault();
+  }
+
+  recordMouseDownCoordinate(event) {
+    this.MOUSE_DOWN_COORDINATE = event.clientX;
+  }
+
+  recordMouseUpCoordinate(event) {
+    this.MOUSE_UP_COORDINATE = event.clientX;
   }
 
   render() {
@@ -295,6 +304,8 @@ class Carousel extends React.Component {
                   to={ carouselData[carouselData.length - 1].href }
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
+                  onMouseDown={ this.recordMouseDownCoordinate }
+                  onMouseUp={ this.recordMouseUpCoordinate }
                   onLoad={ this.contentDataLoaded }
                 >
                   <img src={ carouselData[carouselData.length - 1].image }/>
@@ -309,6 +320,8 @@ class Carousel extends React.Component {
                     to={ data.href }
                     onDragStart={ this.preventDefaultBehavior }
                     onClick={ this.preventUnexpectedEventTriggered }
+                    onMouseDown={ this.recordMouseDownCoordinate }
+                    onMouseUp={ this.recordMouseUpCoordinate }
                   >
                     <img src={ data.image }/>
                   </Link>)
@@ -322,6 +335,8 @@ class Carousel extends React.Component {
                   to={ carouselData[0].href }
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
+                  onMouseDown={ this.recordMouseDownCoordinate }
+                  onMouseUp={ this.recordMouseUpCoordinate }
                 >
                   <img src={ carouselData[0].image }/>
                 </Link>
