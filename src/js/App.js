@@ -1,4 +1,5 @@
-window.isEmpty = require('is-empty');
+window.isEmpty     = require('is-empty');
+window.browserInfo = require('detect-browser');
 
 import React from 'react';
 import ReactDOM from 'react-dom';

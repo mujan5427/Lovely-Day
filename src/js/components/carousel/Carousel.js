@@ -1,5 +1,6 @@
 import React from 'react';
 var Hammer = require('react-hammerjs');
+import { Link } from 'react-router-dom';
 
 class Carousel extends React.Component {
   constructor (props) {
@@ -12,14 +13,16 @@ class Carousel extends React.Component {
      *                       *
      * * * * * * * * * * * * */
 
-    this.ID                  = new Date().getTime().toString(36);
-    this.MOVE                = 2;
-    this.END                 = 4;
-    this.CAROUSEL_WIDTH      = 0;
-    this.CAROUSEL_HALF_WIDTH = 0;
-    this.CARD_TOTAL          = this.props.children.length - 2;
-    this.USE_AUTOMATIC_LOOP  = this.props.useAutomaticLoop !== undefined ? this.props.useAutomaticLoop : false;
-    this.INTERVAL            = 5000;
+    this.ID                     = new Date().getTime().toString(36);
+    this.MOVE                   = 2;
+    this.END                    = 4;
+    this.CAROUSEL_WIDTH         = 0;
+    this.CAROUSEL_HALF_WIDTH    = 0;
+    this.CARD_TOTAL             = this.props.carouselData.length;
+    this.USE_AUTOMATIC_LOOP     = this.props.useAutomaticLoop !== undefined ? this.props.useAutomaticLoop : false;
+    this.INTERVAL               = 5000;
+    this.CAN_CLICK              = true;
+    this.CAROUDEL_WIDTH_CHECKED = false;
 
 
     /* * * * * * * * * * * * *
@@ -28,12 +31,14 @@ class Carousel extends React.Component {
      *                       *
      * * * * * * * * * * * * */
 
-    this.updateCarouselWidth = this.updateCarouselWidth.bind(this);
-    this.btnPrev             = this.btnPrev.bind(this);
-    this.btnNext             = this.btnNext.bind(this);
-    this.animationEndHandler = this.animationEndHandler.bind(this);
-    this.PanHandler          = this.PanHandler.bind(this);
-    this.dataLoaded          = this.dataLoaded.bind(this);
+    this.updateCarouselWidth             = this.updateCarouselWidth.bind(this);
+    this.btnPrev                         = this.btnPrev.bind(this);
+    this.btnNext                         = this.btnNext.bind(this);
+    this.animationEndHandler             = this.animationEndHandler.bind(this);
+    this.PanHandler                      = this.PanHandler.bind(this);
+    this.contentDataLoaded                      = this.contentDataLoaded.bind(this);
+    this.preventDefaultBehavior          = this.preventDefaultBehavior.bind(this);
+    this.preventUnexpectedEventTriggered = this.preventUnexpectedEventTriggered.bind(this);
 
     window.addEventListener('resize', this.updateCarouselWidth);
 
@@ -231,19 +236,34 @@ class Carousel extends React.Component {
     }
   }
 
-  dataLoaded(event) {
-    this.CAROUSEL_WIDTH      = document.getElementById(this.ID).getBoundingClientRect().width;
-    this.CAROUSEL_HALF_WIDTH = this.CAROUSEL_WIDTH / 2;
+  contentDataLoaded(event) {
+    if (!this.CAROUDEL_WIDTH_CHECKED) {
+      this.CAROUSEL_WIDTH         = document.getElementById(this.ID).getBoundingClientRect().width;
+      this.CAROUSEL_HALF_WIDTH    = this.CAROUSEL_WIDTH / 2;
+      this.CAROUDEL_WIDTH_CHECKED = true;
 
-    this.setState({
-      index        : 1,
-      coordinate   : (-this.CAROUSEL_WIDTH * this.state.index),
-      useAnimation : this.state.useAnimation
-    });
+      this.setState({
+        index        : 1,
+        coordinate   : (-this.CAROUSEL_WIDTH * this.state.index),
+        useAnimation : this.state.useAnimation
+      });
+    }
+  }
+
+  preventUnexpectedEventTriggered(event) {
+    if (!this.CAN_CLICK && window.browserInfo.name === 'firefox') {
+      this.CAN_CLICK = true;
+      event.preventDefault();
+    }
+  }
+
+  preventDefaultBehavior(event) {
+    this.CAN_CLICK = false;
+    event.preventDefault();
   }
 
   render() {
-    const { useDashboard = true, placeHolderImagePath } = this.props;
+    const { useDashboard = true, carouselData } = this.props;
     var animationArguments;
 
     if (this.state.useAnimation !== true) {
@@ -262,20 +282,50 @@ class Carousel extends React.Component {
       <div>
         <Hammer onPan={ this.PanHandler } onTransitionEnd={ this.animationEndHandler }>
 
-          {/* Card Panel */}
+          {/* Content Panel */}
           <section className='carousel-window-panel' id={ this.ID }>
 
-            {/* Card Display Area */}
+            {/* Content Display Area */}
             <div style={ animationArguments }>
-              { placeHolderImagePath &&
-                <img
-                  className='carousel-placeholder-image'
-                  src={ placeHolderImagePath }
-                  onLoad={ this.dataLoaded }
-                />
+
+              {/* Content Placeholder Start */}
+              { carouselData &&
+                <Link
+                  key={ `carousel-placeholder-start-${ new Date().getTime().toString(36) }` }
+                  to={ carouselData[carouselData.length - 1].href }
+                  onDragStart={ this.preventDefaultBehavior }
+                  onClick={ this.preventUnexpectedEventTriggered }
+                  onLoad={ this.contentDataLoaded }
+                >
+                  <img src={ carouselData[carouselData.length - 1].image }/>
+                </Link>
               }
 
-              { this.props.children }
+              {/* Content Data */}
+              { carouselData &&
+                carouselData.map((data, index) => {
+                  return (<Link
+                    key={ index }
+                    to={ data.href }
+                    onDragStart={ this.preventDefaultBehavior }
+                    onClick={ this.preventUnexpectedEventTriggered }
+                  >
+                    <img src={ data.image }/>
+                  </Link>)
+                })
+              }
+
+              {/* Content Placeholder End */}
+              { carouselData &&
+                <Link
+                  key={ `carousel-placeholder-end-${ new Date().getTime().toString(36) }` }
+                  to={ carouselData[0].href }
+                  onDragStart={ this.preventDefaultBehavior }
+                  onClick={ this.preventUnexpectedEventTriggered }
+                >
+                  <img src={ carouselData[0].image }/>
+                </Link>
+              }
             </div>
 
             {/* DashBoard */}
