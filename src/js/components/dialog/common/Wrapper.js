@@ -6,8 +6,10 @@ class Wrapper extends React.Component {
   }
 
   render() {
+    const { displayDialogLogin, displayDialogSignup } = this.props;
+
     return (
-      <div className='dialog-box-background'>
+      <div className='dialog-box-background' style={ displayDialogLogin || displayDialogSignup ? {display: 'flex'} : null }>
         <div className='dialog-box'>
           { this.props.children }
         </div>

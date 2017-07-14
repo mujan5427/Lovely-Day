@@ -9,14 +9,31 @@ class Signup extends React.Component {
     this.hrCSS = {
       margin: '30px 0'
     };
+
+    this.toggleDialogLogin  = this.toggleDialogLogin.bind(this);
+    this.toggleDialogSignup = this.toggleDialogSignup.bind(this);
+  }
+
+  toggleDialogLogin() {
+    const { toggleDialogLogin } = this.props;
+
+    toggleDialogLogin();
+  }
+
+  toggleDialogSignup() {
+    const { toggleDialogSignup } = this.props;
+
+    toggleDialogSignup();
   }
 
   render() {
+    const { displayDialogAccount } = this.props;
+
     return (
-      <Wrapper>
+      <Wrapper displayDialogSignup={ displayDialogAccount.displayDialogSignup }>
 
         {/* Header */}
-        <Header type='TYPE-1' />
+        <Header type='TYPE-1' toggleDialogSignup={ this.toggleDialogSignup } />
 
         {/* Content */}
         <div className='dialog-content'>
@@ -204,7 +221,7 @@ class Signup extends React.Component {
 
           <div className='space-between'>
             <span>已經有 Lovely Day 帳號?</span>
-            <a className='button hollow hollow-theme-pink'>登入</a>
+            <a className='button hollow hollow-theme-pink' onClick={ this.toggleDialogLogin }>登入</a>
           </div>
         </div>
       </Wrapper>

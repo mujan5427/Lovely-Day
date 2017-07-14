@@ -160,6 +160,7 @@
         img {
           display: block;
           width: 100%;
+          pointer-events: none;
         }
 
         figcaption {
@@ -167,6 +168,7 @@
           overflow: hidden;
           line-height: 1.5em;
           padding-top: 8px;
+          pointer-events: none;
         }
       }
     }

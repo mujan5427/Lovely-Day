@@ -6,7 +6,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { type } = this.props;
+    const { type, toggleDialogLogin, toggleDialogSignup } = this.props;
 
     switch (type) {
       case 'TYPE-2':
@@ -23,8 +23,8 @@ class Header extends React.Component {
       case 'TYPE-1':
       default:
         return (
-          <div className='dialog-header'>
-            <a href className='custom-close-dialog-button'>
+          <div className='dialog-header' onClick={ toggleDialogLogin || toggleDialogSignup }>
+            <a className='custom-close-dialog-button'>
               <i className='fa fa-times fa-2x' aria-hidden='true'></i>
             </a>
           </div>

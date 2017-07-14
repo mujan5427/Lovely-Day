@@ -9,14 +9,31 @@ class Login extends React.Component {
     this.hrCSS = {
       margin: '30px 0'
     };
+
+    this.toggleDialogLogin  = this.toggleDialogLogin.bind(this);
+    this.toggleDialogSignup = this.toggleDialogSignup.bind(this);
+  }
+
+  toggleDialogLogin() {
+    const { toggleDialogLogin } = this.props;
+
+    toggleDialogLogin();
+  }
+
+  toggleDialogSignup() {
+    const { toggleDialogSignup } = this.props;
+
+    toggleDialogSignup();
   }
 
   render() {
+    const { displayDialogAccount } = this.props;
+
     return (
-      <Wrapper>
+      <Wrapper displayDialogLogin={ displayDialogAccount.displayDialogLogin }>
 
         {/* Header */}
-        <Header type='TYPE-1' />
+        <Header type='TYPE-1' toggleDialogLogin={ this.toggleDialogLogin } />
 
         {/* Content */}
         <div className='dialog-content'>
@@ -44,7 +61,7 @@ class Login extends React.Component {
 
           <div className='space-between'>
             <span>還沒有帳號嗎?</span>
-            <a className='button hollow hollow-theme-pink'>註冊</a>
+            <a className='button hollow hollow-theme-pink' onClick={ this.toggleDialogSignup }>註冊</a>
           </div>
         </div>
       </Wrapper>

@@ -1,8 +1,45 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
+
+    this.hiddenMenu           = this.hiddenMenu.bind(this);
+    this.removeStyleAttribute = this.removeStyleAttribute.bind(this);
+    this.logout               = this.logout.bind(this);
+    this.toggleDialogLogin      = this.toggleDialogLogin.bind(this)
+    this.toggleDialogSignup     = this.toggleDialogSignup.bind(this);
+  }
+
+  hiddenMenu(event) {
+    if (!event.target.hasAttribute('data-can-be-triggered-element')) {
+      event.preventDefault();
+    } else {
+      event.currentTarget.style.display = 'none';
+    }
+  }
+
+  removeStyleAttribute(event) {
+    event.currentTarget.style.display = null;
+  }
+
+  logout() {
+    const { logout } = this.props;
+
+    logout();
+  }
+
+  toggleDialogLogin() {
+    const { toggleDialogLogin } = this.props;
+
+    toggleDialogLogin();
+  }
+
+  toggleDialogSignup() {
+    const { toggleDialogSignup } = this.props;
+
+    toggleDialogSignup();
   }
 
   render() {
@@ -27,77 +64,89 @@ class Header extends React.Component {
 
         {/* Desktop Version */}
         <section className='header-desktop-version'>
-          <a href className='logo'>Lovely Day</a>
+          <Link to='/' className='logo'>
+            Lovely Day
+          </Link>
 
           <nav>
-            <a href><i className='fa fa-search' aria-hidden='true'></i></a>
-            <a className='header-menu-navigation hasIcon' href>
+            <Link to='/search'>
+              <i className='fa fa-search' aria-hidden='true'></i>
+            </Link>
+            <a className='header-menu-navigation hasIcon'>
               類型
               <i className='fa fa-angle-down' aria-hidden='true'></i>
             </a>
 
             {/* Drop-Down-Menu Navigation */}
-            <div className='drop-down-menu-wrapper drop-down-menu-type-2'>
+            <div
+              className='drop-down-menu-wrapper drop-down-menu-type-2'
+              onClick={ this.hiddenMenu }
+              onMouseLeave={ this.removeStyleAttribute }
+            >
               <div>
                 <section>
                   <h1>最新的 南澳生活節</h1>
                   <div>
-                    <a href>
+                    <Link to='/experiences/1' data-can-be-triggered-element>
                       <img src='/assets/product2.jpg' />
                       <figcaption>遙望福爾摩沙的純粹，獨木舟敞洋忘憂藍海</figcaption>
-                    </a>
-                    <a href>
+                    </Link>
+                    <Link to='/experiences/1' data-can-be-triggered-element>
                       <img src='/assets/product4.jpg' />
                       <figcaption>遙望基隆嶼，敞洋最美麗的東北角海域！</figcaption>
-                    </a>
-                    <a href>
+                    </Link>
+                    <Link to='/experiences/1' data-can-be-triggered-element>
                       <img src='/assets/product5.jpg' />
                       <figcaption>墾丁國家公園，帆船之旅，日初東方至晚霞染起</figcaption>
-                    </a>
-                    <a href>
+                    </Link>
+                    <Link to='/experiences/1' data-can-be-triggered-element>
                       <img src='/assets/product6.jpg' />
                       <figcaption>鹿野高台，熱氣球遨遊天際</figcaption>
-                    </a>
+                    </Link>
                   </div>
                 </section>
                 <section>
                   <nav>
-                    <a href>南澳生活節</a>
-                    <a href>夏令營專區</a>
-                    <a href>藝文手作</a>
-                    <a href>玩樂廚房</a>
-                    <a href>愛上戶外</a>
-                    <a href>親子專區</a>
-                    <a href>團體遊戲</a>
-                    <a href>情人專區</a>
+                    <a>南澳生活節</a>
+                    <a>夏令營專區</a>
+                    <a>藝文手作</a>
+                    <a>玩樂廚房</a>
+                    <a>愛上戶外</a>
+                    <a>親子專區</a>
+                    <a>團體遊戲</a>
+                    <a>情人專區</a>
                   </nav>
                 </section>
               </div>
             </div>
 
-            <a href>幫助</a>
+            <a>幫助</a>
 
             {/* has logged out */}
             { !hasLoggedIn &&
-              <a href>註冊</a>
+              <a onClick={ this.toggleDialogSignup }>註冊</a>
             }
             { !hasLoggedIn &&
-              <a href>登入</a>
+              <a onClick={ this.toggleDialogLogin }>登入</a>
             }
 
             {/* has logged in */}
             { hasLoggedIn &&
-              <a className='header-menu-main' href>user name</a>
+              <a className='header-menu-main'>user name</a>
             }
 
             {/* Drop-Down-Menu Main */}
             { hasLoggedIn &&
-              <div className='drop-down-menu-wrapper drop-down-menu-type-1'>
+              <div
+                className='drop-down-menu-wrapper drop-down-menu-type-1'
+                onClick={ this.hiddenMenu }
+                onMouseLeave={ this.removeStyleAttribute }
+              >
                 <nav>
-                  <a href>個人資料</a>
-                  <a href>訊息</a>
-                  <a href>心願單</a>
-                  <a href>登出</a>
+                  <Link to='/profile' data-can-be-triggered-element>個人資料</Link>
+                  <a>訊息</a>
+                  <a>心願單</a>
+                  <a onClick={ this.logout }>登出</a>
                 </nav>
               </div>
             }
