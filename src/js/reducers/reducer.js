@@ -15,26 +15,6 @@ function hasLoggedIn(state = false, action) {
   }
 }
 
-// function displayDialogLogin(state = false, action) {
-//   switch(action.type) {
-//     case 'TOGGLE_DISPLAYDIALOGLOGIN':
-//       return !state;
-//
-//     default:
-//       return state;
-//   }
-// }
-//
-// function displayDialogSignup(state = false, action) {
-//   switch(action.type) {
-//     case 'TOGGLE_DISPLAYDIALOGSIGNUP':
-//       return !state;
-//
-//     default:
-//       return state;
-//   }
-// }
-
 function displayDialogAccount(state = {
   displayDialogLogin: false,
   displayDialogSignup: false
