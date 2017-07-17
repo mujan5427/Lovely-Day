@@ -48,6 +48,12 @@ function displayMenu(state = {
         displayMenuNavigation: false,
       };
 
+    case 'TOGGLE_DISPLAYMENUNAVIGATION':
+      return {
+        displayMenuMain: false,
+        displayMenuNavigation: !state.displayMenuNavigation,
+      };
+
     default:
       return state;
   }

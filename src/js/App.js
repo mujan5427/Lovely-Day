@@ -18,7 +18,7 @@ import reducer from './reducers/reducer';
 import ContainerHeader from './containers/ContainerHeader';
 import Footer from './components/layout/Footer';
 import ContainerMain from './containers/ContainerMain';
-import MenuNavigation from './components/menu/Navigation';
+import ContainerNavigation from './containers/ContainerNavigation';
 import DialogFilter from './components/dialog/Filter';
 import ContainerLogin from './containers/ContainerLogin';
 import ContainerSignup from './containers/ContainerSignup';
@@ -40,7 +40,7 @@ ReactDOM.render(
         <Route path='/profile' component={Profile} />
         <Route path='/experiences/:id' component={ExperienceDetail} />
         <ContainerMain />
-        <MenuNavigation />
+        <ContainerNavigation />
         <DialogFilter />
         <ContainerLogin />
         <ContainerSignup />

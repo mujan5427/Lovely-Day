@@ -11,6 +11,7 @@ class Header extends React.Component {
     this.toggleDialogLogin    = this.toggleDialogLogin.bind(this)
     this.toggleDialogSignup   = this.toggleDialogSignup.bind(this);
     this.toggleMenuMain       = this.toggleMenuMain.bind(this);
+    this.toggleMenuNavigation = this.toggleMenuNavigation.bind(this);
   }
 
   hiddenMenu(event) {
@@ -49,6 +50,12 @@ class Header extends React.Component {
     toggleMenuMain();
   }
 
+  toggleMenuNavigation() {
+    const { toggleMenuNavigation } = this.props;
+
+    toggleMenuNavigation();
+  }
+
   render() {
     const { hasLoggedIn = false } = this.props;
     const { displayMenuMain } = this.props.displayMenu;
@@ -59,7 +66,9 @@ class Header extends React.Component {
         {/* Mobile Version */}
         <section className='header-mobile-version'>
           <nav>
-            <a href><i className='fa fa-reorder fa-fw' aria-hidden='true'></i></a>
+            <a onClick={ this.toggleMenuNavigation }>
+              <i className='fa fa-reorder fa-fw' aria-hidden='true'></i>
+            </a>
           </nav>
 
           <Link to='/' className='logo'>Lovely Day</Link>

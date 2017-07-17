@@ -6,6 +6,7 @@ export const LOGGEDOUT                    = 'LOGGEDOUT';
 export const TOGGLE_DISPLAYDIALOGLOGIN    = 'TOGGLE_DISPLAYDIALOGLOGIN';
 export const TOGGLE_DISPLAYDIALOGSIGNUP   = 'TOGGLE_DISPLAYDIALOGSIGNUP';
 export const TOGGLE_DISPLAYMENUMAIN       = 'TOGGLE_DISPLAYMENUMAIN';
+export const TOGGLE_DISPLAYMENUNAVIGATION = 'TOGGLE_DISPLAYMENUNAVIGATION';
 
 const mock_entity_experience = {
   1: {
@@ -80,5 +81,11 @@ export function toggleDisplayDialogSignup() {
 export function toggleDisplayMenuMain() {
   return {
     type: TOGGLE_DISPLAYMENUMAIN
+  };
+}
+
+export function toggleDisplayMenuNavigation() {
+  return {
+    type: TOGGLE_DISPLAYMENUNAVIGATION
   };
 }
