@@ -37,6 +37,22 @@ function displayDialogAccount(state = {
   }
 }
 
+function displayMenu(state = {
+  displayMenuMain: false,
+  displayMenuNavigation: false,
+}, action) {
+  switch(action.type) {
+    case 'TOGGLE_DISPLAYMENUMAIN':
+      return {
+        displayMenuMain: !state.displayMenuMain,
+        displayMenuNavigation: false,
+      };
+
+    default:
+      return state;
+  }
+}
+
 function entityExperiences(state = {}, action) {
   switch(action.type) {
     case 'FETCH_PAGE_INDEX_EXPERIENCE':
@@ -64,6 +80,7 @@ function pageIndexExperienceList(state = {}, action) {
 const reducer = combineReducers({
   hasLoggedIn: hasLoggedIn,
   displayDialogAccount: displayDialogAccount,
+  displayMenu: displayMenu,
   entities: entityExperiences,
   pageIndex: pageIndexExperienceList
 });

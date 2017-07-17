@@ -8,8 +8,9 @@ class Header extends React.Component {
     this.hiddenMenu           = this.hiddenMenu.bind(this);
     this.removeStyleAttribute = this.removeStyleAttribute.bind(this);
     this.logout               = this.logout.bind(this);
-    this.toggleDialogLogin      = this.toggleDialogLogin.bind(this)
-    this.toggleDialogSignup     = this.toggleDialogSignup.bind(this);
+    this.toggleDialogLogin    = this.toggleDialogLogin.bind(this)
+    this.toggleDialogSignup   = this.toggleDialogSignup.bind(this);
+    this.toggleMenuMain       = this.toggleMenuMain.bind(this);
   }
 
   hiddenMenu(event) {
@@ -42,8 +43,15 @@ class Header extends React.Component {
     toggleDialogSignup();
   }
 
+  toggleMenuMain() {
+    const { toggleMenuMain } = this.props;
+
+    toggleMenuMain();
+  }
+
   render() {
     const { hasLoggedIn = false } = this.props;
+    const { displayMenuMain } = this.props.displayMenu;
 
     return (
       <header className='layout-header'>
@@ -54,11 +62,22 @@ class Header extends React.Component {
             <a href><i className='fa fa-reorder fa-fw' aria-hidden='true'></i></a>
           </nav>
 
-          <a href className='logo'>Lovely Day</a>
+          <Link to='/' className='logo'>Lovely Day</Link>
 
           <nav>
-            <a href><i className='fa fa-search fa-fw' aria-hidden='true'></i></a>
-            <a href><i className='fa fa-user-circle-o fa-fw' aria-hidden='true'></i></a>
+            <Link to='/search'><i className='fa fa-search fa-fw' aria-hidden='true'></i></Link>
+            { !displayMenuMain &&
+              <a onClick={ this.toggleMenuMain }>
+                <i className='fa fa-user-circle-o fa-fw' aria-hidden='true'></i>
+              </a>
+            }
+
+            { displayMenuMain &&
+              <a onClick={ this.toggleMenuMain }>
+                <i className='fa fa-times fa-fw' aria-hidden='true'></i>
+              </a>
+            }
+
           </nav>
         </section>
 

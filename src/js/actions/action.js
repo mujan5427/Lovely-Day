@@ -1,10 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
-export const FETCH_PAGE_INDEX_EXPERIENCE = 'FETCH_PAGE_INDEX_EXPERIENCE';
-export const LOGGEDIN                    = 'LOGGEDIN';
-export const LOGGEDOUT                   = 'LOGGEDOUT';
-export const TOGGLE_DISPLAYDIALOGLOGIN   = 'TOGGLE_DISPLAYDIALOGLOGIN';
-export const TOGGLE_DISPLAYDIALOGSIGNUP  = 'TOGGLE_DISPLAYDIALOGSIGNUP';
+export const FETCH_PAGE_INDEX_EXPERIENCE  = 'FETCH_PAGE_INDEX_EXPERIENCE';
+export const LOGGEDIN                     = 'LOGGEDIN';
+export const LOGGEDOUT                    = 'LOGGEDOUT';
+export const TOGGLE_DISPLAYDIALOGLOGIN    = 'TOGGLE_DISPLAYDIALOGLOGIN';
+export const TOGGLE_DISPLAYDIALOGSIGNUP   = 'TOGGLE_DISPLAYDIALOGSIGNUP';
+export const TOGGLE_DISPLAYMENUMAIN       = 'TOGGLE_DISPLAYMENUMAIN';
 
 const mock_entity_experience = {
   1: {
@@ -73,5 +74,11 @@ export function toggleDisplayDialogLogin() {
 export function toggleDisplayDialogSignup() {
   return {
     type: TOGGLE_DISPLAYDIALOGSIGNUP
+  };
+}
+
+export function toggleDisplayMenuMain() {
+  return {
+    type: TOGGLE_DISPLAYMENUMAIN
   };
 }
