@@ -1,14 +1,16 @@
-const express   = require('express');
-const routerApi = require('./server-side/router/api')
-const server    = express();
-const port      = 3000;
+const express    = require('express');
+const bodyParser = require('body-parser');
+const routerApi  = require('./server-side/router/api')
+const server     = express();
+const port       = 3000;
 
 const STATIC_FILE_DIRECTORY = 'static';
 const STATIC_FILE_ROOT_HTML = 'index.html';
 
-// serve static assets normally
-server.use(express.static(`${ __dirname }/${ STATIC_FILE_DIRECTORY }`));
 
+server.use(express.static(`${ __dirname }/${ STATIC_FILE_DIRECTORY }`));
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use('/api', routerApi);
 
 // handle each request match to single route with index.html.
