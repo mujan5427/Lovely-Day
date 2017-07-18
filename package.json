@@ -24,7 +24,6 @@
     "gulp-sass": "^3.1.0",
     "is-empty": "^1.2.0",
     "isomorphic-fetch": "^2.2.1",
-    "path": "^0.12.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hammerjs": "^0.5.0",
