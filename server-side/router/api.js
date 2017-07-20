@@ -22,4 +22,9 @@ router.post(`/${ API_VERSION }/favourite`, function (req, res) {
   favourite.addFavourite(req, res);
 });
 
+router.delete(`/${ API_VERSION }/favourite`, function (req, res) {
+
+  favourite.deleteFavourite(req, res);
+});
+
 module.exports = router;
