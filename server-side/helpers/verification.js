@@ -1,7 +1,7 @@
 const account = require('../module/account');
 
 
-exports.verifyInputColumn = function (needToVerifiedColumn, inputData) {
+exports.verifyColumnIsExist = function (needToVerifiedColumn, inputData) {
   const verifiedColumnLength = needToVerifiedColumn.length;
   var count                  = 0;
 

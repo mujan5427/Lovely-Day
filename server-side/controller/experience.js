@@ -8,7 +8,7 @@ exports.getExperienceList = function(req, res) {
   const requestColumnName = ['item_limit', 'current_page'];
   const columnName        = headerColumnName.concat(requestColumnName);
 
-  if (!verification.verifyInputColumn(columnName, inputData)) {
+  if (!verification.verifyColumnIsExist(columnName, inputData)) {
 
     res.status(403).end();
   } else {

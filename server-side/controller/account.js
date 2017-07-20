@@ -6,7 +6,7 @@ exports.getToken = function(req, res) {
   var inputData          = req.query;
   const columnName       = ['account', 'password'];
 
-  if (!verification.verifyInputColumn(columnName, inputData)) {
+  if (!verification.verifyColumnIsExist(columnName, inputData)) {
 
     res.status(403).end();
   } else {
