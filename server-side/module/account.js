@@ -27,6 +27,9 @@ var account = {
 
       }
     });
+  },
+  generateToken: function (memberId) {
+    return sha3_256(`${ memberId }${ PRIVATE_KEY }`);
   }
 };
 

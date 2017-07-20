@@ -1,3 +1,6 @@
+const account = require('../module/account');
+
+
 exports.verifyInputColumn = function (needToVerifiedColumn, inputData) {
   const verifiedColumnLength = needToVerifiedColumn.length;
   var count                  = 0;
@@ -19,4 +22,8 @@ exports.verifyInputColumn = function (needToVerifiedColumn, inputData) {
   }
 
   return true;
+};
+
+exports.verifyToken = function (memberId, token) {
+  return account.generateToken(memberId) === token ? true : false;
 };

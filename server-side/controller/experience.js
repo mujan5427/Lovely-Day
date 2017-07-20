@@ -12,6 +12,12 @@ exports.getExperienceList = function(req, res) {
 
     res.status(403).end();
   } else {
-    experience.getAllExperience(inputData, res);
+    if (!verification.verifyToken(inputData.member_id, inputData.token)) {
+
+      res.status(403).end();
+    } else {
+
+      experience.getAllExperience(inputData, res);
+    }
   }
 };
