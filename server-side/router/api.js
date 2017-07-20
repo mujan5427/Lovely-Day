@@ -27,4 +27,9 @@ router.delete(`/${ API_VERSION }/favourite`, function (req, res) {
   favourite.deleteFavourite(req, res);
 });
 
+router.put(`/${ API_VERSION }/profile`, function (req, res) {
+
+  account.updateProfile(req, res);
+});
+
 module.exports = router;
