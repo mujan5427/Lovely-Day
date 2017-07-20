@@ -18,7 +18,7 @@ var account = {
       if (rows.length > 0) {
         var responseData = {
           member_id: rows[0].id,
-          token: sha3_256(`${ new Date().getTime() }${ PRIVATE_KEY }`)
+          token: sha3_256(`${ rows[0].id }${ PRIVATE_KEY }`)
         };
 
         res.json(responseData);
