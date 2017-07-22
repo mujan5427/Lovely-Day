@@ -8,10 +8,10 @@ var account = {
     const sqlStatement = `
       SELECT id
       FROM \`account\`
-      WHERE \`account\` = ?
+      WHERE \`email\` = ?
       AND \`password\` = ?`;
 
-    const sqlPlaceholder = [loginInfo.account, sha3_256(`${ loginInfo.password }${ PRIVATE_KEY }`)];
+    const sqlPlaceholder = [loginInfo.email, sha3_256(`${ loginInfo.password }${ PRIVATE_KEY }`)];
 
     db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 

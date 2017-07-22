@@ -5,7 +5,7 @@ const verification = require('../helpers/verification');
 
 exports.getToken = function(req, res) {
   var inputData          = req.query;
-  const columnName       = ['account', 'password'];
+  const columnName       = ['email', 'password'];
 
   if (!verification.verifyColumnIsExist(columnName, inputData)) {
 
