@@ -37,4 +37,9 @@ router.get(`/${ API_VERSION }/check/email`, function (req, res) {
   account.checkEmail(req, res);
 });
 
+router.post(`/${ API_VERSION }/signup`, function (req, res) {
+
+  account.signup(req, res);
+});
+
 module.exports = router;

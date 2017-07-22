@@ -52,3 +52,16 @@ exports.checkEmail = function(req, res) {
 
   }
 };
+
+exports.signup = function(req, res) {
+  var inputData    = req.body;
+  const columnName = ['email', 'first_name', 'last_name', 'password', 'birthday'];
+
+  if (!verification.verifyColumnIsExist(columnName, inputData)) {
+    res.status(500).end();
+
+  } else {
+    account.add(inputData, res);
+
+  }
+};

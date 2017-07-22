@@ -83,6 +83,27 @@ var account = {
         res.json(responseData);
       }
     });
+  },
+  add: function(inputData, res) {
+    const sqlStatement = `
+      INSERT INTO \`account\` (email, first_name, last_name, password, birthday)
+      VALUES (?, ?, ?, ?, ?)`;
+
+    var password         = sha3_256(`${ inputData.password }${ PRIVATE_KEY }`);
+    const sqlPlaceholder = [inputData.email, inputData.first_name, inputData.last_name, password, inputData.birthday];
+
+    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+      if (error !== null || rows.affectedRows !== 1) {
+        res.status(500).end();
+
+      } else {
+        var responseData = {
+          status: 'ok'
+        };
+
+        res.json(responseData);
+      }
+    });
   }
 };
 
