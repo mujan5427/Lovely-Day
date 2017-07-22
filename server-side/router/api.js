@@ -32,4 +32,9 @@ router.put(`/${ API_VERSION }/profile`, function (req, res) {
   account.updateProfile(req, res);
 });
 
+router.get(`/${ API_VERSION }/check/email`, function (req, res) {
+
+  account.checkEmail(req, res);
+});
+
 module.exports = router;

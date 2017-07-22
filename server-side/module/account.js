@@ -61,6 +61,28 @@ var account = {
 
       }
     });
+  },
+  checkEmail: function(inputData, res) {
+    const sqlStatement = `
+      SELECT email
+      FROM \`account\`
+      WHERE \`email\` = ?`;
+
+    const sqlPlaceholder = [inputData.email];
+
+    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+
+      if (rows.length > 0) {
+        res.json({status: `001`, message: `email 已經被使用`});
+
+      } else {
+        var responseData = {
+          status: 'ok'
+        };
+
+        res.json(responseData);
+      }
+    });
   }
 };
 

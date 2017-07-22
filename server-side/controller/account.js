@@ -39,3 +39,16 @@ exports.updateProfile = function(req, res) {
 
   }
 };
+
+exports.checkEmail = function(req, res) {
+  var inputData    = req.query;
+  const columnName = ['email'];
+
+  if (!verification.verifyColumnIsExist(columnName, inputData)) {
+    res.status(500).end();
+
+  } else {
+    account.checkEmail(inputData, res);
+
+  }
+};
