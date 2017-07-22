@@ -65,3 +65,20 @@ exports.signup = function(req, res) {
 
   }
 };
+
+exports.getProfile = function(req, res) {
+  var inputData           = req.headers;
+  const headerColumnName  = ['member_id', 'token'];
+
+  if (!verification.verifyColumnIsExist(headerColumnName, inputData)) {
+    res.status(500).end();
+
+  } else {
+    if (!verification.verifyToken(inputData.member_id, inputData.token)) {
+      res.status(500).end();
+    } else {
+
+      account.get(inputData, res);
+    }
+  }
+};

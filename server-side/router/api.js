@@ -42,4 +42,9 @@ router.post(`/${ API_VERSION }/signup`, function (req, res) {
   account.signup(req, res);
 });
 
+router.get(`/${ API_VERSION }/profile`, function (req, res) {
+
+  account.getProfile(req, res);
+});
+
 module.exports = router;

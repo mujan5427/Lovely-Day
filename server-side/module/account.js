@@ -104,6 +104,36 @@ var account = {
         res.json(responseData);
       }
     });
+  },
+  get: function(inputData, res) {
+    const sqlStatement = `
+      SELECT *
+      FROM \`account\`
+      WHERE \`id\` = ?
+      LIMIT 1`;
+
+    const sqlPlaceholder = [inputData.member_id];
+
+    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+      if (error !== null || rows.length === 0) {
+        res.status(500).end();
+
+      } else {
+        var responseData = {
+          status: 'ok',
+          first_name: rows[0].first_name,
+          last_name: rows[0].last_name,
+          gender: rows[0].gender,
+          birthday: rows[0].birthday.getTime(),
+          email: rows[0].email,
+          language: rows[0].language,
+          education_level: rows[0].education_level,
+          interest: rows[0].interest
+        };
+
+        res.json(responseData);
+      }
+    });
   }
 };
 
