@@ -47,4 +47,9 @@ router.get(`/${ API_VERSION }/profile`, function (req, res) {
   account.getProfile(req, res);
 });
 
+router.get(`/${ API_VERSION }/experience/:experience_id`, function (req, res) {
+
+  experience.getExperience(req, res);
+});
+
 module.exports = router;

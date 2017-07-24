@@ -31,6 +31,73 @@ var experience = {
 
       }
     });
+  },
+  getExperienceDetail: function (inputData, res) {
+    if (!inputData.member_id) {
+      const sqlStatement = `
+        SELECT experience.*, IF(false, 'true', 'false') as favorited,
+        host.name as host_name, host.image as host_image
+        FROM \`experience\`
+        LEFT JOIN \`host\` ON host.experience_id = experience.id
+        WHERE experience.id = ?`;
+
+      const experienceId   = inputData.experience_id;
+      const sqlPlaceholder = [experienceId];
+
+      db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+
+        if (rows.length > 0) {
+          var responseData = rows[0];
+
+          responseData = Object.assign({}, responseData, {host: {name: rows[0].host_name, image: rows[0].host_image}});
+
+          responseData = Object.assign({}, responseData, {favorited: responseData.favorited === 'true'});
+          responseData = Object.assign({}, responseData, {images: responseData.images.split(',')});
+
+          delete responseData.host_name;
+          delete responseData.host_image;
+
+          res.json(responseData);
+        } else {
+          res.status(500).end();
+
+        }
+      });
+
+    } else {
+      const sqlStatement = `
+        SELECT experience.*,  IF(favorite.favorited, 'true', 'false') as favorited,
+        host.name as host_name, host.image as host_image
+        FROM \`experience\`
+        LEFT JOIN \`favorite\` ON experience.id = favorite.experience_id AND favorite.account_id = ?
+        LEFT JOIN \`host\` ON host.experience_id = experience.id
+        WHERE experience.id = ?`;
+
+      const experienceId = inputData.experience_id;
+      const accountId    = Number(inputData.member_id);
+
+      const sqlPlaceholder = [accountId, experienceId];
+
+      db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+
+        if (rows.length > 0) {
+          var responseData = rows[0];
+
+          responseData = Object.assign({}, responseData, {host: {name: rows[0].host_name, image: rows[0].host_image}});
+
+          responseData = Object.assign({}, responseData, {favorited: responseData.favorited === 'true'});
+          responseData = Object.assign({}, responseData, {images: responseData.images.split(',')});
+
+          delete responseData.host_name;
+          delete responseData.host_image;
+
+          res.json(responseData);
+        } else {
+          res.status(500).end();
+
+        }
+      });
+    }
   }
 };
 
