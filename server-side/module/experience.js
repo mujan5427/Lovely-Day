@@ -1,24 +1,57 @@
-const db = require('./database');
+const isEmpty = require('is-empty');
+const db      = require('./database');
 
 
 var experience = {
   getAllExperience: function (inputData, res) {
+
+    // check type、region
+    var syntheticWhereCondition, accountId, type, region;
+
+    if (inputData.type !== 'none' || inputData.region !== 'none') {
+      type   = inputData.type.split(',');
+      region = inputData.region.split(',');
+      type   = type.map(item => `'${item}'`);
+      region = region.map(item => `'${item}'`);
+
+      if (inputData.type === 'none') {
+        syntheticWhereCondition = `WHERE region IN (${region})`;
+      }
+      if (inputData.region === 'none') {
+        syntheticWhereCondition = `WHERE type IN (${type})`;
+      }
+      if (inputData.type !== 'none' && inputData.region !== 'none') {
+        syntheticWhereCondition = `WHERE type IN (${type}) AND region IN (${region})`;
+      }
+
+    } else {
+      syntheticWhereCondition = '';
+    }
+
+    // check member_id
+    if (isEmpty(inputData.member_id)) {
+      accountId = 0;
+
+    } else {
+      accountId = Number(inputData.member_id);
+
+    }
+
     const sqlStatement = `
       SELECT experience.*,  IF(favorite.favorited, 'true', 'false') as favorited
       FROM experience
-      LEFT JOIN favorite ON experience.id = favorite.experience_id AND favorite.account_id = ?
-      LEFT JOIN account ON account.id = favorite.account_id
+      LEFT JOIN \`favorite\` ON experience.id = favorite.experience_id AND favorite.account_id = ?
+      LEFT JOIN \`host\` ON host.experience_id = experience.id
+      ${syntheticWhereCondition}
       ORDER BY id ASC
       LIMIT ?, ?`;
 
-    var accountId   = Number(inputData.member_id);
     var itemLimit   = Number(inputData.item_limit);
     var currentPage = Number(inputData.current_page) <= 1 ? 0 : (Number(inputData.current_page) - 1) * itemLimit;
 
     const sqlPlaceholder = [accountId, currentPage, itemLimit];
 
     db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
-
       if (rows.length > 0) {
         var responseData = {
           dataCount: rows.length,
@@ -27,7 +60,7 @@ var experience = {
 
         res.json(responseData);
       } else {
-        res.status(403).end();
+        res.status(500).end();
 
       }
     });

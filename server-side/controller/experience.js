@@ -5,20 +5,19 @@ const verification = require('../helpers/verification');
 
 exports.getExperienceList = function(req, res) {
   var inputData           = Object.assign({}, req.query, req.headers)
-  const headerColumnName  = ['member_id', 'token'];
-  const requestColumnName = ['item_limit', 'current_page'];
-  const columnName        = headerColumnName.concat(requestColumnName);
+  const requestColumnName = ['item_limit', 'current_page', 'type', 'region'];
+  const columnName        = requestColumnName;
 
   if (!verification.verifyColumnIsExist(columnName, inputData)) {
+    res.status(500).end();
 
-    res.status(403).end();
   } else {
-    if (!verification.verifyToken(inputData.member_id, inputData.token)) {
+    if (!isEmpty(inputData.member_id) && !verification.verifyToken(inputData.member_id, inputData.token)) {
+      res.status(500).end();
 
-      res.status(403).end();
     } else {
-
       experience.getAllExperience(inputData, res);
+
     }
   }
 };
