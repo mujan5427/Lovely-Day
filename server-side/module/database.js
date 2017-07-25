@@ -2,13 +2,23 @@ const mysql = require('mysql');
 
 
 // database config
-const connection = mysql.createConnection({
+const singleQueryConnection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '12345678',
   database : 'lovely_day'
 });
 
-connection.connect();
+const multipleQueryConnection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '12345678',
+  database : 'lovely_day',
+  multipleStatements: true
+});
 
-module.exports = connection;
+singleQueryConnection.connect();
+multipleQueryConnection.connect();
+
+exports.singleQuery   = singleQueryConnection;
+exports.multipleQuery = multipleQueryConnection;
