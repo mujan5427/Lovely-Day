@@ -12,7 +12,7 @@ var favourite = {
 
     const sqlPlaceholder = [memberId, experienceId];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 
       if (error === null && rows.affectedRows === 1) {
         res.status(200).end();
@@ -34,7 +34,7 @@ var favourite = {
 
     const sqlPlaceholder = [memberId, experienceId];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 
       if (error === null && rows.affectedRows === 1) {
         res.status(200).end();

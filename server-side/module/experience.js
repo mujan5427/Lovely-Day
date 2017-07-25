@@ -51,7 +51,7 @@ var experience = {
 
     const sqlPlaceholder = [accountId, currentPage, itemLimit];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
       if (rows.length > 0) {
         var responseData = {
           dataCount: rows.length,
@@ -77,7 +77,7 @@ var experience = {
       const experienceId   = inputData.experience_id;
       const sqlPlaceholder = [experienceId];
 
-      db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+      db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 
         if (rows.length > 0) {
           var responseData = rows[0];
@@ -111,7 +111,7 @@ var experience = {
 
       const sqlPlaceholder = [accountId, experienceId];
 
-      db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+      db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 
         if (rows.length > 0) {
           var responseData = rows[0];

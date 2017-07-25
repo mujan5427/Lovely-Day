@@ -13,7 +13,7 @@ var account = {
 
     const sqlPlaceholder = [loginInfo.email, sha3_256(`${ loginInfo.password }${ PRIVATE_KEY }`)];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 
       if (rows.length > 0) {
         var responseData = {
@@ -51,7 +51,7 @@ var account = {
     var memberId         = Number(inputData.member_id);
     const sqlPlaceholder = [needToModifyColumn, memberId];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 
       if (error === null && rows.affectedRows === 1) {
         res.status(200).end();
@@ -70,7 +70,7 @@ var account = {
 
     const sqlPlaceholder = [inputData.email];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
 
       if (rows.length > 0) {
         res.json({status: `001`, message: `email 已經被使用`});
@@ -92,7 +92,7 @@ var account = {
     var password         = sha3_256(`${ inputData.password }${ PRIVATE_KEY }`);
     const sqlPlaceholder = [inputData.email, inputData.first_name, inputData.last_name, password, inputData.birthday];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
       if (error !== null || rows.affectedRows !== 1) {
         res.status(500).end();
 
@@ -114,7 +114,7 @@ var account = {
 
     const sqlPlaceholder = [inputData.member_id];
 
-    db.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
       if (error !== null || rows.length === 0) {
         res.status(500).end();
 
