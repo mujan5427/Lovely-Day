@@ -52,4 +52,9 @@ router.get(`/${ API_VERSION }/experience/:experience_id`, function (req, res) {
   experience.getExperience(req, res);
 });
 
+router.get(`/${ API_VERSION }/navigation`, function (req, res) {
+
+  experience.getExperienceForNavigation(req, res);
+});
+
 module.exports = router;

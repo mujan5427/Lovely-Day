@@ -131,6 +131,73 @@ var experience = {
         }
       });
     }
+  },
+  getExperienceListByType: function(res) {
+    sqlStatement1 = `
+      SELECT id, title, images, price
+      FROM \`experience\`
+      WHERE \`type\` = 'outdoor'
+      ORDER BY id DESC
+      LIMIT 4`;
+    sqlStatement2 = `
+      SELECT id, title, images, price
+      FROM \`experience\`
+      WHERE \`type\` = 'summer_camp'
+      ORDER BY id DESC
+      LIMIT 4`;
+    sqlStatement3 = `
+      SELECT id, title, images, price
+      FROM \`experience\`
+      WHERE \`type\` = 'baking'
+      ORDER BY id DESC
+      LIMIT 4`;
+    sqlStatement4 = `
+      SELECT id, title, images, price
+      FROM \`experience\`
+      WHERE \`type\` = 'lover'
+      ORDER BY id DESC
+      LIMIT 4`;
+    sqlStatement5 = `
+      SELECT id, title, images, price
+      FROM \`experience\`
+      WHERE \`type\` = 'group'
+      ORDER BY id DESC
+      LIMIT 4`;
+    sqlStatement6 = `
+      SELECT id, title, images, price
+      FROM \`experience\`
+      WHERE \`type\` = 'play_with_child'
+      ORDER BY id DESC
+      LIMIT 4`;
+    sqlStatement7 = `
+      SELECT id, title, images, price
+      FROM \`experience\`
+      WHERE \`type\` = 'hand_made'
+      ORDER BY id DESC
+      LIMIT 4`;
+
+    var syntheticStatement = `${sqlStatement1};${sqlStatement2};${sqlStatement3};${sqlStatement4};${sqlStatement5};${sqlStatement6};${sqlStatement7}`;
+
+    db.multipleQuery.query(syntheticStatement, function (error, rows) {
+      if (!error && rows.length > 0) {
+        var responseData = {
+          items: {
+            outdoor: rows[0],
+            summer_camp: rows[1],
+            baking: rows[2],
+            lover: rows[3],
+            group: rows[4],
+            play_with_child: rows[5],
+            hand_made: rows[6]
+          }
+        };
+
+        res.json(responseData);
+      } else {
+        res.status(500).end();
+
+      }
+    });
   }
 };
 

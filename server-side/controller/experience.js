@@ -40,3 +40,7 @@ exports.getExperience = function(req, res) {
     }
   }
 };
+
+exports.getExperienceForNavigation = function(req, res) {
+  experience.getExperienceListByType(res);
+};
