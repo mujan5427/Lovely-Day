@@ -1,3 +1,4 @@
+const isEmpty     = require('is-empty');
 const errorConfig = require('../error_config');
 const account     = require('../module/account');
 
@@ -15,7 +16,7 @@ exports.verifyColumnIsExist = function (needToVerifiedColumn, inputData) {
     } else {
 
       // which is empty string
-      if (inputData[needToVerifiedColumn[count]] === '') {
+      if (isEmpty(inputData[needToVerifiedColumn[count]])) {
         throw {type: 'client', message: errorConfig.client[2]};
 
       }
