@@ -5,7 +5,6 @@ const verification = require('../helpers/verification');
 
 
 // Required : email、password
-
 exports.getToken = function(req, res) {
   var inputData    = req.query;
   const columnName = ['email', 'password'];
@@ -19,6 +18,7 @@ exports.getToken = function(req, res) {
   }
 };
 
+// Required : member_id、token
 exports.updateProfile = function(req, res) {
   var inputData          = Object.assign({}, req.body, req.headers);
   const headerColumnName = ['member_id', 'token'];
@@ -34,6 +34,7 @@ exports.updateProfile = function(req, res) {
   }
 };
 
+// Required : email
 exports.checkEmail = function(req, res) {
   var inputData    = req.query;
   const columnName = ['email'];
@@ -47,6 +48,7 @@ exports.checkEmail = function(req, res) {
   }
 };
 
+// Required : email、first_name、last_name、password、birthday
 exports.signup = function(req, res) {
   var inputData    = req.body;
   const columnName = ['email', 'first_name', 'last_name', 'password', 'birthday'];
@@ -60,6 +62,7 @@ exports.signup = function(req, res) {
   }
 };
 
+// Required : member_id、token
 exports.getProfile = function(req, res) {
   var inputData          = req.headers;
   const headerColumnName = ['member_id', 'token'];
