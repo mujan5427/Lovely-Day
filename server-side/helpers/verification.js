@@ -24,5 +24,7 @@ exports.verifyColumnIsExist = function (needToVerifiedColumn, inputData) {
 };
 
 exports.verifyToken = function (memberId, token) {
-  return account.generateToken(memberId) === token ? true : false;
+  if (account.generateToken(memberId) !== token) {
+    throw {type: 'client', message: errorConfig.client[3]};
+  }
 };
