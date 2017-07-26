@@ -6,6 +6,9 @@ const error_config =
     },
     2: {
       message: 'Some properties are empty'
+    },
+    3: {
+      message: 'Member Id or Token is invalid'
     }
   },
   database: {
