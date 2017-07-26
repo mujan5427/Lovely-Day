@@ -6,7 +6,7 @@ const verification = require('../helpers/verification');
 
 // Required : email、password
 exports.getToken = function(req, res) {
-  var inputData    = req.query;
+  const inputData  = req.query;
   const columnName = ['email', 'password'];
 
   try {
@@ -20,7 +20,7 @@ exports.getToken = function(req, res) {
 
 // Required : member_id、token
 exports.updateProfile = function(req, res) {
-  var inputData          = Object.assign({}, req.body, req.headers);
+  const inputData        = Object.assign({}, req.body, req.headers);
   const headerColumnName = ['member_id', 'token'];
   const columnName       = headerColumnName;
 
@@ -36,7 +36,7 @@ exports.updateProfile = function(req, res) {
 
 // Required : email
 exports.checkEmail = function(req, res) {
-  var inputData    = req.query;
+  const inputData  = req.query;
   const columnName = ['email'];
 
   try {
@@ -50,7 +50,7 @@ exports.checkEmail = function(req, res) {
 
 // Required : email、first_name、last_name、password、birthday
 exports.signup = function(req, res) {
-  var inputData    = req.body;
+  const inputData  = req.body;
   const columnName = ['email', 'first_name', 'last_name', 'password', 'birthday'];
 
   try {
@@ -64,7 +64,7 @@ exports.signup = function(req, res) {
 
 // Required : member_id、token
 exports.getProfile = function(req, res) {
-  var inputData          = req.headers;
+  const inputData        = req.headers;
   const headerColumnName = ['member_id', 'token'];
   const columnName       = headerColumnName;
 
