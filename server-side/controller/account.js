@@ -3,16 +3,24 @@ const account      = require('../module/account');
 const verification = require('../helpers/verification');
 
 
+// Required : email、password
+
 exports.getToken = function(req, res) {
-  var inputData          = req.query;
-  const columnName       = ['email', 'password'];
+  var inputData    = req.query;
+  const columnName = ['email', 'password'];
 
-  if (!verification.verifyColumnIsExist(columnName, inputData)) {
-
-    res.status(403).end();
-  } else {
+  try {
+    verification.verifyColumnIsExist(columnName, inputData);
     account.verifyLoginInfo(inputData, res);
 
+  } catch(error) {
+    if (error.type !== 'database') {
+      res.status(400);
+      res.json(error.message);
+
+    } else {
+      res.status(500).end();
+    }
   }
 };
 

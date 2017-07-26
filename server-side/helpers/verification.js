@@ -1,4 +1,5 @@
-const account = require('../module/account');
+const errorConfig = require('../error_config');
+const account     = require('../module/account');
 
 
 exports.verifyColumnIsExist = function (needToVerifiedColumn, inputData) {
@@ -7,21 +8,19 @@ exports.verifyColumnIsExist = function (needToVerifiedColumn, inputData) {
 
   for (count; count < verifiedColumnLength; count++) {
 
-    // which has the columns
+    // which has no the column
     if (!inputData.hasOwnProperty(needToVerifiedColumn[count])) {
-      return false;
+      throw {type: 'client', message: errorConfig.client[1]};
 
     } else {
 
       // which is empty string
       if (inputData[needToVerifiedColumn[count]] === '') {
-        return false;
+        throw {type: 'client', message: errorConfig.client[2]};
 
       }
     }
   }
-
-  return true;
 };
 
 exports.verifyToken = function (memberId, token) {
