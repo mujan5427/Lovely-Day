@@ -11,13 +11,13 @@ exports.verifyColumnIsExist = function (needToVerifiedColumn, inputData) {
 
     // which has no the column
     if (!inputData.hasOwnProperty(needToVerifiedColumn[count])) {
-      throw {type: 'client', message: errorConfig.client[1]};
+      throw {type: 'client', message: errorConfig.client[1].message};
 
     } else {
 
       // which is empty string
       if (isEmpty(inputData[needToVerifiedColumn[count]])) {
-        throw {type: 'client', message: errorConfig.client[2]};
+        throw {type: 'client', message: errorConfig.client[2].message};
 
       }
     }
@@ -26,6 +26,6 @@ exports.verifyColumnIsExist = function (needToVerifiedColumn, inputData) {
 
 exports.verifyToken = function (memberId, token) {
   if (account.generateToken(memberId) !== token) {
-    throw {type: 'client', message: errorConfig.client[3]};
+    throw {type: 'client', message: errorConfig.client[3].message};
   }
 };
