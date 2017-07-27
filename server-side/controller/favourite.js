@@ -5,7 +5,7 @@ const verification = require('../helpers/verification');
 // Required : member_id、token、experience_id
 exports.addFavourite = function(req, res) {
 
-  var inputData           = Object.assign({}, req.body, req.headers)
+  const inputData           = Object.assign({}, req.body, req.headers)
   const headerColumnName  = ['member_id', 'token'];
   const requestColumnName = ['experience_id'];
   const columnName        = headerColumnName.concat(requestColumnName);
@@ -23,7 +23,7 @@ exports.addFavourite = function(req, res) {
 // Required : member_id、token、experience_id
 exports.deleteFavourite = function(req, res) {
 
-  var inputData           = Object.assign({}, req.body, req.headers)
+  const inputData           = Object.assign({}, req.body, req.headers)
   const headerColumnName  = ['member_id', 'token'];
   const requestColumnName = ['experience_id'];
   const columnName        = headerColumnName.concat(requestColumnName);
