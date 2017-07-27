@@ -9,11 +9,18 @@ const error_config =
     },
     3: {
       message: 'Member Id or Token is invalid'
-    }
-  },
-  database: {
-    1: {
+    },
+    4: {
+      message: 'This email has been used'
+    },
+    5: {
+      message: 'Input data is invalid'
+    },
+    6: {
       message: 'Didn\'t search for anything'
+    },
+    7: {
+      message: 'Nothing happened'
     }
   }
 };
