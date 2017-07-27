@@ -72,44 +72,23 @@ exports.getAllExperience = function (inputData) {
   });
 };
 
-exports.getExperienceDetail = function (inputData, res) {
-  if (!inputData.member_id) {
-    const sqlStatement = `
+exports.getExperienceDetail = function (inputData) {
+  var sqlStatement, sqlPlaceholder;
+
+  if (isEmpty(inputData.member_id)) {
+    sqlStatement = `
       SELECT experience.*, IF(false, 'true', 'false') as favorited,
       host.name as host_name, host.image as host_image
       FROM \`experience\`
       LEFT JOIN \`host\` ON host.experience_id = experience.id
       WHERE experience.id = ?`;
 
-    const experienceId   = inputData.experience_id;
-    const sqlPlaceholder = [experienceId];
+      const experienceId = inputData.experience_id;
 
-    return new Promise(function(resolve, reject) {
-      db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
-        if (error) {
-          return reject({type: 'database', message: error.code});
-        }
+      sqlPlaceholder = [experienceId];
 
-        if (rows.length > 0) {
-          var responseData = rows[0];
-
-          responseData = Object.assign({}, responseData, {host: {name: rows[0].host_name, image: rows[0].host_image}});
-
-          responseData = Object.assign({}, responseData, {favorited: responseData.favorited === 'true'});
-          responseData = Object.assign({}, responseData, {images: responseData.images.split(',')});
-
-          delete responseData.host_name;
-          delete responseData.host_image;
-          responseData.status = 'ok';
-
-          resolve(responseData);
-        } else {
-          reject({type: 'client', message: errorConfig.client[6].message});
-        }
-      });
-    });
   } else {
-    const sqlStatement = `
+    sqlStatement = `
       SELECT experience.*,  IF(favorite.favorited, 'true', 'false') as favorited,
       host.name as host_name, host.image as host_image
       FROM \`experience\`
@@ -117,36 +96,36 @@ exports.getExperienceDetail = function (inputData, res) {
       LEFT JOIN \`host\` ON host.experience_id = experience.id
       WHERE experience.id = ?`;
 
-    const experienceId = inputData.experience_id;
-    const accountId    = Number(inputData.member_id);
+      const experienceId = inputData.experience_id;
+      const accountId    = Number(inputData.member_id);
 
-    const sqlPlaceholder = [accountId, experienceId];
+      sqlPlaceholder = [accountId, experienceId];
 
-    return new Promise(function(resolve, reject) {
-      db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
-        if (error) {
-          return reject({type: 'database', message: error.code});
-        }
-
-        if (rows.length > 0) {
-          var responseData = rows[0];
-
-          responseData = Object.assign({}, responseData, {host: {name: rows[0].host_name, image: rows[0].host_image}});
-
-          responseData = Object.assign({}, responseData, {favorited: responseData.favorited === 'true'});
-          responseData = Object.assign({}, responseData, {images: responseData.images.split(',')});
-
-          delete responseData.host_name;
-          delete responseData.host_image;
-          responseData.status = 'ok';
-
-          resolve(responseData);
-        } else {
-          reject({type: 'client', message: errorConfig.client[6].message});
-        }
-      });
-    });
   }
+
+  return new Promise(function(resolve, reject) {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+      if (error) {
+        return reject({type: 'database', message: error.code});
+      }
+
+      if (rows.length > 0) {
+        var responseData;
+
+        responseData = Object.assign({}, {status: 'ok'}, rows[0]);
+        responseData = Object.assign({}, responseData, {host: {name: rows[0].host_name, image: rows[0].host_image}});
+        responseData = Object.assign({}, responseData, {favorited: responseData.favorited === 'true'});
+        responseData = Object.assign({}, responseData, {images: responseData.images.split(',')});
+
+        delete responseData.host_name;
+        delete responseData.host_image;
+
+        resolve(responseData);
+      } else {
+        reject({type: 'client', message: errorConfig.client[6].message});
+      }
+    });
+  });
 };
 
 exports.getExperienceListByType = function() {
