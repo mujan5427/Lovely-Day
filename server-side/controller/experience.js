@@ -5,7 +5,7 @@ const verification = require('../helpers/verification');
 
 
 exports.getExperienceList = function(req, res) {
-  var inputData           = Object.assign({}, req.query, req.headers)
+  const inputData           = Object.assign({}, req.query, req.headers)
   const requestColumnName = ['item_limit', 'current_page', 'type', 'region'];
   const columnName        = requestColumnName;
 
@@ -22,7 +22,7 @@ exports.getExperienceList = function(req, res) {
 };
 
 exports.getExperience = function(req, res) {
-  var inputData           = Object.assign({}, req.params, req.headers);
+  const inputData           = Object.assign({}, req.params, req.headers);
   const requestColumnName = ['experience_id'];
   const columnName        = requestColumnName;
 
