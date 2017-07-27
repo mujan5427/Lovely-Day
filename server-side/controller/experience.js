@@ -15,7 +15,9 @@ exports.getExperienceList = function(req, res) {
 
     if (!isEmpty(inputData.member_id)) { verification.verifyToken(inputData.member_id, inputData.token); }
 
-    experience.getAllExperience(inputData, res);
+    experience.getAllExperience(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
@@ -33,7 +35,9 @@ exports.getExperience = function(req, res) {
 
     if (!isEmpty(inputData.member_id)) { verification.verifyToken(inputData.member_id, inputData.token); }
 
-    experience.getExperienceDetail(inputData, res);
+    experience.getExperienceDetail(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
@@ -42,7 +46,9 @@ exports.getExperience = function(req, res) {
 
 exports.getExperienceForNavigation = function(req, res) {
   try {
-    experience.getExperienceListByType(res);
+    experience.getExperienceListByType()
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
