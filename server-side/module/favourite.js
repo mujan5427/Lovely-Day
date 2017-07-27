@@ -1,50 +1,66 @@
-const db = require('./database');
+const db          = require('./database');
+const errorConfig = require('../error_config');
 
 
-var favourite = {
-  add: function (inputData, res) {
-    const sqlStatement = `
-      INSERT INTO \`favorite\` (account_id, experience_id)
-      VALUES (?, ?)`;
+exports.add = function (inputData) {
+  const sqlStatement = `
+    INSERT INTO \`favorite\` (account_id, experience_id)
+    VALUES (?, ?)`;
 
-    var memberId     = Number(inputData.member_id);
-    var experienceId = Number(inputData.experience_id);
+  const memberId     = Number(inputData.member_id);
+  const experienceId = Number(inputData.experience_id);
 
-    const sqlPlaceholder = [memberId, experienceId];
+  const sqlPlaceholder = [memberId, experienceId];
 
+  return new Promise(function(resolve, reject) {
     db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+      if (error) {
+        return reject({type: 'database', message: error.code});
+      }
 
-      if (error === null && rows.affectedRows === 1) {
-        res.status(200).end();
+      if (rows.affectedRows === 1) {
+        var responseData = {
+          status: 'ok'
+        };
+
+        resolve(responseData);
 
       } else {
-        res.status(403).end();
+        reject({type: 'client', message: errorConfig.client[5].message});
 
       }
     });
-  },
-  delete: function (inputData, res) {
-    const sqlStatement = `
-      DELETE FROM \`favorite\`
-      WHERE account_id = ? AND experience_id = ?
-      LIMIT 1`;
-
-    var memberId     = Number(inputData.member_id);
-    var experienceId = Number(inputData.experience_id);
-
-    const sqlPlaceholder = [memberId, experienceId];
-
-    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
-
-      if (error === null && rows.affectedRows === 1) {
-        res.status(200).end();
-
-      } else {
-        res.status(403).end();
-
-      }
-    });
-  }
+  });
 };
 
-module.exports = favourite;
+exports.delete = function (inputData) {
+  const sqlStatement = `
+    DELETE FROM \`favorite\`
+    WHERE account_id = ? AND experience_id = ?
+    LIMIT 1`;
+
+  var memberId     = Number(inputData.member_id);
+  var experienceId = Number(inputData.experience_id);
+
+  const sqlPlaceholder = [memberId, experienceId];
+
+  return new Promise(function(resolve, reject) {
+    db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
+      if (error) {
+        return reject({type: 'database', message: error.code});
+      }
+
+      if (rows.affectedRows === 1) {
+        var responseData = {
+          status: 'ok'
+        };
+
+        resolve(responseData);
+
+      } else {
+        reject({type: 'client', message: errorConfig.client[5].message});
+
+      }
+    });
+  });
+};

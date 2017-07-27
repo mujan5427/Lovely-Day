@@ -13,7 +13,9 @@ exports.addFavourite = function(req, res) {
   try {
     verification.verifyColumnIsExist(columnName, inputData);
     verification.verifyToken(inputData.member_id, inputData.token);
-    favourite.add(inputData, res);
+    favourite.add(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
@@ -31,7 +33,9 @@ exports.deleteFavourite = function(req, res) {
   try {
     verification.verifyColumnIsExist(columnName, inputData);
     verification.verifyToken(inputData.member_id, inputData.token);
-    favourite.delete(inputData, res);
+    favourite.delete(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
