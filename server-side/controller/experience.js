@@ -1,4 +1,5 @@
 const isEmpty      = require('is-empty');
+const error        = require('../helpers/error');
 const experience   = require('../module/experience');
 const verification = require('../helpers/verification');
 
@@ -8,17 +9,15 @@ exports.getExperienceList = function(req, res) {
   const requestColumnName = ['item_limit', 'current_page', 'type', 'region'];
   const columnName        = requestColumnName;
 
-  if (!verification.verifyColumnIsExist(columnName, inputData)) {
-    res.status(500).end();
+  try {
+    verification.verifyColumnIsExist(columnName, inputData);
 
-  } else {
-    if (!isEmpty(inputData.member_id) && !verification.verifyToken(inputData.member_id, inputData.token)) {
-      res.status(500).end();
+    if (!isEmpty(inputData.member_id)) { verification.verifyToken(inputData.member_id, inputData.token); }
 
-    } else {
-      experience.getAllExperience(inputData, res);
+    experience.getAllExperience(inputData, res);
 
-    }
+  } catch(err) {
+    error.analysisErrorObject(err, res);
   }
 };
 
@@ -27,20 +26,23 @@ exports.getExperience = function(req, res) {
   const requestColumnName = ['experience_id'];
   const columnName        = requestColumnName;
 
-  if (!verification.verifyColumnIsExist(columnName, inputData)) {
-    res.status(500).end();
+  try {
+    verification.verifyColumnIsExist(columnName, inputData);
 
-  } else {
-    if (!isEmpty(inputData.member_id) && !verification.verifyToken(inputData.member_id, inputData.token)) {
-      res.status(500).end();
+    if (!isEmpty(inputData.member_id)) { verification.verifyToken(inputData.member_id, inputData.token); }
 
-    } else {
-      experience.getExperienceDetail(inputData, res);
+    experience.getExperienceDetail(inputData, res);
 
-    }
+  } catch(err) {
+    error.analysisErrorObject(err, res);
   }
 };
 
 exports.getExperienceForNavigation = function(req, res) {
-  experience.getExperienceListByType(res);
+  try {
+    experience.getExperienceListByType(res);
+
+  } catch(err) {
+    error.analysisErrorObject(err, res);
+  }
 };
