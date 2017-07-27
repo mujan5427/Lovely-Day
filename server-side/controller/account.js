@@ -11,7 +11,9 @@ exports.getToken = function(req, res) {
 
   try {
     verification.verifyColumnIsExist(columnName, inputData);
-    account.verifyLoginInfo(inputData, res);
+    account.verifyLoginInfo(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
@@ -27,7 +29,9 @@ exports.updateProfile = function(req, res) {
   try {
     verification.verifyColumnIsExist(columnName, inputData);
     verification.verifyToken(inputData.member_id, inputData.token);
-    account.update(inputData, res);
+    account.update(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
@@ -41,7 +45,9 @@ exports.checkEmail = function(req, res) {
 
   try {
     verification.verifyColumnIsExist(columnName, inputData);
-    account.checkEmail(inputData, res);
+    account.checkEmail(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
@@ -55,7 +61,9 @@ exports.signup = function(req, res) {
 
   try {
     verification.verifyColumnIsExist(columnName, inputData);
-    account.add(inputData, res);
+    account.add(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
@@ -71,7 +79,9 @@ exports.getProfile = function(req, res) {
   try {
     verification.verifyColumnIsExist(columnName, inputData);
     verification.verifyToken(inputData.member_id, inputData.token)
-    account.get(inputData, res);
+    account.get(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
 
   } catch(err) {
     error.analysisErrorObject(err, res);
