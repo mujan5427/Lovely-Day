@@ -61,7 +61,12 @@ exports.getAllExperience = function (inputData) {
         var responseData = {
           status: 'ok',
           dataCount: rows.length,
-          item: rows.map(row => Object.assign({}, row, {favorited: row.favorited === 'true'}))
+          item: rows.map(row => {
+            var prepareData = Object.assign({}, row, {favorited: row.favorited === 'true'});
+            prepareData = Object.assign({}, prepareData, {images: prepareData.images.split(',')});
+
+            return prepareData;
+          })
         };
 
         resolve(responseData);
