@@ -61,10 +61,16 @@ function displayMenu(state = {
 
 function entityExperiences(state = {}, action) {
   switch(action.type) {
-    case 'FETCH_PAGE_INDEX_EXPERIENCE':
-      return {
-        experiences: action.entityExperienceList
-      };
+    case 'REQUEST_SUCCESS':
+      switch(action.group) {
+        case 'GROUP_PAGE_INDEX_EXPERIENCE_LIST':
+          return {
+            experiences: parseExperience(state, action.responseData)
+          };
+
+        default:
+          return state;
+      }
 
     default:
       return state;
@@ -73,15 +79,62 @@ function entityExperiences(state = {}, action) {
 
 function pageIndexExperienceList(state = {}, action) {
   switch(action.type) {
-    case 'FETCH_PAGE_INDEX_EXPERIENCE':
-      return {
-        experienceList: action.pageIndexExperienceList
-      };
+    case 'REQUEST_BEGINNING':
+      if (action.group !== 'GROUP_PAGE_INDEX_EXPERIENCE_LIST') {
+        return state;
+
+      } else {
+        return {
+          experienceList: {
+            isFetching: true
+          }
+        };
+
+      }
+
+    case 'REQUEST_SUCCESS':
+      if (action.group !== 'GROUP_PAGE_INDEX_EXPERIENCE_LIST') {
+        return state;
+
+      } else {
+        return {
+          experienceList: parsePageIndex(action.responseData)
+        };
+
+      }
 
     default:
       return state;
   }
 }
+
+
+/* * * * * * * * * * * * *
+ *                       *
+ * Analysis API Response *
+ *                       *
+ * * * * * * * * * * * * */
+
+function parsePageIndex(responseData) {
+  const items = responseData.item;
+
+  return {
+    isFetching: false,
+    lastUpdated: new Date().getTime(),
+    items: items.map(item => Number(item.id))
+  };
+}
+
+function parseExperience(originalState, responseData) {
+  const items = responseData.item;
+  var experienceList = {};
+
+  items.map(item => Object.assign(experienceList, {[item.id]: item}));
+  experienceList = Object.assign(originalState, experienceList);
+
+  return experienceList;
+}
+
 
 const reducer = combineReducers({
   hasLoggedIn: hasLoggedIn,

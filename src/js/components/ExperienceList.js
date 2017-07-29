@@ -1,6 +1,6 @@
 import React from 'react';
 import Experience from './Experience';
-import { fetchExperience } from '../actions/action';
+import { fetchData, GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../actions/action';
 
 
 class ExperienceList extends React.Component {
@@ -11,7 +11,7 @@ class ExperienceList extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props;
 
-    dispatch(fetchExperience());
+    dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
   }
 
   render() {

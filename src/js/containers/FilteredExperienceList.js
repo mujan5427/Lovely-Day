@@ -6,7 +6,7 @@ const getFilteredExperienceList = (entityExperience, seletedItem) => {
   return seletedItem.map(item => ({
     id: entityExperience[item].id,
     title: entityExperience[item].title,
-    image: entityExperience[item].image,
+    image: entityExperience[item].images[0],
     price: entityExperience[item].price,
     favorited: entityExperience[item].favorited
   }));

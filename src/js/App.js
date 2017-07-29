@@ -5,7 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers/reducer';
 
 
@@ -28,7 +29,7 @@ import Profile from './components/layout/Profile';
 import ExperienceDetail from './components/layout/ExperienceDetail';
 
 
-let store = createStore(reducer);
+let store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
