@@ -1,5 +1,7 @@
 import React from 'react';
 import Experience from './Experience';
+import { fetchExperience } from '../actions/action';
+
 
 class ExperienceList extends React.Component {
   constructor(props) {
@@ -7,9 +9,9 @@ class ExperienceList extends React.Component {
   }
 
   componentWillMount() {
-    const { fetchExperienceList } = this.props;
+    const { dispatch } = this.props;
 
-    fetchExperienceList();
+    dispatch(fetchExperience());
   }
 
   render() {

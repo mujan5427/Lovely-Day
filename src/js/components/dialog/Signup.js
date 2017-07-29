@@ -1,6 +1,8 @@
 import React from 'react';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin } from '../../actions/action';
+
 
 class Signup extends React.Component {
   constructor(props) {
@@ -15,15 +17,15 @@ class Signup extends React.Component {
   }
 
   toggleDialogLogin() {
-    const { toggleDialogLogin } = this.props;
+    const { dispatch } = this.props;
 
-    toggleDialogLogin();
+    dispatch(toggleDisplayDialogLogin());
   }
 
   toggleDialogSignup() {
-    const { toggleDialogSignup } = this.props;
+    const { dispatch } = this.props;
 
-    toggleDialogSignup();
+    dispatch(toggleDisplayDialogSignup());
   }
 
   render() {

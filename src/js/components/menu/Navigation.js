@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { toggleDisplayMenuNavigation } from '../../actions/action';
+
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -9,23 +11,23 @@ class Navigation extends React.Component {
   }
 
   hiddenMenu(event) {
-    const { toggleMenuNavigation } = this.props;
+    const { dispatch } = this.props;
 
     if (event.target.hasAttribute('data-can-be-triggered-element')) {
-      toggleMenuNavigation();
+      dispatch(toggleDisplayMenuNavigation());
     }
   }
 
   render() {
     const { displayMenuNavigation } = this.props.displayMenu;
-    const { toggleMenuNavigation } = this.props;
 
     return (
       <div>
         <div
           className='menu-box-background'
           style={ displayMenuNavigation ? {display: 'block'} : null }
-          onClick={ toggleMenuNavigation }
+          onClick={ this.hiddenMenu }
+          data-can-be-triggered-element
         ></div>
 
         <div className='menu-box' style={ displayMenuNavigation ? {left: '0'} : null }>

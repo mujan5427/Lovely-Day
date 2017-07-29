@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, logout, toggleDisplayMenuMain, toggleDisplayMenuNavigation } from '../../actions/action';
+
 
 class Header extends React.Component {
   constructor(props) {
@@ -27,33 +29,33 @@ class Header extends React.Component {
   }
 
   logout() {
-    const { logout } = this.props;
+    const { dispatch } = this.props;
 
-    logout();
+    dispatch(logout());
   }
 
   toggleDialogLogin() {
-    const { toggleDialogLogin } = this.props;
+    const { dispatch } = this.props;
 
-    toggleDialogLogin();
+    dispatch(toggleDisplayDialogLogin());
   }
 
   toggleDialogSignup() {
-    const { toggleDialogSignup } = this.props;
+    const { dispatch } = this.props;
 
-    toggleDialogSignup();
+    dispatch(toggleDisplayDialogSignup());
   }
 
   toggleMenuMain() {
-    const { toggleMenuMain } = this.props;
+    const { dispatch } = this.props;
 
-    toggleMenuMain();
+    dispatch(toggleDisplayMenuMain());
   }
 
   toggleMenuNavigation() {
-    const { toggleMenuNavigation } = this.props;
+    const { dispatch } = this.props;
 
-    toggleMenuNavigation();
+    dispatch(toggleDisplayMenuNavigation());
   }
 
   render() {

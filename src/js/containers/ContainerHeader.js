@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, logout, toggleDisplayMenuMain, toggleDisplayMenuNavigation } from '../actions/action';
 import Header from '../components/layout/Header';
 
 
@@ -11,29 +10,8 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleDialogSignup: () => {
-      dispatch(toggleDisplayDialogSignup())
-    },
-    toggleDialogLogin: () => {
-      dispatch(toggleDisplayDialogLogin())
-    },
-    logout: () => {
-      dispatch(logout())
-    },
-    toggleMenuMain: () => {
-      dispatch(toggleDisplayMenuMain())
-    },
-    toggleMenuNavigation: () => {
-      dispatch(toggleDisplayMenuNavigation())
-    }
-  };
-}
-
 const ContainerHeader = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(Header);
 
 export default ContainerHeader;

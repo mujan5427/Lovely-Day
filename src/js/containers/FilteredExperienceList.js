@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { fetchExperience } from '../actions/action';
 import ExperienceList from '../components/ExperienceList';
 
 
@@ -20,17 +19,8 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchExperienceList: () => {
-      dispatch(fetchExperience())
-    }
-  };
-}
-
 const FilteredExperienceList = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(ExperienceList);
 
 export default FilteredExperienceList;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, logout, toggleDisplayMenuMain } from '../../actions/action';
+
 
 class Main extends React.Component {
   constructor(props) {
@@ -12,29 +14,29 @@ class Main extends React.Component {
   }
 
   hiddenMenu(event) {
-    const { toggleMenuMain } = this.props;
+    const { dispatch } = this.props;
 
     if (event.target.hasAttribute('data-can-be-triggered-element')) {
-      toggleMenuMain();
+      dispatch(toggleDisplayMenuMain());
     }
   }
 
   logout(event) {
-    const { logout } = this.props;
+    const { dispatch } = this.props;
 
-    logout();
+    dispatch(logout());
   }
 
   toggleDialogLogin() {
-    const { toggleDialogLogin } = this.props;
+    const { dispatch } = this.props;
 
-    toggleDialogLogin();
+    dispatch(toggleDisplayDialogLogin());
   }
 
   toggleDialogSignup() {
-    const { toggleDialogSignup } = this.props;
+    const { dispatch } = this.props;
 
-    toggleDialogSignup();
+    dispatch(toggleDisplayDialogSignup());
   }
 
   render() {

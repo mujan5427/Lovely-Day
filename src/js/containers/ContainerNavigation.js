@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { toggleDisplayMenuNavigation } from '../actions/action';
 import Navigation from '../components/menu/Navigation';
 
 
@@ -9,17 +8,8 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleMenuNavigation: () => {
-      dispatch(toggleDisplayMenuNavigation())
-    }
-  };
-}
-
 const ContainerNavigation = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(Navigation);
 
 export default ContainerNavigation;

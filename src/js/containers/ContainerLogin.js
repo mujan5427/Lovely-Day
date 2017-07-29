@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin } from '../actions/action';
 import Login from '../components/dialog/Login';
 
 
@@ -9,20 +8,8 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleDialogSignup: () => {
-      dispatch(toggleDisplayDialogSignup())
-    },
-    toggleDialogLogin: () => {
-      dispatch(toggleDisplayDialogLogin())
-    }
-  };
-}
-
 const ContainerLogin = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(Login);
 
 export default ContainerLogin;
