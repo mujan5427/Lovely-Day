@@ -189,13 +189,13 @@ exports.getExperienceListByType = function() {
         var responseData = {
           status: 'ok',
           items: {
-            outdoor: rows[0],
-            summer_camp: rows[1],
-            baking: rows[2],
-            lover: rows[3],
-            group: rows[4],
-            play_with_child: rows[5],
-            hand_made: rows[6]
+            outdoor: rows[0].map(row => Object.assign({}, row, {images: row.images.split(',')})),
+            summer_camp: rows[1].map(row => Object.assign({}, row, {images: row.images.split(',')})),
+            baking: rows[2].map(row => Object.assign({}, row, {images: row.images.split(',')})),
+            lover: rows[3].map(row => Object.assign({}, row, {images: row.images.split(',')})),
+            group: rows[4].map(row => Object.assign({}, row, {images: row.images.split(',')})),
+            play_with_child: rows[5].map(row => Object.assign({}, row, {images: row.images.split(',')})),
+            hand_made: rows[6].map(row => Object.assign({}, row, {images: row.images.split(',')}))
           }
         };
 
