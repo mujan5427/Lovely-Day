@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import { setCookie } from '../helpers/cookie';
 
 export const LOGGEDIN                         = 'LOGGEDIN';
 export const LOGGEDOUT                        = 'LOGGEDOUT';
@@ -10,8 +11,8 @@ export const REQUEST_BEGINNING                = 'REQUEST_BEGINNING';
 export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
 export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
 
-const apiServerUrl = 'localhost:3000';
-const apiVersion   = '1.0';
+const apiServerUrl         = 'localhost:3000';
+const apiVersion           = '1.0';
 
 
 /* * * * * * * * * * * * *
@@ -127,3 +128,34 @@ function getExperienceList(group) {
     .then(responseData => dispatch(requestSuccess(group, responseData)));
   }
 }
+
+export function getToken(requestData) {
+  return dispatch => {
+    const email     = requestData.email;
+    const password  = requestData.password;
+    const apiPath   = `http://${apiServerUrl}/api/${apiVersion}/token?email=${email}&password=${password}`;
+
+    // You can dispatch Progress Bar at this line. If you needed
+
+    fetch(apiPath)
+    .then(responseData => {
+      if (responseData.status === 200) {
+        return responseData.json();
+
+      } else {
+        throw {message: 'API Error'};
+      }
+
+    })
+    .then(responseData => {
+      var memberInfo = responseData;
+      delete memberInfo.status;
+
+      setCookie(memberInfo);
+      dispatch(toggleDisplayDialogLogin());
+      dispatch(login());
+      // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
+    })
+    .catch(err => console.log(`Error : ${err}`));
+  }
+};
