@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, logout, toggleDisplayMenuMain } from '../../actions/action';
+import { deleteCookie } from '../../helpers/cookie';
+import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain } from '../../actions/action';
 
 
 class Main extends React.Component {
@@ -24,7 +25,8 @@ class Main extends React.Component {
   logout(event) {
     const { dispatch } = this.props;
 
-    dispatch(logout());
+    deleteCookie();
+    dispatch(toggleHasLoggedIn());
   }
 
   toggleDialogLogin() {
