@@ -8,7 +8,7 @@ export function setCookie(memberInfo) {
   expiratioDate = currentDate.toUTCString();
 
   for(property in memberInfo) {
-    document.cookie = `${property}=${memberInfo[property]};expires=${expiratioDate}`;
+    document.cookie = `${property}=${memberInfo[property]};expires=${expiratioDate};path=/`;
   }
 };
 
