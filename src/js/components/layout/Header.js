@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, logout, toggleDisplayMenuMain, toggleDisplayMenuNavigation } from '../../actions/action';
+import { getCookie, deleteCookie, verifyCookie } from '../../helpers/cookie';
+import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain, toggleDisplayMenuNavigation } from '../../actions/action';
 
 
 class Header extends React.Component {
@@ -14,6 +15,14 @@ class Header extends React.Component {
     this.toggleDialogSignup   = this.toggleDialogSignup.bind(this);
     this.toggleMenuMain       = this.toggleMenuMain.bind(this);
     this.toggleMenuNavigation = this.toggleMenuNavigation.bind(this);
+  }
+
+  componentWillMount() {
+    const { dispatch } = this.props;
+
+    if (verifyCookie()) {
+        dispatch(toggleHasLoggedIn());
+    }
   }
 
   hiddenMenu(event) {
@@ -31,7 +40,8 @@ class Header extends React.Component {
   logout() {
     const { dispatch } = this.props;
 
-    dispatch(logout());
+    deleteCookie();
+    dispatch(toggleHasLoggedIn());
   }
 
   toggleDialogLogin() {

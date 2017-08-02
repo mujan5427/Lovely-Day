@@ -3,6 +3,7 @@ import { setCookie } from '../helpers/cookie';
 
 export const LOGGEDIN                         = 'LOGGEDIN';
 export const LOGGEDOUT                        = 'LOGGEDOUT';
+export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
 export const TOGGLE_DISPLAYDIALOGSIGNUP       = 'TOGGLE_DISPLAYDIALOGSIGNUP';
 export const TOGGLE_DISPLAYMENUMAIN           = 'TOGGLE_DISPLAYMENUMAIN';
@@ -30,6 +31,12 @@ export function login() {
 export function logout() {
   return {
     type: LOGGEDOUT
+  };
+}
+
+export function toggleHasLoggedIn() {
+  return {
+    type: TOGGLE_HASLOGGEDIN
   };
 }
 
@@ -153,7 +160,7 @@ export function getToken(requestData) {
 
       setCookie(memberInfo);
       dispatch(toggleDisplayDialogLogin());
-      dispatch(login());
+      dispatch(toggleHasLoggedIn());
       // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
     })
     .catch(err => console.log(`Error : ${err}`));
