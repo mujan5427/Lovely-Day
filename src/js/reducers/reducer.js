@@ -4,11 +4,8 @@ import { FETCH_PAGE_INDEX_EXPERIENCE } from '../actions/action';
 
 function hasLoggedIn(state = false, action) {
   switch(action.type) {
-    case 'LOGGEDIN':
-      return true;
-
-    case 'LOGGEDOUT':
-      return false;
+    case 'TOGGLE_HASLOGGEDIN':
+      return !state;
 
     default:
       return state;

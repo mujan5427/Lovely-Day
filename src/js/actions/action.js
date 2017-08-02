@@ -1,8 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { setCookie } from '../helpers/cookie';
 
-export const LOGGEDIN                         = 'LOGGEDIN';
-export const LOGGEDOUT                        = 'LOGGEDOUT';
 export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
 export const TOGGLE_DISPLAYDIALOGSIGNUP       = 'TOGGLE_DISPLAYDIALOGSIGNUP';
@@ -21,18 +19,6 @@ const apiVersion           = '1.0';
  *    Action Creators    *
  *                       *
  * * * * * * * * * * * * */
-
-export function login() {
-  return {
-    type: LOGGEDIN
-  };
-}
-
-export function logout() {
-  return {
-    type: LOGGEDOUT
-  };
-}
 
 export function toggleHasLoggedIn() {
   return {
