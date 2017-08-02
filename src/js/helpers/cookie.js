@@ -40,3 +40,16 @@ export function deleteCookie() {
     document.cookie = `${property}=;expires=${expiratioDate};path=/`;
   }
 };
+
+export function verifyCookie() {
+  const cookieObject = getCookie();
+
+  if (cookieObject.hasOwnProperty('member_id') && !isEmpty(cookieObject.member_id) &&
+      cookieObject.hasOwnProperty('token') && !isEmpty(cookieObject.token)) {
+      return true;
+
+  } else {
+    return false;
+
+  }
+};
