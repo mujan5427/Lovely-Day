@@ -14,6 +14,7 @@ const getFilteredExperienceList = (entityExperience, seletedItem) => {
 
 function mapStateToProps(state) {
   return {
+    needUpdate: !isEmpty(state.pageIndex) ? state.pageIndex.experienceList.needUpdate : false,
     experiences: !isEmpty(state.entities) && !isEmpty(state.pageIndex) ? getFilteredExperienceList(state.entities.experiences, state.pageIndex.experienceList.items) :
     {}
   };

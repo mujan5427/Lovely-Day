@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { setCookie } from '../helpers/cookie';
+import { setCookie, getCookie } from '../helpers/cookie';
 
 export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
@@ -8,10 +8,11 @@ export const TOGGLE_DISPLAYMENUMAIN           = 'TOGGLE_DISPLAYMENUMAIN';
 export const TOGGLE_DISPLAYMENUNAVIGATION     = 'TOGGLE_DISPLAYMENUNAVIGATION';
 export const REQUEST_BEGINNING                = 'REQUEST_BEGINNING';
 export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
+export const REQUEST_UPDATE                   = 'REQUEST_UPDATE';
 export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
 
-const apiServerUrl         = 'localhost:3000';
-const apiVersion           = '1.0';
+const apiServerUrl = 'localhost:3000';
+const apiVersion   = '1.0';
 
 
 /* * * * * * * * * * * * *
@@ -65,6 +66,13 @@ function requestSuccess(group, responseData) {
   };
 }
 
+function requestUpdate(group) {
+  return {
+    type: REQUEST_UPDATE,
+    group
+  };
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -98,17 +106,26 @@ function shouldFetchIfNeeded(group, state) {
     return true;
   } else if (groupState.isFetching) {
     return false;
+  } else {
+    return groupState.needUpdate;
   }
 }
 
 // Logic of invoke API actually without Header、Input Data
 function getExperienceList(group) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(requestBeginning(group));
 
     const apiPath = `http://${apiServerUrl}/api/${apiVersion}/experience?item_limit=6&current_page=1&region=none&type=hand_made,outdoor`;
+    const state   = getState();
+    const headers = getCookie();
+    var apiOption = {};
 
-    fetch(apiPath)
+    if (state.hasLoggedIn) {
+      apiOption = {headers: headers};
+    }
+
+    fetch(apiPath, apiOption)
     .then(response => {
       if (response.status === 200) {
         return response.json();
@@ -129,7 +146,6 @@ export function getToken(requestData) {
     const apiPath   = `http://${apiServerUrl}/api/${apiVersion}/token?email=${email}&password=${password}`;
 
     // You can dispatch Progress Bar at this line. If you needed
-
     fetch(apiPath)
     .then(responseData => {
       if (responseData.status === 200) {
@@ -147,8 +163,9 @@ export function getToken(requestData) {
       setCookie(memberInfo);
       dispatch(toggleDisplayDialogLogin());
       dispatch(toggleHasLoggedIn());
+      dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
       // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
     })
-    .catch(err => console.log(`Error : ${err}`));
+    .catch(err => {console.log(`Error : ${err}`)});
   }
 };

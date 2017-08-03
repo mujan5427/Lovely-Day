@@ -14,6 +14,15 @@ class ExperienceList extends React.Component {
     dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
   }
 
+  // 透過這個生命週期階段，判斷「登入狀態」，做相對應的資料更新
+  componentWillUpdate(nextProps) {
+    const { dispatch, needUpdate } = nextProps;
+
+    if (needUpdate) {
+      dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+    }
+  }
+
   render() {
     const { experiences } = this.props;
 

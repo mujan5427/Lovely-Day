@@ -82,9 +82,7 @@ function pageIndexExperienceList(state = {}, action) {
 
       } else {
         return {
-          experienceList: {
-            isFetching: true
-          }
+          experienceList: Object.assign({}, state.experienceList, {isFetching: true, needUpdate: false})
         };
 
       }
@@ -96,6 +94,17 @@ function pageIndexExperienceList(state = {}, action) {
       } else {
         return {
           experienceList: parsePageIndex(action.responseData)
+        };
+
+      }
+
+    case 'REQUEST_UPDATE':
+      if (action.group !== 'GROUP_PAGE_INDEX_EXPERIENCE_LIST') {
+        return state;
+
+      } else {
+        return {
+          experienceList: Object.assign({}, state.experienceList, {needUpdate: true})
         };
 
       }
@@ -117,6 +126,7 @@ function parsePageIndex(responseData) {
 
   return {
     isFetching: false,
+    needUpdate: false,
     lastUpdated: new Date().getTime(),
     items: items.map(item => Number(item.id))
   };
