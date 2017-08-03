@@ -1,11 +1,13 @@
 import React from 'react';
 import Experience from './Experience';
-import { fetchData, GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../actions/action';
+import { fetchData, addFavourite, GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../actions/action';
 
 
 class ExperienceList extends React.Component {
   constructor(props) {
     super(props);
+
+    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
   componentWillMount() {
@@ -23,6 +25,13 @@ class ExperienceList extends React.Component {
     }
   }
 
+  toggleFavorite(experienceId, favorited) {
+    const { dispatch } = this.props;
+
+    // if `favorited` is `true` executes addFavourite，otherwise executes deleteFavourite
+    dispatch(addFavourite(experienceId));
+  }
+
   render() {
     const { experiences } = this.props;
 
@@ -37,6 +46,7 @@ class ExperienceList extends React.Component {
               title={ experience.title }
               price={ experience.price }
               favorited={ experience.favorited }
+              toggleFavorite={ this.toggleFavorite }
             />
           )
         }

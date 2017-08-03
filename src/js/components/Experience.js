@@ -4,6 +4,14 @@ import { Link } from 'react-router-dom';
 class Experience extends React.Component {
   constructor(props) {
     super(props);
+
+    this.clickFavoriteButton = this.clickFavoriteButton.bind(this);
+  }
+
+  clickFavoriteButton(event) {
+    const { id, favorited, toggleFavorite } = this.props;
+
+    toggleFavorite(id, favorited);
   }
 
   render() {
@@ -13,6 +21,7 @@ class Experience extends React.Component {
       <div>
         <a
           className={ favorited ? 'experience-favorite-active' : 'experience-favorite' }
+          onClick={ this.clickFavoriteButton }
         >
           <i className='fa fa-heart-o' aria-hidden='true'></i>
         </a>
