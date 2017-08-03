@@ -11,20 +11,37 @@
     justify-content: flex-start;
   }
 
-  > a {
+  > div {
+    position: relative;
+
     @include mq-medium {
       margin-bottom: 10px;
     }
 
     @include mq-medium-up {
-      width: calc(33.33% - 24px);
       margin-bottom: 30px;
+      width: calc(33.33% - 24px);
     }
 
     &:nth-child(3n+2) {
       @include mq-medium-up {
         margin-left: calc(24px * 3 / 2);
         margin-right: calc(24px * 3 / 2);
+      }
+    }
+
+    > a:first-child {
+      bottom: 0;
+      position: absolute;
+      right: 0;
+
+      @include mq-medium {
+        right: 10px;
+      }
+
+      > i {
+        color: #cccccc;
+        font-size: 1.8em;
       }
     }
   }
@@ -47,23 +64,18 @@
   }
 
   @include mq-medium-up {
-    padding: 0;
     height: 62px;
+    padding: 0;
   }
 }
 
 .experience-description {
-  align-items: center;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-
   @include mq-medium {
-    padding: 15px 10px;
+    padding: 6px 10px;
   }
 
   @include mq-medium-up {
-    padding: 15px 0;
+    padding: 6px 0;
   }
 
   i {
@@ -81,7 +93,7 @@
 
   &:hover {
     > i {
-      color: $official-red;
+      color: $official-red !important;
     }
   }
 }

@@ -10,16 +10,21 @@ class Experience extends React.Component {
     const { id, image, title, price, favorited } = this.props;
 
     return (
-      <Link to={`experiences/${ id }`}>
-        <img className='experience-image' src={ image } />
-        <figcaption className='experience-title'>{ title }</figcaption>
-        <div className='experience-description'>
-          <span>TWD { price.toLocaleString() }</span>
-          <a className={ favorited ? 'experience-favorite-active' : 'experience-favorite' } href>
-            <i className='fa fa-heart-o' aria-hidden='true'></i>
-          </a>
-        </div>
-      </Link>
+      <div>
+        <a
+          className={ favorited ? 'experience-favorite-active' : 'experience-favorite' }
+        >
+          <i className='fa fa-heart-o' aria-hidden='true'></i>
+        </a>
+
+        <Link to={`experiences/${ id }`}>
+          <img className='experience-image' src={ image } />
+          <figcaption className='experience-title'>{ title }</figcaption>
+          <div className='experience-description'>
+            <span>TWD { price.toLocaleString() }</span>
+          </div>
+        </Link>
+      </div>
     );
   }
 }
