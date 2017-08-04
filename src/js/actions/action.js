@@ -139,7 +139,7 @@ function getExperienceList(group) {
   }
 }
 
-export function getToken(requestData) {
+export function login(requestData) {
   return dispatch => {
     const email     = requestData.email;
     const password  = requestData.password;

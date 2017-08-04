@@ -1,7 +1,7 @@
 import React from 'react';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, getToken } from '../../actions/action';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login } from '../../actions/action';
 
 
 class Login extends React.Component {
@@ -15,7 +15,7 @@ class Login extends React.Component {
     this.toggleDialogLogin  = this.toggleDialogLogin.bind(this);
     this.toggleDialogSignup = this.toggleDialogSignup.bind(this);
     this.changeLocalState   = this.changeLocalState.bind(this);
-    this.login              = this.login.bind(this);
+    this.loginButton        = this.loginButton.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -43,10 +43,10 @@ class Login extends React.Component {
     dispatch(toggleDisplayDialogSignup());
   }
 
-  login() {
+  loginButton() {
     const { dispatch } = this.props;
 
-    dispatch(getToken(this.state));
+    dispatch(login(this.state));
   }
 
   changeLocalState(event) {
@@ -120,7 +120,7 @@ class Login extends React.Component {
             <a href className='href-highlight'>忘記密碼?</a>
           </div>
 
-          <a className='button solid solid-theme-pink' onClick={ this.login }>登入</a>
+          <a className='button solid solid-theme-pink' onClick={ this.loginButton }>登入</a>
 
           <hr className='hr' style={ this.hrCSS } />
 
