@@ -213,3 +213,47 @@ export function addFavourite(experienceId) {
     .catch(err => {console.log(`Error : ${err}`)});
   }
 };
+
+export function deleteFavourite(experienceId) {
+  return (dispatch, getState) => {
+    const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/favourite`;
+    const state       = getState();
+    const headers     = getCookie();
+    const requestBody = {
+      experience_id: experienceId
+    };
+    var apiOption     = {
+      method: 'DELETE',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    if (state.hasLoggedIn) {
+      apiOption.headers = Object.assign(apiOption.headers, headers);
+    }
+
+    // You can dispatch Progress Bar at this line. If you needed
+
+    fetch(apiPath, apiOption)
+    .then(responseData => {
+      if (responseData.status === 200) {
+        return responseData.json();
+
+      } else {
+        throw {message: 'API Error'};
+      }
+
+    })
+    .then(responseData => {
+      if (responseData.status === 'ok') {
+        dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+      } else {
+        throw {message: 'API Error'};
+      }
+
+    })
+    .catch(err => {console.log(`Error : ${err}`)});
+  }
+};
