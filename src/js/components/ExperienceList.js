@@ -1,6 +1,6 @@
 import React from 'react';
 import Experience from './Experience';
-import { fetchData, addFavourite, GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../actions/action';
+import { fetchData, addFavourite, deleteFavourite, GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../actions/action';
 
 
 class ExperienceList extends React.Component {
@@ -26,10 +26,22 @@ class ExperienceList extends React.Component {
   }
 
   toggleFavorite(experienceId, favorited) {
-    const { dispatch } = this.props;
+    const { dispatch, hasLoggedIn } = this.props;
 
-    // if `favorited` is `true` executes addFavourite，otherwise executes deleteFavourite
-    dispatch(addFavourite(experienceId));
+    if (!hasLoggedIn) {
+
+      // This can be replace by using Dialog Message component
+      console.log(`此操作需要先登入帳號 !`);
+
+    } else {
+
+      // If `favorited` is `true` executes deleteFavourite，otherwise executes addFavourite
+      if (favorited) {
+        dispatch(deleteFavourite(experienceId));
+      } else {
+        dispatch(addFavourite(experienceId));
+      }
+    }
   }
 
   render() {
