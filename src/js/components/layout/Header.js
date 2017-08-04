@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCookie, deleteCookie, verifyCookie } from '../../helpers/cookie';
-import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain, toggleDisplayMenuNavigation } from '../../actions/action';
+import { getCookie, verifyCookie } from '../../helpers/cookie';
+import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain, toggleDisplayMenuNavigation, logout } from '../../actions/action';
 
 
 class Header extends React.Component {
@@ -10,7 +10,7 @@ class Header extends React.Component {
 
     this.hiddenMenu           = this.hiddenMenu.bind(this);
     this.removeStyleAttribute = this.removeStyleAttribute.bind(this);
-    this.logout               = this.logout.bind(this);
+    this.logoutButton         = this.logoutButton.bind(this);
     this.toggleDialogLogin    = this.toggleDialogLogin.bind(this)
     this.toggleDialogSignup   = this.toggleDialogSignup.bind(this);
     this.toggleMenuMain       = this.toggleMenuMain.bind(this);
@@ -37,11 +37,10 @@ class Header extends React.Component {
     event.currentTarget.style.display = null;
   }
 
-  logout() {
+  logoutButton() {
     const { dispatch } = this.props;
 
-    deleteCookie();
-    dispatch(toggleHasLoggedIn());
+    dispatch(logout());
   }
 
   toggleDialogLogin() {
@@ -186,7 +185,7 @@ class Header extends React.Component {
                   <Link to='/profile' data-can-be-triggered-element>個人資料</Link>
                   <a>訊息</a>
                   <a>心願單</a>
-                  <a onClick={ this.logout }>登出</a>
+                  <a onClick={ this.logoutButton }>登出</a>
                 </nav>
               </div>
             }

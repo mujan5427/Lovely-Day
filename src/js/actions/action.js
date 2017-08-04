@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { setCookie, getCookie } from '../helpers/cookie';
+import { setCookie, getCookie, deleteCookie } from '../helpers/cookie';
 
 export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
@@ -167,6 +167,14 @@ export function getToken(requestData) {
       // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
     })
     .catch(err => {console.log(`Error : ${err}`)});
+  }
+};
+
+export function logout() {
+  return dispatch => {
+    deleteCookie();
+    dispatch(toggleHasLoggedIn());
+    dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
   }
 };
 

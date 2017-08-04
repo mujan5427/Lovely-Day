@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { deleteCookie } from '../../helpers/cookie';
-import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain } from '../../actions/action';
+import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain, logout } from '../../actions/action';
 
 
 class Main extends React.Component {
@@ -9,7 +9,7 @@ class Main extends React.Component {
     super(props);
 
     this.hiddenMenu         = this.hiddenMenu.bind(this);
-    this.logout             = this.logout.bind(this);
+    this.logoutButton       = this.logoutButton.bind(this);
     this.toggleDialogSignup = this.toggleDialogSignup.bind(this);
     this.toggleDialogLogin  = this.toggleDialogLogin.bind(this);
   }
@@ -22,11 +22,10 @@ class Main extends React.Component {
     }
   }
 
-  logout(event) {
+  logoutButton(event) {
     const { dispatch } = this.props;
 
-    deleteCookie();
-    dispatch(toggleHasLoggedIn());
+    dispatch(logout());
   }
 
   toggleDialogLogin() {
@@ -72,7 +71,7 @@ class Main extends React.Component {
 
             <section className='menu-list menu-item-theme-main'>
               <a>幫助</a>
-              <a onClick={ this.logout } data-can-be-triggered-element>登出</a>
+              <a onClick={ this.logoutButton } data-can-be-triggered-element>登出</a>
             </section>
           </div>
         }
