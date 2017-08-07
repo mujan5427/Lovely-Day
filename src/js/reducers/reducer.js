@@ -62,7 +62,7 @@ function entityExperiences(state = {}, action) {
       switch(action.group) {
         case 'GROUP_PAGE_INDEX_EXPERIENCE_LIST':
           return {
-            experiences: parseExperience(state, action.responseData)
+            experiences: parseExperience(state, action.entity)
           };
 
         default:
@@ -93,7 +93,7 @@ function pageIndexExperienceList(state = {}, action) {
 
       } else {
         return {
-          experienceList: parsePageIndex(action.responseData)
+          experienceList: parsePageIndex(action.index)
         };
 
       }
@@ -117,29 +117,20 @@ function pageIndexExperienceList(state = {}, action) {
 
 /* * * * * * * * * * * * *
  *                       *
- * Analysis API Response *
+ *       Parse Data      *
  *                       *
  * * * * * * * * * * * * */
 
-function parsePageIndex(responseData) {
-  const items = responseData.item;
-
+function parsePageIndex(index) {
   return {
     isFetching: false,
     needUpdate: false,
-    lastUpdated: new Date().getTime(),
-    items: items.map(item => Number(item.id))
+    items: index
   };
 }
 
-function parseExperience(originalState, responseData) {
-  const items = responseData.item;
-  var experienceList = {};
-
-  items.map(item => Object.assign(experienceList, {[item.id]: item}));
-  experienceList = Object.assign(originalState, experienceList);
-
-  return experienceList;
+function parseExperience(originalState, entity) {
+  return Object.assign(originalState, entity);
 }
 
 

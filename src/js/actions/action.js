@@ -59,11 +59,22 @@ function requestBeginning(group) {
 }
 
 function requestSuccess(group, responseData) {
-  return {
-    type: REQUEST_SUCCESS,
-    group,
-    responseData
-  };
+  const items = responseData.item;
+
+  switch(group) {
+    case GROUP_PAGE_INDEX_EXPERIENCE_LIST:
+      var entity = {};
+
+      items.map(item => Object.assign(entity, {[item.id]: item}))
+
+      return {
+        type: REQUEST_SUCCESS,
+        group,
+        index: items.map(item => Number(item.id)),
+        entity: entity
+      };
+  }
+
 }
 
 function requestUpdate(group) {
