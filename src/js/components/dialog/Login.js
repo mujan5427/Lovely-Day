@@ -1,4 +1,6 @@
 import React from 'react';
+import { validator, EMAIL, PASSWORD } from '../../helpers/verification';
+import { changeFormState } from '../../helpers/localState';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
 import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login } from '../../actions/action';
@@ -12,10 +14,13 @@ class Login extends React.Component {
       margin: '30px 0'
     };
 
-    this.toggleDialogLogin  = this.toggleDialogLogin.bind(this);
-    this.toggleDialogSignup = this.toggleDialogSignup.bind(this);
-    this.changeLocalState   = this.changeLocalState.bind(this);
-    this.loginButton        = this.loginButton.bind(this);
+    this.toggleDialogLogin       = this.toggleDialogLogin.bind(this);
+    this.toggleDialogSignup      = this.toggleDialogSignup.bind(this);
+    this.formElementEventHandler = this.formElementEventHandler.bind(this);
+    this.loginButton             = this.loginButton.bind(this);
+    this.emailBlurHandler        = this.emailBlurHandler.bind(this);
+    this.passwordBlurHandler     = this.passwordBlurHandler.bind(this);
+    this.changeFormState         = changeFormState.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -25,9 +30,19 @@ class Login extends React.Component {
      * * * * * * * * * * * * */
 
     this.state = {
-      email      : '',
-      password   : '',
-      rememberMe : false
+      formData: {
+        email      : {
+          value: '',
+          isVerified: false
+        },
+        password   : {
+          value: '',
+          isVerified: false
+        },
+        rememberMe : {
+          value: false
+        }
+      }
     };
   }
 
@@ -44,12 +59,21 @@ class Login extends React.Component {
   }
 
   loginButton() {
-    const { dispatch } = this.props;
+    const { dispatch }        = this.props;
+    const { email, password } = this.state.formData;
+    var requestData           = {};
 
-    dispatch(login(this.state));
+    if (email.isVerified && password.isVerified) {
+      requestData = {
+        email: this.state.formData.email.value,
+        password: this.state.formData.password.value
+      };
+
+      dispatch(login(requestData));
+    }
   }
 
-  changeLocalState(event) {
+  formElementEventHandler(event) {
     const target      = event.target;
     const elementName =
     isEmpty(target.getAttribute('data-element-name')) ? false : target.getAttribute('data-element-name');
@@ -58,15 +82,15 @@ class Login extends React.Component {
     if (elementName) {
       switch(elementName) {
         case 'email':
-          state = Object.assign({}, this.state, {email: target.value});
+          state  = this.changeFormState('email', 'value', target.value);
           break;
 
         case 'password':
-          state = Object.assign({}, this.state, {password: target.value});
+          state  = this.changeFormState('password', 'value', target.value);
           break;
 
         case 'rememberMe':
-          state = Object.assign({}, this.state, {rememberMe: !this.state.rememberMe});
+          state  = this.changeFormState('rememberMe', 'value', !this.state.formData.rememberMe.value);
           break;
 
         default:
@@ -75,6 +99,22 @@ class Login extends React.Component {
 
       this.setState(state);
     }
+  }
+
+  emailBlurHandler(event) {
+    const target = event.target;
+    const value  = target.value;
+    const state  = this.changeFormState('email', 'isVerified', validator(EMAIL, value));
+
+    this.setState(state);
+  }
+
+  passwordBlurHandler(event) {
+    const target = event.target;
+    const value  = target.value;
+    const state  = this.changeFormState('password', 'isVerified', validator(PASSWORD, value));
+
+    this.setState(state);
   }
 
   render() {
@@ -89,8 +129,8 @@ class Login extends React.Component {
         {/* Content */}
         <div
           className='dialog-content'
-          onChange={ this.changeLocalState }
-          onClick={ this.changeLocalState }
+          onChange={ this.formElementEventHandler }
+          onClick={ this.formElementEventHandler }
         >
           <div className='input-box icon-right form-component-theme-gray'>
             <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
@@ -98,7 +138,8 @@ class Login extends React.Component {
               data-element-name='email'
               type='email'
               placeholder='電子郵件'
-              value={ this.state.email }
+              value={ this.state.formData.email.value }
+              onBlur={ this.emailBlurHandler }
             />
           </div>
 
@@ -108,13 +149,14 @@ class Login extends React.Component {
               data-element-name='password'
               type='password'
               placeholder='密碼'
-              value={ this.state.password }
+              value={ this.state.formData.password.value }
+              onBlur={ this.passwordBlurHandler }
             />
           </div>
 
           <div className='space-between'>
             <div className='checkbox form-component-theme-gray'>
-              <input id='rememberme' type='checkbox' checked={ this.state.rememberMe } />
+              <input id='rememberme' type='checkbox' checked={ this.state.formData.rememberMe.value } />
               <label htmlFor='rememberme' data-element-name='rememberMe'>記住我</label>
             </div>
             <a href className='href-highlight'>忘記密碼?</a>
