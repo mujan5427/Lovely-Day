@@ -98,6 +98,8 @@ class Login extends React.Component {
       } else {
 
         // Complete all of validation step
+        // and
+        // dispatch specified API
         requestData = {
           email: this.state.formData.email.value,
           password: this.state.formData.password.value
