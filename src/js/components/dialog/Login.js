@@ -33,11 +33,11 @@ class Login extends React.Component {
       formData: {
         email      : {
           value: '',
-          isVerified: false
+          isVerified: true
         },
         password   : {
           value: '',
-          isVerified: false
+          isVerified: true
         },
         rememberMe : {
           value: false
@@ -119,6 +119,7 @@ class Login extends React.Component {
 
   render() {
     const { displayDialogAccount } = this.props;
+    const { email, password } = this.state.formData;
 
     return (
       <Wrapper displayDialogLogin={ displayDialogAccount.displayDialogLogin }>
@@ -132,7 +133,9 @@ class Login extends React.Component {
           onChange={ this.formElementEventHandler }
           onClick={ this.formElementEventHandler }
         >
-          <div className='input-box icon-right form-component-theme-gray'>
+          <div className={ `input-box icon-right
+            ${!email.isVerified ? 'form-component-theme-orange' : 'form-component-theme-gray'}`}
+          >
             <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
             <input
               data-element-name='email'
@@ -143,7 +146,13 @@ class Login extends React.Component {
             />
           </div>
 
-          <div className='input-box icon-right form-component-theme-gray'>
+          { !email.isVerified &&
+            <div className='form-error-message'>電子郵件格式錯誤</div>
+          }
+
+          <div className={ `input-box icon-right
+            ${!password.isVerified ? 'form-component-theme-orange' : 'form-component-theme-gray'}`}
+          >
             <i className='fa fa-key fa-fw' aria-hidden='true'></i>
             <input
               data-element-name='password'
@@ -153,6 +162,10 @@ class Login extends React.Component {
               onBlur={ this.passwordBlurHandler }
             />
           </div>
+
+          { !password.isVerified &&
+            <div className='form-error-message'>密碼須由英文或數字組成，最少4個字，最多8個字</div>
+          }
 
           <div className='space-between'>
             <div className='checkbox form-component-theme-gray'>

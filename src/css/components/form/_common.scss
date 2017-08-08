@@ -15,3 +15,16 @@
     font-size: 1.3em;
   }
 }
+
+.form-component-theme-orange {
+  background-color: #fff8f6;
+  border: 1px solid #d93900;
+  color: #484848;
+  font-weight: inherit;
+}
+
+.form-error-message {
+  color: #d93900;
+  font-weight: 400;
+  margin-top: -10px;
+}
