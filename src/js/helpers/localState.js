@@ -7,3 +7,15 @@ export function changeFormState(formElementName, propertyName, value) {
 
   return modifiedLocalState;
 };
+
+export function hasErrorMessage(localState) {
+  var property;
+
+  for(property in localState) {
+    if (localState[property].hasOwnProperty('errorMessage') && !isEmpty(localState[property].errorMessage)) {
+      return true;
+    }
+  }
+
+  return false;
+};

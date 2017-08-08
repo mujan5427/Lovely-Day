@@ -1,6 +1,7 @@
 import React from 'react';
-import { validator, EMAIL, PASSWORD } from '../../helpers/verification';
-import { changeFormState } from '../../helpers/localState';
+import { validator } from '../../helpers/verification';
+import { changeFormState, hasErrorMessage } from '../../helpers/localState';
+import errorMessageConfig from '../../errorMessageConfig';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
 import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login } from '../../actions/action';
@@ -18,8 +19,6 @@ class Login extends React.Component {
     this.toggleDialogSignup      = this.toggleDialogSignup.bind(this);
     this.formElementEventHandler = this.formElementEventHandler.bind(this);
     this.loginButton             = this.loginButton.bind(this);
-    this.emailBlurHandler        = this.emailBlurHandler.bind(this);
-    this.passwordBlurHandler     = this.passwordBlurHandler.bind(this);
     this.changeFormState         = changeFormState.bind(this);
 
 
@@ -33,11 +32,15 @@ class Login extends React.Component {
       formData: {
         email      : {
           value: '',
-          isVerified: true
+          isVerified: true,
+          IsRequired: true,
+          errorMessage: ''
         },
         password   : {
           value: '',
-          isVerified: true
+          isVerified: true,
+          IsRequired: true,
+          errorMessage: ''
         },
         rememberMe : {
           value: false
@@ -59,17 +62,49 @@ class Login extends React.Component {
   }
 
   loginButton() {
-    const { dispatch }        = this.props;
-    const { email, password } = this.state.formData;
-    var requestData           = {};
+    const { dispatch } = this.props;
+    const localState   = this.state.formData;
+    var requestData    = {};
+    var property, state, validationValue, errorMessage;
 
-    if (email.isVerified && password.isVerified) {
-      requestData = {
-        email: this.state.formData.email.value,
-        password: this.state.formData.password.value
-      };
+    // Verify required field
+    for(property in localState) {
+      if (localState[property].hasOwnProperty('IsRequired') && localState[property].value === '') {
+        state = this.changeFormState(property, 'errorMessage', errorMessageConfig[3]);
+        state = this.changeFormState(property, 'isVerified', false);
+      }
+    }
 
-      dispatch(login(requestData));
+    if (hasErrorMessage(localState)) {
+      this.setState(state);
+    } else {
+
+      // Verify need to verified field
+      for(property in localState) {
+        if (localState[property].hasOwnProperty('isVerified')) {
+          validationValue = validator(property, localState[property].value);
+
+          if (validationValue !== true) {
+            errorMessage = validationValue;
+
+            state = this.changeFormState(property, 'errorMessage', errorMessage);
+            state = this.changeFormState(property, 'isVerified', false);
+          }
+        }
+      }
+
+      if (hasErrorMessage(localState)) {
+        this.setState(state);
+      } else {
+
+        // Complete all of validation step
+        requestData = {
+          email: this.state.formData.email.value,
+          password: this.state.formData.password.value
+        };
+
+        dispatch(login(requestData));
+      }
     }
   }
 
@@ -83,10 +118,14 @@ class Login extends React.Component {
       switch(elementName) {
         case 'email':
           state  = this.changeFormState('email', 'value', target.value);
+          state  = this.changeFormState('email', 'isVerified', true);
+          state  = this.changeFormState('email', 'errorMessage', '');
           break;
 
         case 'password':
           state  = this.changeFormState('password', 'value', target.value);
+          state  = this.changeFormState('password', 'isVerified', true);
+          state  = this.changeFormState('password', 'errorMessage', '');
           break;
 
         case 'rememberMe':
@@ -99,22 +138,6 @@ class Login extends React.Component {
 
       this.setState(state);
     }
-  }
-
-  emailBlurHandler(event) {
-    const target = event.target;
-    const value  = target.value;
-    const state  = this.changeFormState('email', 'isVerified', validator(EMAIL, value));
-
-    this.setState(state);
-  }
-
-  passwordBlurHandler(event) {
-    const target = event.target;
-    const value  = target.value;
-    const state  = this.changeFormState('password', 'isVerified', validator(PASSWORD, value));
-
-    this.setState(state);
   }
 
   render() {
@@ -142,12 +165,11 @@ class Login extends React.Component {
               type='email'
               placeholder='電子郵件'
               value={ this.state.formData.email.value }
-              onBlur={ this.emailBlurHandler }
             />
           </div>
 
           { !email.isVerified &&
-            <div className='form-error-message'>電子郵件格式錯誤</div>
+            <div className='form-error-message'>{ email.errorMessage }</div>
           }
 
           <div className={ `input-box icon-right
@@ -159,12 +181,11 @@ class Login extends React.Component {
               type='password'
               placeholder='密碼'
               value={ this.state.formData.password.value }
-              onBlur={ this.passwordBlurHandler }
             />
           </div>
 
           { !password.isVerified &&
-            <div className='form-error-message'>密碼須由英文或數字組成，最少4個字，最多8個字</div>
+            <div className='form-error-message'>{ password.errorMessage }</div>
           }
 
           <div className='space-between'>
