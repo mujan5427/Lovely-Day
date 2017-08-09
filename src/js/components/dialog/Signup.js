@@ -66,58 +66,35 @@ class Signup extends React.Component {
 
             <div className='selectbox-for-birthday'>
               <div className='selectbox'>
-                <select className='form-component-theme-gray' value='feb'>
-                  <option value=''>一月</option>
-                  <option value='feb'>二月</option>
-                  <option value=''>三月</option>
-                  <option value=''>四月</option>
-                  <option value=''>五月</option>
-                  <option value=''>六月</option>
-                  <option value=''>七月</option>
-                  <option value=''>八月</option>
-                  <option value=''>九月</option>
-                  <option value=''>十月</option>
-                  <option value=''>十一月</option>
-                  <option value=''>十二月</option>
+                <select className='form-component-theme-gray' value=''>
+                  <option disabled value=''>月</option>
+                  <option value='1'>一月</option>
+                  <option value='2'>二月</option>
+                  <option value='3'>三月</option>
+                  <option value='4'>四月</option>
+                  <option value='5'>五月</option>
+                  <option value='6'>六月</option>
+                  <option value='7'>七月</option>
+                  <option value='8'>八月</option>
+                  <option value='9'>九月</option>
+                  <option value='10'>十月</option>
+                  <option value='11'>十一月</option>
+                  <option value='12'>十二月</option>
                 </select>
               </div>
               <div className='selectbox'>
-                <select className='form-component-theme-gray' value='2'>
-                  <option value=''>1</option>
+                <select className='form-component-theme-gray' value=''>
+                  <option disabled value=''>日</option>
+                  <option value='1'>1</option>
                   <option value='2'>2</option>
-                  <option value=''>3</option>
-                  <option value=''>4</option>
-                  <option value=''>5</option>
-                  <option value=''>6</option>
-                  <option value=''>7</option>
-                  <option value=''>8</option>
-                  <option value=''>9</option>
-                  <option value=''>10</option>
-                  <option value=''>11</option>
-                  <option value=''>12</option>
-                  <option value=''>13</option>
-                  <option value=''>14</option>
-                  <option value=''>15</option>
-                  <option value=''>16</option>
-                  <option value=''>17</option>
-                  <option value=''>18</option>
-                  <option value=''>19</option>
-                  <option value=''>20</option>
-                  <option value=''>21</option>
-                  <option value=''>22</option>
-                  <option value=''>23</option>
-                  <option value=''>24</option>
-                  <option value=''>25</option>
-                  <option value=''>26</option>
-                  <option value=''>27</option>
-                  <option value=''>28</option>
-                  <option value=''>29</option>
-                  <option value=''>30</option>
-                  <option value=''>31</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
                 </select>
               </div>
               <div className='selectbox'>
-                <select className='form-component-theme-gray' value='1989'>
+                <select className='form-component-theme-gray' value=''>
+                  <option disabled value=''>年</option>
                   <option value='1999'>1999</option>
                   <option value='1998'>1998</option>
                   <option value='1997'>1997</option>
@@ -127,7 +104,7 @@ class Signup extends React.Component {
                   <option value='1993'>1993</option>
                   <option value='1992'>1992</option>
                   <option value='1991'>1991</option>
-                  <option value='1990'>1990</option>
+                  {/* <option value='1990'>1990</option>
                   <option value='1989'>1989</option>
                   <option value='1988'>1988</option>
                   <option value='1987'>1987</option>
@@ -200,7 +177,7 @@ class Signup extends React.Component {
                   <option value='1920'>1920</option>
                   <option value='1919'>1919</option>
                   <option value='1918'>1918</option>
-                  <option value='1917'>1917</option>
+                  <option value='1917'>1917</option> */}
                 </select>
               </div>
             </div>
