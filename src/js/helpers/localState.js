@@ -1,18 +1,18 @@
-export function changeFormState(formElementName, propertyName, value) {
-  var localStateBackup, modifiedLocalState;
+export function changeFormState(originalLocalState, formElementName, needToModifiedState) {
+  var localStateBackup;
 
-  localStateBackup = Object.assign({}, this.state);
-  localStateBackup.formData[formElementName][propertyName] = value;
-  modifiedLocalState = Object.assign({}, this.state, localStateBackup);
+  localStateBackup                           = JSON.parse(JSON.stringify(originalLocalState));
+  localStateBackup.formData[formElementName] = Object.assign({}, localStateBackup.formData[formElementName], needToModifiedState);
 
-  return modifiedLocalState;
+  return localStateBackup;
 };
 
 export function hasErrorMessage(localState) {
   var property;
+  var formDataLocalState = localState.formData;
 
-  for(property in localState) {
-    if (localState[property].hasOwnProperty('errorMessage') && !isEmpty(localState[property].errorMessage)) {
+  for(property in formDataLocalState) {
+    if (formDataLocalState[property].hasOwnProperty('errorMessage') && !isEmpty(formDataLocalState[property].errorMessage)) {
       return true;
     }
   }
