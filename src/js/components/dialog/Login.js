@@ -1,10 +1,9 @@
 import React from 'react';
 import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
-import errorMessageConfig from '../../errorMessageConfig';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login } from '../../actions/action';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login } from '../../actions/action';
 
 
 class Login extends React.Component {
