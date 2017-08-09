@@ -1,7 +1,5 @@
 import errorMessageConfig from '../errorMessageConfig';
-
-export const EMAIL    = 'email';
-export const PASSWORD = 'password';
+import { changeFormState, hasErrorMessage } from './localState';
 
 
 export function validator(type, source) {
@@ -12,12 +10,12 @@ export function validator(type, source) {
 
   } else {
     switch(type) {
-      case EMAIL:
+      case 'email':
         patten       = /^\w+((-\w+)|(\.\w+))*\@\w+((\.|-)\w+)*\.+\w+$/g;
         errorMessage = errorMessageConfig[1];
         break;
 
-      case PASSWORD:
+      case 'password':
         patten       = /^[a-z0-9][a-z0-9]{3,7}$/g;
         errorMessage = errorMessageConfig[2];
         break;
@@ -25,4 +23,55 @@ export function validator(type, source) {
 
     return patten.test(source) ? true : errorMessage;
   }
+};
+
+export function verifyRequiredField(localState) {
+  var property, needToModifiedState;
+  var formDataLocalState = localState.formData;
+
+  // Verify required field
+  for(property in formDataLocalState) {
+    if (formDataLocalState[property].hasOwnProperty('isRequired') &&
+        formDataLocalState[property].value === '') {
+      needToModifiedState = {
+        isVerified: false,
+        errorMessage: errorMessageConfig[3]
+      };
+
+      localState = changeFormState(localState, property, needToModifiedState);
+    }
+  }
+
+  return {
+    hasErrorMessage: hasErrorMessage(localState),
+    state: localState
+  };
+};
+
+export function verifyNeedToVerifiedField(localState) {
+  var property, validationValue, errorMessage, needToModifiedState;
+  var formDataLocalState = localState.formData;
+
+  // Verify need to verified field
+  for(property in formDataLocalState) {
+    if (formDataLocalState[property].hasOwnProperty('isVerified')) {
+      validationValue = validator(property, formDataLocalState[property].value);
+
+      if (validationValue !== true) {
+        errorMessage = validationValue;
+
+        needToModifiedState = {
+          isVerified: false,
+          errorMessage: errorMessage
+        };
+
+        localState = changeFormState(localState, property, needToModifiedState);
+      }
+    }
+  }
+
+  return {
+    hasErrorMessage: hasErrorMessage(localState),
+    state: localState
+  };
 };

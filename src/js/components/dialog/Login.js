@@ -1,5 +1,5 @@
 import React from 'react';
-import { validator } from '../../helpers/verification';
+import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
 import errorMessageConfig from '../../errorMessageConfig';
 import Wrapper from './common/Wrapper';
@@ -17,9 +17,9 @@ class Login extends React.Component {
 
     this.toggleDialogLogin       = this.toggleDialogLogin.bind(this);
     this.toggleDialogSignup      = this.toggleDialogSignup.bind(this);
-    this.formElementEventHandler = this.formElementEventHandler.bind(this);
+    this.resetLocalState         = this.resetLocalState.bind(this);
     this.loginButton             = this.loginButton.bind(this);
-    this.changeFormState         = changeFormState.bind(this);
+    this.formElementEventHandler = this.formElementEventHandler.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -33,13 +33,13 @@ class Login extends React.Component {
         email      : {
           value: '',
           isVerified: true,
-          IsRequired: true,
+          isRequired: true,
           errorMessage: ''
         },
         password   : {
           value: '',
           isVerified: true,
-          IsRequired: true,
+          isRequired: true,
           errorMessage: ''
         },
         rememberMe : {
@@ -61,52 +61,62 @@ class Login extends React.Component {
     dispatch(toggleDisplayDialogSignup());
   }
 
-  loginButton() {
-    const { dispatch } = this.props;
-    const localState   = this.state.formData;
-    var requestData    = {};
-    var property, state, validationValue, errorMessage;
-
-    // Verify required field
-    for(property in localState) {
-      if (localState[property].hasOwnProperty('IsRequired') && localState[property].value === '') {
-        state = this.changeFormState(property, 'errorMessage', errorMessageConfig[3]);
-        state = this.changeFormState(property, 'isVerified', false);
-      }
-    }
-
-    if (hasErrorMessage(localState)) {
-      this.setState(state);
-    } else {
-
-      // Verify need to verified field
-      for(property in localState) {
-        if (localState[property].hasOwnProperty('isVerified')) {
-          validationValue = validator(property, localState[property].value);
-
-          if (validationValue !== true) {
-            errorMessage = validationValue;
-
-            state = this.changeFormState(property, 'errorMessage', errorMessage);
-            state = this.changeFormState(property, 'isVerified', false);
-          }
+  resetLocalState() {
+    var state = {
+      formData: {
+        email      : {
+          value: '',
+          isVerified: true,
+          isRequired: true,
+          errorMessage: ''
+        },
+        password   : {
+          value: '',
+          isVerified: true,
+          isRequired: true,
+          errorMessage: ''
+        },
+        rememberMe : {
+          value: false
         }
       }
+    };
 
-      if (hasErrorMessage(localState)) {
-        this.setState(state);
-      } else {
+    this.setState(state);
+  }
 
-        // Complete all of validation step
-        // and
-        // dispatch specified API
-        requestData = {
-          email: this.state.formData.email.value,
-          password: this.state.formData.password.value
-        };
+  loginButton() {
+    const { dispatch }                  = this.props;
+    const validationRequiredField       = verifyRequiredField(this.state);
+    const validationNeedToVerifiedField = verifyNeedToVerifiedField(this.state);
+    var requestData                     = {};
+    var email, password;
 
-        dispatch(login(requestData));
-      }
+    // Verify required field
+    if (validationRequiredField.hasErrorMessage) {
+      this.setState(validationRequiredField.state);
+
+    // Verify need to verified field
+    } else if (validationNeedToVerifiedField.hasErrorMessage) {
+      this.setState(validationNeedToVerifiedField.state);
+
+    } else {
+
+      // Complete all of validation step
+      // and
+      // dispatch specified API
+      email    = this.state.formData.email.value;
+      password = this.state.formData.password.value
+
+      // Reset local state
+      this.resetLocalState();
+
+      requestData = {
+        email: email,
+        password: password
+      };
+
+      dispatch(login(requestData));
     }
   }
 
@@ -114,24 +124,36 @@ class Login extends React.Component {
     const target      = event.target;
     const elementName =
     isEmpty(target.getAttribute('data-element-name')) ? false : target.getAttribute('data-element-name');
-    var state;
+    var state, needToModifiedState;
 
     if (elementName) {
       switch(elementName) {
         case 'email':
-          state  = this.changeFormState('email', 'value', target.value);
-          state  = this.changeFormState('email', 'isVerified', true);
-          state  = this.changeFormState('email', 'errorMessage', '');
+          needToModifiedState = {
+            value: target.value,
+            isVerified: true,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'email', needToModifiedState);
           break;
 
         case 'password':
-          state  = this.changeFormState('password', 'value', target.value);
-          state  = this.changeFormState('password', 'isVerified', true);
-          state  = this.changeFormState('password', 'errorMessage', '');
+          needToModifiedState = {
+            value: target.value,
+            isVerified: true,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'password', needToModifiedState);
           break;
 
         case 'rememberMe':
-          state  = this.changeFormState('rememberMe', 'value', !this.state.formData.rememberMe.value);
+          needToModifiedState = {
+            value: !this.state.formData.rememberMe.value
+          };
+
+          state  = changeFormState(this.state, 'rememberMe', needToModifiedState);
           break;
 
         default:
