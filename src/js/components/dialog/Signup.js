@@ -1,7 +1,9 @@
 import React from 'react';
+import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
+import { changeFormState, hasErrorMessage } from '../../helpers/localState';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin } from '../../actions/action';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin } from '../../actions/action';
 
 
 class Signup extends React.Component {
@@ -12,8 +14,63 @@ class Signup extends React.Component {
       margin: '30px 0'
     };
 
-    this.toggleDialogLogin  = this.toggleDialogLogin.bind(this);
-    this.toggleDialogSignup = this.toggleDialogSignup.bind(this);
+    this.toggleDialogLogin       = this.toggleDialogLogin.bind(this);
+    this.toggleDialogSignup      = this.toggleDialogSignup.bind(this);
+    this.resetLocalState         = this.resetLocalState.bind(this);
+    this.signupButton            = this.signupButton.bind(this);
+    this.formElementEventHandler = this.formElementEventHandler.bind(this);
+
+
+    /* * * * * * * * * * * * *
+     *                       *
+     *      Local State      *
+     *                       *
+     * * * * * * * * * * * * */
+
+    this.state = {
+      formData: {
+        email     : {
+          value: '',
+          isVerified: true,
+          isRequired: true,
+          errorMessage: ''
+        },
+        firstname : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        lastname  : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        password  : {
+          value: '',
+          isVerified: true,
+          isRequired: true,
+          errorMessage: ''
+        },
+        month     : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        day       : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        year      : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        iAgree    : {
+          value: false
+        }
+      }
+    };
   }
 
   toggleDialogLogin() {
@@ -28,8 +85,169 @@ class Signup extends React.Component {
     dispatch(toggleDisplayDialogSignup());
   }
 
+  resetLocalState() {
+    var state = {
+      formData: {
+        email     : {
+          value: '',
+          isVerified: true,
+          isRequired: true,
+          errorMessage: ''
+        },
+        firstname : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        lastname  : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        password  : {
+          value: '',
+          isVerified: true,
+          isRequired: true,
+          errorMessage: ''
+        },
+        month     : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        day       : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        year      : {
+          value: '',
+          isRequired: true,
+          errorMessage: ''
+        },
+        iAgree    : {
+          value: false
+        }
+      }
+    };
+
+    this.setState(state);
+  }
+
+  // Signup Button
+  signupButton() {
+    const { dispatch }                  = this.props;
+    const validationRequiredField       = verifyRequiredField(this.state);
+    const validationNeedToVerifiedField = verifyNeedToVerifiedField(this.state);
+    var requestData                     = {};
+
+    // Verify required field
+    if (validationRequiredField.hasErrorMessage) {
+      this.setState(validationRequiredField.state);
+
+    // Verify need to verified field
+    } else if (validationNeedToVerifiedField.hasErrorMessage) {
+      this.setState(validationNeedToVerifiedField.state);
+
+    } else {
+      // Complete all of validation step
+      // and
+      // dispatch specified API
+    }
+  }
+
+  formElementEventHandler(event) {
+    const target      = event.target;
+    const elementName =
+    isEmpty(target.getAttribute('data-element-name')) ? false : target.getAttribute('data-element-name');
+    var state, needToModifiedState;
+
+    if (elementName) {
+      switch(elementName) {
+        case 'email':
+          needToModifiedState = {
+            value: target.value,
+            isVerified: true,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'email', needToModifiedState);
+          break;
+
+        case 'firstname':
+          needToModifiedState = {
+            value: target.value,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'firstname', needToModifiedState);
+          break;
+
+        case 'lastname':
+          needToModifiedState = {
+            value: target.value,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'lastname', needToModifiedState);
+          break;
+
+        case 'password':
+          needToModifiedState = {
+            value: target.value,
+            isVerified: true,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'password', needToModifiedState);
+          break;
+
+        case 'month':
+          needToModifiedState = {
+            value: target.value,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'month', needToModifiedState);
+          break;
+
+        case 'day':
+          needToModifiedState = {
+            value: target.value,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'day', needToModifiedState);
+          break;
+
+        case 'year':
+          needToModifiedState = {
+            value: target.value,
+            errorMessage: ''
+          };
+
+          state  = changeFormState(this.state, 'year', needToModifiedState);
+          break;
+
+        case 'iAgree':
+          needToModifiedState = {
+            value: !this.state.formData.iAgree.value
+          };
+
+          state  = changeFormState(this.state, 'iAgree', needToModifiedState);
+          break;
+
+        default:
+          break;
+      }
+
+      this.setState(state);
+    }
+  }
+
   render() {
     const { displayDialogAccount } = this.props;
+    const { email, firstname, lastname, password, month, day, year, iAgree } = this.state.formData;
 
     return (
       <Wrapper displayDialogSignup={ displayDialogAccount.displayDialogSignup }>
@@ -38,26 +256,78 @@ class Signup extends React.Component {
         <Header type='TYPE-1' toggleDialogSignup={ this.toggleDialogSignup } />
 
         {/* Content */}
-        <div className='dialog-content'>
-          <div className='input-box icon-right form-component-theme-gray'>
+        <div
+          className='dialog-content'
+          onChange={ this.formElementEventHandler }
+          onClick={ this.formElementEventHandler }
+        >
+          <div className={ `input-box icon-right
+            ${!email.isVerified ? 'form-component-theme-orange' : 'form-component-theme-gray'}`}
+          >
             <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
-            <input type='email' placeholder='電子郵件' />
+            <input
+              data-element-name='email'
+              type='email'
+              placeholder='電子郵件'
+              value={ email.value }
+            />
           </div>
 
-          <div className='input-box icon-right form-component-theme-gray'>
+          { !email.isVerified &&
+            <div className='form-error-message'>{ email.errorMessage }</div>
+          }
+
+          <div className={ `input-box icon-right
+            ${!isEmpty(firstname.errorMessage) ?
+            'form-component-theme-orange' :
+            'form-component-theme-gray'}`}
+          >
             <i className='fa fa-user-o fa-fw' aria-hidden='true'></i>
-            <input type='text' placeholder='名字' />
+            <input
+              data-element-name='firstname'
+              type='text'
+              placeholder='名字'
+              value={ firstname.value }
+            />
           </div>
 
-          <div className='input-box icon-right form-component-theme-gray'>
+          { !isEmpty(firstname.errorMessage) &&
+            <div className='form-error-message'>{ firstname.errorMessage }</div>
+          }
+
+          <div className={ `input-box icon-right
+            ${!isEmpty(lastname.errorMessage) ?
+            'form-component-theme-orange' :
+            'form-component-theme-gray'}`}
+          >
             <i className='fa fa-user-o fa-fw' aria-hidden='true'></i>
-            <input type='text' placeholder='姓氏' />
+            <input
+              data-element-name='lastname'
+              type='text'
+              placeholder='姓氏'
+              value={ lastname.value }
+            />
           </div>
 
-          <div className='input-box icon-right form-component-theme-gray'>
+          { !isEmpty(lastname.errorMessage) &&
+            <div className='form-error-message'>{ lastname.errorMessage }</div>
+          }
+
+          <div className={ `input-box icon-right
+            ${!password.isVerified ? 'form-component-theme-orange' : 'form-component-theme-gray'}`}
+          >
             <i className='fa fa-key fa-fw' aria-hidden='true'></i>
-            <input type='password' placeholder='密碼' />
+            <input
+              data-element-name='password'
+              type='password'
+              placeholder='密碼'
+              value={ password.value }
+            />
           </div>
+
+          { !password.isVerified &&
+            <div className='form-error-message'>{ password.errorMessage }</div>
+          }
 
           {/* Select Box */}
 
@@ -66,7 +336,13 @@ class Signup extends React.Component {
 
             <div className='selectbox-for-birthday'>
               <div className='selectbox'>
-                <select className='form-component-theme-gray' value=''>
+                <select
+                  className={ !isEmpty(month.errorMessage) ?
+                              'form-component-theme-orange' :
+                              'form-component-theme-gray' }
+                  data-element-name='month'
+                  value={ month.value }
+                >
                   <option disabled value=''>月</option>
                   <option value='1'>一月</option>
                   <option value='2'>二月</option>
@@ -82,8 +358,15 @@ class Signup extends React.Component {
                   <option value='12'>十二月</option>
                 </select>
               </div>
+
               <div className='selectbox'>
-                <select className='form-component-theme-gray' value=''>
+                <select
+                  className={ !isEmpty(day.errorMessage) ?
+                              'form-component-theme-orange' :
+                              'form-component-theme-gray' }
+                  data-element-name='day'
+                  value={ day.value }
+                >
                   <option disabled value=''>日</option>
                   <option value='1'>1</option>
                   <option value='2'>2</option>
@@ -92,8 +375,15 @@ class Signup extends React.Component {
                   <option value='5'>5</option>
                 </select>
               </div>
+
               <div className='selectbox'>
-                <select className='form-component-theme-gray' value=''>
+                <select
+                  className={ !isEmpty(year.errorMessage) ?
+                              'form-component-theme-orange' :
+                              'form-component-theme-gray' }
+                  data-element-name='year'
+                  value={ year.value }
+                >
                   <option disabled value=''>年</option>
                   <option value='1999'>1999</option>
                   <option value='1998'>1998</option>
@@ -104,89 +394,22 @@ class Signup extends React.Component {
                   <option value='1993'>1993</option>
                   <option value='1992'>1992</option>
                   <option value='1991'>1991</option>
-                  {/* <option value='1990'>1990</option>
-                  <option value='1989'>1989</option>
-                  <option value='1988'>1988</option>
-                  <option value='1987'>1987</option>
-                  <option value='1986'>1986</option>
-                  <option value='1985'>1985</option>
-                  <option value='1984'>1984</option>
-                  <option value='1983'>1983</option>
-                  <option value='1982'>1982</option>
-                  <option value='1981'>1981</option>
-                  <option value='1980'>1980</option>
-                  <option value='1979'>1979</option>
-                  <option value='1978'>1978</option>
-                  <option value='1977'>1977</option>
-                  <option value='1976'>1976</option>
-                  <option value='1975'>1975</option>
-                  <option value='1974'>1974</option>
-                  <option value='1973'>1973</option>
-                  <option value='1972'>1972</option>
-                  <option value='1971'>1971</option>
-                  <option value='1970'>1970</option>
-                  <option value='1969'>1969</option>
-                  <option value='1968'>1968</option>
-                  <option value='1967'>1967</option>
-                  <option value='1966'>1966</option>
-                  <option value='1965'>1965</option>
-                  <option value='1964'>1964</option>
-                  <option value='1963'>1963</option>
-                  <option value='1962'>1962</option>
-                  <option value='1961'>1961</option>
-                  <option value='1960'>1960</option>
-                  <option value='1959'>1959</option>
-                  <option value='1958'>1958</option>
-                  <option value='1957'>1957</option>
-                  <option value='1956'>1956</option>
-                  <option value='1955'>1955</option>
-                  <option value='1954'>1954</option>
-                  <option value='1953'>1953</option>
-                  <option value='1952'>1952</option>
-                  <option value='1951'>1951</option>
-                  <option value='1950'>1950</option>
-                  <option value='1949'>1949</option>
-                  <option value='1948'>1948</option>
-                  <option value='1947'>1947</option>
-                  <option value='1946'>1946</option>
-                  <option value='1945'>1945</option>
-                  <option value='1944'>1944</option>
-                  <option value='1943'>1943</option>
-                  <option value='1942'>1942</option>
-                  <option value='1941'>1941</option>
-                  <option value='1940'>1940</option>
-                  <option value='1939'>1939</option>
-                  <option value='1938'>1938</option>
-                  <option value='1937'>1937</option>
-                  <option value='1936'>1936</option>
-                  <option value='1935'>1935</option>
-                  <option value='1934'>1934</option>
-                  <option value='1933'>1933</option>
-                  <option value='1932'>1932</option>
-                  <option value='1931'>1931</option>
-                  <option value='1930'>1930</option>
-                  <option value='1929'>1929</option>
-                  <option value='1928'>1928</option>
-                  <option value='1927'>1927</option>
-                  <option value='1926'>1926</option>
-                  <option value='1925'>1925</option>
-                  <option value='1924'>1924</option>
-                  <option value='1923'>1923</option>
-                  <option value='1922'>1922</option>
-                  <option value='1921'>1921</option>
-                  <option value='1920'>1920</option>
-                  <option value='1919'>1919</option>
-                  <option value='1918'>1918</option>
-                  <option value='1917'>1917</option> */}
+                  <option value='1990'>1990</option>
                 </select>
               </div>
             </div>
           </section>
 
+          { (!isEmpty(month.errorMessage) || !isEmpty(day.errorMessage) || !isEmpty(year.errorMessage)) &&
+            <div className='form-error-message'>
+              { month.errorMessage || day.errorMessage || year.errorMessage }
+            </div>
+          }
+
           {/* Check Box */}
           <div className='checkbox form-component-theme-gray'>
-            <input id='i-agree' type='checkbox' />
-            <label htmlFor='i-agree'>
+            <input id='iAgree' type='checkbox' checked={ this.state.formData.iAgree.value } />
+            <label htmlFor='iAgree' data-element-name='iAgree'>
               我同意 Lovely Day 的
               <a className='href-highlight' href>服務條款</a>
               、
@@ -194,7 +417,7 @@ class Signup extends React.Component {
             </label>
           </div>
 
-          <a className='button solid solid-theme-pink'>註冊</a>
+          <a className='button solid solid-theme-pink' onClick={ this.signupButton }>註冊</a>
 
           <hr className='hr' style={ this.hrCSS } />
 
