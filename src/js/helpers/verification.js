@@ -33,8 +33,8 @@ export function verifyRequiredField(localState) {
   for(property in formDataLocalState) {
     if (formDataLocalState[property].hasOwnProperty('isRequired') &&
         formDataLocalState[property].value === '') {
+
       needToModifiedState = {
-        isVerified: false,
         errorMessage: errorMessageConfig[3]
       };
 
@@ -61,7 +61,6 @@ export function verifyNeedToVerifiedField(localState) {
         errorMessage = validationValue;
 
         needToModifiedState = {
-          isVerified: false,
           errorMessage: errorMessage
         };
 

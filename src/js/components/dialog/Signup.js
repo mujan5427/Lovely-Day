@@ -167,7 +167,6 @@ class Signup extends React.Component {
         case 'email':
           needToModifiedState = {
             value: target.value,
-            isVerified: true,
             errorMessage: ''
           };
 
@@ -195,7 +194,6 @@ class Signup extends React.Component {
         case 'password':
           needToModifiedState = {
             value: target.value,
-            isVerified: true,
             errorMessage: ''
           };
 
@@ -262,7 +260,9 @@ class Signup extends React.Component {
           onClick={ this.formElementEventHandler }
         >
           <div className={ `input-box icon-right
-            ${!email.isVerified ? 'form-component-theme-orange' : 'form-component-theme-gray'}`}
+            ${!isEmpty(email.errorMessage) ?
+            'form-component-theme-orange' :
+            'form-component-theme-gray'}`}
           >
             <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
             <input
@@ -273,7 +273,7 @@ class Signup extends React.Component {
             />
           </div>
 
-          { !email.isVerified &&
+          { !isEmpty(email.errorMessage) &&
             <div className='form-error-message'>{ email.errorMessage }</div>
           }
 
@@ -314,7 +314,9 @@ class Signup extends React.Component {
           }
 
           <div className={ `input-box icon-right
-            ${!password.isVerified ? 'form-component-theme-orange' : 'form-component-theme-gray'}`}
+            ${!isEmpty(password.errorMessage) ?
+            'form-component-theme-orange' :
+            'form-component-theme-gray'}`}
           >
             <i className='fa fa-key fa-fw' aria-hidden='true'></i>
             <input
@@ -325,7 +327,7 @@ class Signup extends React.Component {
             />
           </div>
 
-          { !password.isVerified &&
+          { !isEmpty(password.errorMessage) &&
             <div className='form-error-message'>{ password.errorMessage }</div>
           }
 
