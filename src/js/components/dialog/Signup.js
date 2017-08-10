@@ -75,6 +75,23 @@ class Signup extends React.Component {
     };
   }
 
+  /* * * * * * * * * * * * *
+   *                       *
+   *   Lifecycle Methods   *
+   *                       *
+   * * * * * * * * * * * * */
+
+  componentWillUnmount() {
+    this.resetLocalState();
+  }
+
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *    Private Methods    *
+   *                       *
+   * * * * * * * * * * * * */
+
   toggleDialogLogin() {
     const { dispatch } = this.props;
 
@@ -155,13 +172,10 @@ class Signup extends React.Component {
       this.setState(validationNeedToVerifiedField.state);
 
     } else {
+
       // Complete all of validation step
       // and
       // dispatch specified API
-
-      // Reset local state
-      this.resetLocalState();
-
       requestData = {
         email     : email.value,
         firstname : firstname.value,

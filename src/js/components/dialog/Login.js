@@ -48,6 +48,24 @@ class Login extends React.Component {
     };
   }
 
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *   Lifecycle Methods   *
+   *                       *
+   * * * * * * * * * * * * */
+
+  componentWillUnmount() {
+    this.resetLocalState();
+  }
+
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *    Private Methods    *
+   *                       *
+   * * * * * * * * * * * * */
+
   toggleDialogLogin() {
     const { dispatch } = this.props;
 
@@ -106,9 +124,6 @@ class Login extends React.Component {
       // dispatch specified API
       email    = this.state.formData.email.value;
       password = this.state.formData.password.value
-
-      // Reset local state
-      this.resetLocalState();
 
       requestData = {
         email: email,
