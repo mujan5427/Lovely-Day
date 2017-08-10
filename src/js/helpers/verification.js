@@ -54,7 +54,7 @@ export function verifyNeedToVerifiedField(localState) {
 
   // Verify need to verified field
   for(property in formDataLocalState) {
-    if (formDataLocalState[property].hasOwnProperty('isVerified')) {
+    if (formDataLocalState[property].hasOwnProperty('needToVerified')) {
       validationValue = validator(property, formDataLocalState[property].value);
 
       if (validationValue !== true) {

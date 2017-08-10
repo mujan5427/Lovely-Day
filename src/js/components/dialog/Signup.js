@@ -31,7 +31,7 @@ class Signup extends React.Component {
       formData: {
         email     : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },
@@ -47,7 +47,7 @@ class Signup extends React.Component {
         },
         password  : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },
@@ -90,7 +90,7 @@ class Signup extends React.Component {
       formData: {
         email     : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },
@@ -106,7 +106,7 @@ class Signup extends React.Component {
         },
         password  : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },

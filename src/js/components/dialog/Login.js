@@ -31,13 +31,13 @@ class Login extends React.Component {
       formData: {
         email      : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },
         password   : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },
@@ -65,13 +65,13 @@ class Login extends React.Component {
       formData: {
         email      : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },
         password   : {
           value: '',
-          isVerified: true,
+          needToVerified: true,
           isRequired: true,
           errorMessage: ''
         },
