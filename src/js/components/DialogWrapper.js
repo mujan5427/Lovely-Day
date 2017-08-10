@@ -6,7 +6,7 @@ import ContainerSignup from '../containers/ContainerSignup';
 /* Why we need this wrapper component ?
  *
  * Because, we want to use `componentWillUnmount` of life cycle method in some component itself.
- * But, the only way can trigger the method is removed it from DOM.
+ * But, the only way can trigger the method is removed the component from DOM.
  *
  *
  * Notes: Return `null` or `false` can't trigger the method in some render function of component.
