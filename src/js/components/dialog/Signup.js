@@ -67,7 +67,9 @@ class Signup extends React.Component {
           errorMessage: ''
         },
         iAgree    : {
-          value: false
+          value: false,
+          isRequired: true,
+          errorMessage: ''
         }
       }
     };
@@ -126,7 +128,9 @@ class Signup extends React.Component {
           errorMessage: ''
         },
         iAgree    : {
-          value: false
+          value: false,
+          isRequired: true,
+          errorMessage: ''
         }
       }
     };
@@ -229,7 +233,8 @@ class Signup extends React.Component {
 
         case 'iAgree':
           needToModifiedState = {
-            value: !this.state.formData.iAgree.value
+            value: !this.state.formData.iAgree.value,
+            errorMessage: ''
           };
 
           state  = changeFormState(this.state, 'iAgree', needToModifiedState);
@@ -409,8 +414,12 @@ class Signup extends React.Component {
           }
 
           {/* Check Box */}
-          <div className='checkbox form-component-theme-gray'>
-            <input id='iAgree' type='checkbox' checked={ this.state.formData.iAgree.value } />
+          <div className={ `checkbox
+            ${!isEmpty(iAgree.errorMessage) ?
+            'form-component-theme-orange' :
+            'form-component-theme-gray'}`}
+          >
+            <input id='iAgree' type='checkbox' checked={ iAgree.value } />
             <label htmlFor='iAgree' data-element-name='iAgree'>
               我同意 Lovely Day 的
               <a className='href-highlight' href>服務條款</a>
@@ -418,6 +427,10 @@ class Signup extends React.Component {
               <a className='href-highlight' href>隱私政策</a>
             </label>
           </div>
+
+          { !isEmpty(iAgree.errorMessage) &&
+            <div className='form-error-message'>{ iAgree.errorMessage }</div>
+          }
 
           <a className='button solid solid-theme-pink' onClick={ this.signupButton }>註冊</a>
 
