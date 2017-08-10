@@ -1,7 +1,7 @@
 import React from 'react';
 import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin } from '../../actions/action';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, signup } from '../../actions/action';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
 
@@ -141,6 +141,7 @@ class Signup extends React.Component {
   // Signup Button
   signupButton() {
     const { dispatch }                  = this.props;
+    const { email, firstname, lastname, password, month, day, year } = this.state.formData;
     const validationRequiredField       = verifyRequiredField(this.state);
     const validationNeedToVerifiedField = verifyNeedToVerifiedField(this.state);
     var requestData                     = {};
@@ -157,6 +158,19 @@ class Signup extends React.Component {
       // Complete all of validation step
       // and
       // dispatch specified API
+
+      // Reset local state
+      this.resetLocalState();
+
+      requestData = {
+        email     : email.value,
+        firstname : firstname.value,
+        lastname  : lastname.value,
+        password  : password.value,
+        birthday  : `${year.value}-${month.value}-${day.value}`
+      };
+
+      dispatch(signup(requestData));
     }
   }
 

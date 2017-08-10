@@ -276,3 +276,48 @@ export function deleteFavourite(experienceId) {
     .catch(err => {console.log(`Error : ${err}`)});
   }
 };
+
+export function signup(requestData) {
+  return dispatch => {
+    const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/signup`;
+    const requestBody = {
+      email      : requestData.email,
+      first_name : requestData.firstname,
+      last_name  : requestData.lastname,
+      password   : requestData.password,
+      birthday   : requestData.birthday
+    };
+
+    var apiOption     = {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    // You can dispatch Progress Bar at this line. If you need
+
+    fetch(apiPath, apiOption)
+    .then(responseData => {
+      if (responseData.status === 200) {
+        return responseData.json();
+
+      } else {
+        throw {message: 'API Error'};
+      }
+
+    })
+    .then(responseData => {
+      dispatch(toggleDisplayDialogSignup());
+
+      if (responseData.status === 'ok') {
+        // You can dispatch Welcome Dialog at this line. If you need
+      } else {
+        throw {message: 'API Error'};
+      }
+
+    })
+    .catch(err => {console.log(`Error : ${err}`)});
+  }
+};
