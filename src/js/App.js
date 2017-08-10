@@ -21,12 +21,11 @@ import Footer from './components/layout/Footer';
 import ContainerMain from './containers/ContainerMain';
 import ContainerNavigation from './containers/ContainerNavigation';
 import DialogFilter from './components/dialog/Filter';
-import ContainerLogin from './containers/ContainerLogin';
-import ContainerSignup from './containers/ContainerSignup';
 import Index from './components/layout/Index';
 import Search from './components/layout/Search';
 import Profile from './components/layout/Profile';
 import ExperienceDetail from './components/layout/ExperienceDetail';
+import ContainerDialogWrapper from './containers/ContainerDialogWrapper';
 
 
 let store = createStore(reducer, applyMiddleware(thunk));
@@ -43,8 +42,7 @@ ReactDOM.render(
         <ContainerMain />
         <ContainerNavigation />
         <DialogFilter />
-        <ContainerLogin />
-        <ContainerSignup />
+        <ContainerDialogWrapper />
         <Footer />
       </div>
     </Router>
