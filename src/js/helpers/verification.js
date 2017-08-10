@@ -32,7 +32,7 @@ export function verifyRequiredField(localState) {
   // Verify required field
   for(property in formDataLocalState) {
     if (formDataLocalState[property].hasOwnProperty('isRequired') &&
-        isEmpty(formDataLocalState[property].value) || formDataLocalState[property].value === false) {
+        (isEmpty(formDataLocalState[property].value) || formDataLocalState[property].value === false)) {
 
       needToModifiedState = {
         errorMessage: errorMessageConfig[3]
