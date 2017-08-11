@@ -4,6 +4,7 @@ import { changeFormState, hasErrorMessage } from '../../helpers/localState';
 import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, signup } from '../../actions/action';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
+import SelectBox from '../form/SelectBox';
 
 
 class Signup extends React.Component {
@@ -365,73 +366,13 @@ class Signup extends React.Component {
           }
 
           {/* Select Box */}
-
           <section>
             <span>生日</span>
 
             <div className='selectbox-for-birthday'>
-              <div className='selectbox'>
-                <select
-                  className={ !isEmpty(month.errorMessage) ?
-                              'form-component-theme-orange' :
-                              'form-component-theme-gray' }
-                  data-element-name='month'
-                  value={ month.value }
-                >
-                  <option disabled value=''>月</option>
-                  <option value='1'>一月</option>
-                  <option value='2'>二月</option>
-                  <option value='3'>三月</option>
-                  <option value='4'>四月</option>
-                  <option value='5'>五月</option>
-                  <option value='6'>六月</option>
-                  <option value='7'>七月</option>
-                  <option value='8'>八月</option>
-                  <option value='9'>九月</option>
-                  <option value='10'>十月</option>
-                  <option value='11'>十一月</option>
-                  <option value='12'>十二月</option>
-                </select>
-              </div>
-
-              <div className='selectbox'>
-                <select
-                  className={ !isEmpty(day.errorMessage) ?
-                              'form-component-theme-orange' :
-                              'form-component-theme-gray' }
-                  data-element-name='day'
-                  value={ day.value }
-                >
-                  <option disabled value=''>日</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                </select>
-              </div>
-
-              <div className='selectbox'>
-                <select
-                  className={ !isEmpty(year.errorMessage) ?
-                              'form-component-theme-orange' :
-                              'form-component-theme-gray' }
-                  data-element-name='year'
-                  value={ year.value }
-                >
-                  <option disabled value=''>年</option>
-                  <option value='1999'>1999</option>
-                  <option value='1998'>1998</option>
-                  <option value='1997'>1997</option>
-                  <option value='1996'>1996</option>
-                  <option value='1995'>1995</option>
-                  <option value='1994'>1994</option>
-                  <option value='1993'>1993</option>
-                  <option value='1992'>1992</option>
-                  <option value='1991'>1991</option>
-                  <option value='1990'>1990</option>
-                </select>
-              </div>
+              <SelectBox type='month' value={ month.value } errorMessage={ month.errorMessage } />
+              <SelectBox type='day' value={ day.value } errorMessage={ day.errorMessage } />
+              <SelectBox type='year' value={ year.value } errorMessage={ year.errorMessage } />
             </div>
           </section>
 
