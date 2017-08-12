@@ -163,17 +163,23 @@ exports.get = function(inputData) {
         return reject({type: 'database', message: error.code});
       }
 
+      const year     = rows[0].birthday.getFullYear();
+      const month    = (rows[0].birthday.getMonth()+1);
+      const day      = rows[0].birthday.getDate();
+      const birthday = `${ year }-${ month }-${ day }`;
+      const interest = rows[0].interest !== null ? rows[0].interest.split(',') : rows[0].interest;
+
       if (rows.length > 0) {
         var responseData = {
           status: 'ok',
           first_name: rows[0].first_name,
           last_name: rows[0].last_name,
           gender: rows[0].gender,
-          birthday: rows[0].birthday.getTime(),
+          birthday: birthday,
           email: rows[0].email,
           language: rows[0].language,
           education_level: rows[0].education_level,
-          interest: rows[0].interest
+          interest: interest
         };
 
         resolve(responseData);
