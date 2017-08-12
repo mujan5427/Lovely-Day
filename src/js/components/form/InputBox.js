@@ -6,6 +6,7 @@ class InputBox extends React.Component {
     super(props);
 
     this.chooseInputBoxContentByType = this.chooseInputBoxContentByType.bind(this);
+    this.chooseFormComponentTheme    = this.chooseFormComponentTheme.bind(this);
   }
 
   chooseInputBoxContentByType() {
@@ -26,6 +27,21 @@ class InputBox extends React.Component {
 
       default:
         break;
+    }
+  }
+
+  chooseFormComponentTheme() {
+    const { errorMessage, disabled = false } = this.props;
+
+    if (disabled) {
+      return 'form-component-theme-light-gray';
+
+    } else if (!isEmpty(errorMessage)) {
+      return 'form-component-theme-orange';
+
+    } else {
+      return 'form-component-theme-gray';
+
     }
   }
 
@@ -62,19 +78,25 @@ class InputBox extends React.Component {
   }
 
   render() {
-    const { type, value, errorMessage } = this.props;
+    const { type, value, hasIcon = false, hasPlaceholder = false, disabled = false } = this.props;
     const inputBoxContent = this.chooseInputBoxContentByType();
 
     return (
-      <div className={ `input-box icon-right
-        ${!isEmpty(errorMessage) ? 'form-component-theme-orange' : 'form-component-theme-gray'}`}
+      <div className={ `input-box
+        ${ hasIcon ? 'icon-right' : '' }
+        ${ this.chooseFormComponentTheme() }`}
       >
-        <i className={ inputBoxContent.icon } aria-hidden='true'></i>
+
+        { hasIcon &&
+          <i className={ inputBoxContent.icon } aria-hidden='true'></i>
+        }
+
         <input
           data-element-name={ type }
           type={ inputBoxContent.type }
-          placeholder={ inputBoxContent.placeholder }
+          placeholder={ hasPlaceholder ? inputBoxContent.placeholder : null }
           value={ value }
+          disabled={ disabled ? true : null }
         />
       </div>
     );

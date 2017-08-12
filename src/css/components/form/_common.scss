@@ -28,6 +28,18 @@
   }
 }
 
+.form-component-theme-light-gray {
+  background-color: #efefef;
+  border: 1px solid $horizontal-line-color;
+  color: #aaaaaa;
+  font-weight: inherit;
+
+  i {
+    color: #9c9c9c;
+    font-size: 1.3em;
+  }
+}
+
 .form-error-message {
   color: #d93900;
   font-weight: 400;
