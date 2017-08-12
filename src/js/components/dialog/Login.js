@@ -193,13 +193,25 @@ class Login extends React.Component {
           onChange={ this.formElementEventHandler }
           onClick={ this.formElementEventHandler }
         >
-          <InputBox type='email' value={ email.value } errorMessage={ email.errorMessage } />
+          <InputBox
+            type='email'
+            value={ email.value }
+            errorMessage={ email.errorMessage }
+            hasIcon={ true }
+            hasPlaceholder={ true }
+          />
 
           { !isEmpty(email.errorMessage) &&
             <div className='form-error-message'>{ email.errorMessage }</div>
           }
 
-          <InputBox type='password' value={ password.value } errorMessage={ password.errorMessage } />
+          <InputBox
+            type='password'
+            value={ password.value }
+            errorMessage={ password.errorMessage }
+            hasIcon={ true }
+            hasPlaceholder={ true }
+          />
 
           { !isEmpty(password.errorMessage) &&
             <div className='form-error-message'>{ password.errorMessage }</div>

@@ -294,25 +294,49 @@ class Signup extends React.Component {
           onChange={ this.formElementEventHandler }
           onClick={ this.formElementEventHandler }
         >
-          <InputBox type='email' value={ email.value } errorMessage={ email.errorMessage } />
+          <InputBox
+            type='email'
+            value={ email.value }
+            errorMessage={ email.errorMessage }
+            hasIcon={ true }
+            hasPlaceholder={ true }
+          />
 
           { !isEmpty(email.errorMessage) &&
             <div className='form-error-message'>{ email.errorMessage }</div>
           }
 
-          <InputBox type='firstname' value={ firstname.value } errorMessage={ firstname.errorMessage } />
+          <InputBox
+            type='firstname'
+            value={ firstname.value }
+            errorMessage={ firstname.errorMessage }
+            hasIcon={ true }
+            hasPlaceholder={ true }
+          />
 
           { !isEmpty(firstname.errorMessage) &&
             <div className='form-error-message'>{ firstname.errorMessage }</div>
           }
 
-          <InputBox type='lastname' value={ lastname.value } errorMessage={ lastname.errorMessage } />
+          <InputBox
+            type='lastname'
+            value={ lastname.value }
+            errorMessage={ lastname.errorMessage }
+            hasIcon={ true }
+            hasPlaceholder={ true }
+          />
 
           { !isEmpty(lastname.errorMessage) &&
             <div className='form-error-message'>{ lastname.errorMessage }</div>
           }
 
-          <InputBox type='password' value={ password.value } errorMessage={ password.errorMessage } />
+          <InputBox
+            type='password'
+            value={ password.value }
+            errorMessage={ password.errorMessage }
+            hasIcon={ true }
+            hasPlaceholder={ true }
+          />
 
           { !isEmpty(password.errorMessage) &&
             <div className='form-error-message'>{ password.errorMessage }</div>
