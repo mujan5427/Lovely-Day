@@ -4,6 +4,7 @@ import { changeFormState, hasErrorMessage } from '../../helpers/localState';
 import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login } from '../../actions/action';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
+import InputBox from '../form/InputBox';
 
 
 class Login extends React.Component {
@@ -192,37 +193,13 @@ class Login extends React.Component {
           onChange={ this.formElementEventHandler }
           onClick={ this.formElementEventHandler }
         >
-          <div className={ `input-box icon-right
-            ${!isEmpty(email.errorMessage) ?
-            'form-component-theme-orange' :
-            'form-component-theme-gray'}`}
-          >
-            <i className='fa fa-envelope-o fa-fw' aria-hidden='true'></i>
-            <input
-              data-element-name='email'
-              type='email'
-              placeholder='電子郵件'
-              value={ this.state.formData.email.value }
-            />
-          </div>
+          <InputBox type='email' value={ email.value } errorMessage={ email.errorMessage } />
 
           { !isEmpty(email.errorMessage) &&
             <div className='form-error-message'>{ email.errorMessage }</div>
           }
 
-          <div className={ `input-box icon-right
-            ${!isEmpty(password.errorMessage) ?
-            'form-component-theme-orange' :
-            'form-component-theme-gray'}`}
-          >
-            <i className='fa fa-key fa-fw' aria-hidden='true'></i>
-            <input
-              data-element-name='password'
-              type='password'
-              placeholder='密碼'
-              value={ this.state.formData.password.value }
-            />
-          </div>
+          <InputBox type='password' value={ password.value } errorMessage={ password.errorMessage } />
 
           { !isEmpty(password.errorMessage) &&
             <div className='form-error-message'>{ password.errorMessage }</div>
