@@ -68,7 +68,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { hasLoggedIn = false } = this.props;
+    const { hasLoggedIn = false, userName = 'user name' } = this.props;
     const { displayMenuMain } = this.props.displayMenu;
 
     return (
@@ -171,7 +171,7 @@ class Header extends React.Component {
 
             {/* has logged in */}
             { hasLoggedIn &&
-              <a className='header-menu-main'>user name</a>
+              <a className='header-menu-main'>{ userName }</a>
             }
 
             {/* Drop-Down-Menu Main */}
