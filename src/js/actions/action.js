@@ -10,6 +10,7 @@ export const REQUEST_BEGINNING                = 'REQUEST_BEGINNING';
 export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
 export const REQUEST_UPDATE                   = 'REQUEST_UPDATE';
 export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
+export const GROUP_PAGE_PROFILE               = 'GROUP_PAGE_PROFILE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -59,7 +60,11 @@ function requestBeginning(group) {
 }
 
 function requestSuccess(group, responseData) {
-  const items = responseData.item;
+  var items;
+
+  if (responseData.hasOwnProperty('item')) {
+    items = responseData.item;
+  }
 
   switch(group) {
     case GROUP_PAGE_INDEX_EXPERIENCE_LIST:
@@ -72,6 +77,17 @@ function requestSuccess(group, responseData) {
         group,
         index: items.map(item => Number(item.id)),
         entity: entity
+      };
+
+    case GROUP_PAGE_PROFILE:
+      if (responseData.hasOwnProperty('status')) {
+        delete responseData.status;
+      }
+
+      return {
+        type: REQUEST_SUCCESS,
+        group,
+        responseData
       };
   }
 
@@ -175,6 +191,7 @@ export function login(requestData) {
       dispatch(toggleDisplayDialogLogin());
       dispatch(toggleHasLoggedIn());
       dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+      dispatch(getProfile());
       // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
     })
     .catch(err => {console.log(`Error : ${err}`)});
@@ -321,3 +338,30 @@ export function signup(requestData) {
     .catch(err => {console.log(`Error : ${err}`)});
   }
 };
+
+function getProfile() {
+  return (dispatch, getState) => {
+    dispatch(requestBeginning(GROUP_PAGE_PROFILE));
+
+    const apiPath = `http://${apiServerUrl}/api/${apiVersion}/profile`;
+    const state   = getState();
+    const headers = getCookie();
+    var apiOption = {};
+
+    if (state.hasLoggedIn) {
+      apiOption = {headers: headers};
+    }
+
+    fetch(apiPath, apiOption)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+
+      } else {
+        console.log(`API 呼叫失敗 : ${response.status}`);
+      }
+
+    })
+    .then(responseData => dispatch(requestSuccess(GROUP_PAGE_PROFILE, responseData)));
+  }
+}

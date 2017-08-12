@@ -114,6 +114,31 @@ function pageIndexExperienceList(state = {}, action) {
   }
 }
 
+function pageProfile(state = {}, action) {
+  switch(action.type) {
+    case 'REQUEST_BEGINNING':
+      if (action.group !== 'GROUP_PAGE_PROFILE') {
+        return state;
+
+      } else {
+        return Object.assign({}, state, {isFetching: true, needUpdate: false});
+
+      }
+
+    case 'REQUEST_SUCCESS':
+      if (action.group !== 'GROUP_PAGE_PROFILE') {
+        return state;
+
+      } else {
+        return parsePageProfile(action.responseData);
+
+      }
+
+    default:
+      return state;
+  }
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -133,13 +158,22 @@ function parseExperience(originalState, entity) {
   return Object.assign(originalState, entity);
 }
 
+function parsePageProfile(responseData) {
+  return {
+    isFetching: false,
+    needUpdate: false,
+    content: responseData
+  };
+}
+
 
 const reducer = combineReducers({
   hasLoggedIn: hasLoggedIn,
   displayDialogAccount: displayDialogAccount,
   displayMenu: displayMenu,
   entities: entityExperiences,
-  pageIndex: pageIndexExperienceList
+  pageIndex: pageIndexExperienceList,
+  pageProfile: pageProfile
 });
 
 export default reducer;
