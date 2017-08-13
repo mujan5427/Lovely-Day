@@ -28,6 +28,12 @@ class Login extends React.Component {
      *                       *
      * * * * * * * * * * * * */
 
+    /* value          : practical value of form elements.
+     * needToVerified : this element has other rule that must be validation.
+     * isRequired     : the element is required for this form.
+     * errorMessage   : just error message. if it have
+     */
+
     this.state = {
       formData: {
         email      : {
