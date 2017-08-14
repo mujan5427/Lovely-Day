@@ -21,6 +21,12 @@ class SelectBox extends React.Component {
       case 'year':
         return this.generateYearOptionList();
 
+      case 'gender':
+        return this.generateGenderOptionList();
+
+      case 'language':
+        return this.generateLanguageOptionList();
+
       default:
         break;
     }
@@ -71,6 +77,48 @@ class SelectBox extends React.Component {
 
     optionList.reverse();
     optionList = optionListTitle.concat(optionList);
+
+    return optionList;
+  }
+
+  generateGenderOptionList() {
+    var valueMappingList     = ['male', 'female'];
+    var characterMappingList = ['男性', '女性'];
+
+    var optionList = [];
+
+    optionList.push(<option disabled value=''>性別</option>);
+
+    valueMappingList.map((value, index) => {
+      optionList.push(
+        <option value={ value.toString() }>{ characterMappingList[index].toString() }</option>
+      );
+    });
+
+    return optionList;
+  }
+
+  generateLanguageOptionList() {
+    var valueMappingList     = ['id', 'ms', 'ca', 'da', 'de', 'en', 'es', 'el', 'fr',
+                           'it', 'hu', 'nl', 'no', 'pl', 'pt', 'fi', 'sv', 'tr',
+                           'is', 'cs', 'ru', 'th', 'zh', 'zh-tw', 'ja', 'ko'];
+
+    var characterMappingList = ['Bahasa Indonesia', 'Bahasa Melayu', 'Català', 'Dansk',
+                                'Deutsch', 'English', 'Español', 'Eλληνικά', 'Français',
+                                'Italiano', 'Magyar', 'Nederlands', 'Norsk', 'Polski',
+                                'Português', 'Suomi', 'Svenska', 'Türkçe', 'Íslenska',
+                                'Čeština', 'Русский', 'ภาษาไทย', '中文 (简体)', '中文 (繁體)',
+                                '日本語', '한국어'];
+
+    var optionList = [];
+
+    optionList.push(<option disabled value=''>語言</option>);
+
+    valueMappingList.map((value, index) => {
+      optionList.push(
+        <option value={ value.toString() }>{ characterMappingList[index].toString() }</option>
+      );
+    });
 
     return optionList;
   }
