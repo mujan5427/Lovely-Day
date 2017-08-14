@@ -68,23 +68,23 @@ class Profile extends React.Component {
            errorMessage: ''
          },
          sport: {
-           value: this._parseInterest(interest, 'sport'),
+           value: !isEmpty(interest) ? this._parseInterest(interest, 'sport') : false,
            errorMessage: ''
          },
          handmade: {
-           value: this._parseInterest(interest, 'hand_made'),
+           value: !isEmpty(interest) ? this._parseInterest(interest, 'hand_made') : false,
            errorMessage: ''
          },
          baking: {
-           value: this._parseInterest(interest, 'baking'),
+           value: !isEmpty(interest) ? this._parseInterest(interest, 'baking') : false,
            errorMessage: ''
          },
          art: {
-           value: this._parseInterest(interest, 'art'),
+           value: !isEmpty(interest) ? this._parseInterest(interest, 'art') : false,
            errorMessage: ''
          },
          history: {
-           value: this._parseInterest(interest, 'history'),
+           value: !isEmpty(interest) ? this._parseInterest(interest, 'history') : false,
            errorMessage: ''
          }
        }
