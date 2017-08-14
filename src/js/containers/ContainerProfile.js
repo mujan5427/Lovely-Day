@@ -7,7 +7,7 @@ function getSpecifiedProps(pageProfileOfState, specifiedProps) {
     return pageProfileOfState.content[specifiedProps];
   }
 
-  return undefined;
+  return '';
 }
 
 function mapStateToProps(state) {
