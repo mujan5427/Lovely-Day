@@ -1,14 +1,14 @@
-const ONE_WEEK_MILLISECOND = 604800000;
+export const ONE_WEEK_MILLISECOND = 604800000;
 
-export function setCookie(memberInfo) {
-  var property, expiratioDate;
-  var currentDate = new Date();
+export function setCookie(memberInfo, expirationDate) {
+  var property;
 
-  currentDate.setTime(currentDate.getTime() + ONE_WEEK_MILLISECOND);
-  expiratioDate = currentDate.toUTCString();
+  if(memberInfo.hasOwnProperty('member_id') && !isEmpty(memberInfo.member_id)) {
+    memberInfo.expiration_date = expirationDate;
+  }
 
   for(property in memberInfo) {
-    document.cookie = `${property}=${memberInfo[property]};expires=${expiratioDate};path=/`;
+    document.cookie = `${property}=${memberInfo[property]};expires=${expirationDate};path=/`;
   }
 };
 
