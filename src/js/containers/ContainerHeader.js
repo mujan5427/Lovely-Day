@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
+import { getCookie } from '../helpers/cookie';
 import Header from '../components/layout/Header';
 
 
 function mapStateToProps(state) {
   var userName = undefined;
+  var cookie = getCookie();
 
-  if (state.pageProfile.hasOwnProperty('content')) {
-    if (state.pageProfile.content.hasOwnProperty('first_name')) {
-      userName = state.pageProfile.content.first_name;
-    }
+  if (!isEmpty(cookie.first_name)) {
+    userName = cookie.first_name;
   }
 
   return {
