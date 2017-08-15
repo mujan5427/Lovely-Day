@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { setCookie, getCookie, deleteCookie } from '../helpers/cookie';
+import { setCookie, getCookie, deleteCookie, ONE_WEEK_MILLISECOND } from '../helpers/cookie';
 
 export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
@@ -11,6 +11,7 @@ export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
 export const REQUEST_UPDATE                   = 'REQUEST_UPDATE';
 export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
 export const GROUP_PAGE_PROFILE               = 'GROUP_PAGE_PROFILE';
+export const COPY_PROFILE_FROM_COOKIE         = 'COPY_PROFILE_FROM_COOKIE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -100,6 +101,12 @@ function requestUpdate(group) {
   };
 }
 
+export function copyProfileFromCookie(cookieObject) {
+  return {
+    type: COPY_PROFILE_FROM_COOKIE,
+    cookieObject
+  };
+}
 
 /* * * * * * * * * * * * *
  *                       *
@@ -184,10 +191,16 @@ export function login(requestData) {
 
     })
     .then(responseData => {
-      var memberInfo = responseData;
+      var memberInfo  = responseData;
+      var currentDate = new Date();
+      var expirationDate;
+
       delete memberInfo.status;
 
-      setCookie(memberInfo);
+      currentDate.setTime(currentDate.getTime() + ONE_WEEK_MILLISECOND);
+      expirationDate = currentDate.toUTCString();
+
+      setCookie(memberInfo, expirationDate);
       dispatch(toggleDisplayDialogLogin());
       dispatch(toggleHasLoggedIn());
       dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
@@ -362,6 +375,15 @@ function getProfile() {
       }
 
     })
-    .then(responseData => dispatch(requestSuccess(GROUP_PAGE_PROFILE, responseData)));
+    .then(responseData => {
+      var memberInfo     = Object.assign({}, {first_name: responseData.first_name});
+      var cookie         = getCookie();
+      var expirationDate = cookie.hasOwnProperty('expiration_date') ? cookie.expiration_date : null;
+
+      setCookie(memberInfo, expirationDate);
+
+      dispatch(requestSuccess(GROUP_PAGE_PROFILE, responseData));
+    })
+    .catch(err => {console.log(`Error : ${err}`)});
   }
 }
