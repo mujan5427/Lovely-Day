@@ -1,4 +1,5 @@
 const db          = require('./database');
+const isEmpty     = require('is-empty');
 const errorConfig = require('../error_config');
 const sha3_256    = require('js-sha3').sha3_256;
 const PRIVATE_KEY = 'lovelyday';
@@ -53,11 +54,23 @@ exports.update = function (inputData) {
 
   if (inputData.first_name) { needToModifyColumn['first_name'] = inputData.first_name }
   if (inputData.last_name) { needToModifyColumn['last_name'] = inputData.last_name }
-  if (inputData.gender) { needToModifyColumn['gender'] = inputData.gender }
   if (inputData.birthday) { needToModifyColumn['birthday'] = inputData.birthday }
-  if (inputData.language) { needToModifyColumn['language'] = inputData.language }
-  if (inputData.education_level) { needToModifyColumn['education_level'] = inputData.education_level }
-  if (inputData.interest) { needToModifyColumn['interest'] = inputData.interest }
+
+  if (inputData.hasOwnProperty('gender')) {
+    needToModifyColumn['gender'] = !isEmpty(inputData.gender) ? inputData.gender : null;
+  }
+
+  if (inputData.hasOwnProperty('language')) {
+    needToModifyColumn['language'] = !isEmpty(inputData.language) ? inputData.language : null;
+  }
+
+  if (inputData.hasOwnProperty('education_level')) {
+    needToModifyColumn['education_level'] = !isEmpty(inputData.education_level) ? inputData.education_level : null;
+  }
+
+  if (inputData.hasOwnProperty('interest')) {
+    needToModifyColumn['interest'] = !isEmpty(inputData.interest) ? inputData.interest : null;
+  }
 
   var memberId = Number(inputData.member_id);
 
