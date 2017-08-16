@@ -1,7 +1,7 @@
 import React from 'react';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
 import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
-import { getProfile } from '../../actions/action';
+import { getProfile, updateProfile } from '../../actions/action';
 import SelectBox from '../form/SelectBox';
 import InputBox from '../form/InputBox';
 import RadioBoxGroup from '../form/RadioBoxGroup';
@@ -161,10 +161,11 @@ class Profile extends React.Component {
 
   saveButton() {
     const { dispatch }                  = this.props;
-    const { firstname, lastname, month, day, year } = this.state.formData;
+    const { firstname, lastname, gender, year, month, day, language, educationLevel, sport, handmade, baking, art, history } = this.state.formData;
     const validationRequiredField       = verifyRequiredField(this.state);
     const validationNeedToVerifiedField = verifyNeedToVerifiedField(this.state);
-    var requestData                     = {};
+    var requestData = {};
+    var interest    = [];
 
     // Verify required field
     if (validationRequiredField.hasErrorMessage) {
@@ -175,19 +176,51 @@ class Profile extends React.Component {
       this.setState(validationNeedToVerifiedField.state);
 
     } else {
-      console.log(`全部驗證完成`);
       // Complete all of validation step
       // and
       // dispatch specified API
-      // requestData = {
-      //   email     : email.value,
-      //   firstname : firstname.value,
-      //   lastname  : lastname.value,
-      //   password  : password.value,
-      //   birthday  : `${year.value}-${month.value}-${day.value}`
-      // };
-      //
-      // dispatch(signup(requestData));
+
+      requestData = {
+        first_name : firstname.value,
+        last_name  : lastname.value,
+        birthday   : `${ year.value }-${ month.value }-${ day.value }`
+      };
+
+      if (!isEmpty(gender.value)) {
+        requestData.gender = gender.value;
+      }
+
+      if (!isEmpty(language.value)) {
+        requestData.language = language.value;
+      }
+
+      if (!isEmpty(educationLevel.value)) {
+        requestData.education_level = educationLevel.value;
+      }
+
+      if (sport.value) {
+        interest.push('sport');
+      }
+
+      if (handmade.value) {
+        interest.push('hand_made');
+      }
+
+      if (baking.value) {
+        interest.push('baking');
+      }
+
+      if (art.value) {
+        interest.push('art');
+      }
+
+      if (history.value) {
+        interest.push('history');
+      }
+
+      requestData.interest = interest.toString();
+
+      dispatch(updateProfile(requestData));
     }
   }
 
