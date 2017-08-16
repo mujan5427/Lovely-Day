@@ -1,22 +1,22 @@
 import React from 'react';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
 import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
+import { getProfile } from '../../actions/action';
 import SelectBox from '../form/SelectBox';
 import InputBox from '../form/InputBox';
 import RadioBoxGroup from '../form/RadioBoxGroup';
 import CheckBox from '../form/CheckBox';
 
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    const { firstname, lastname, gender, birthday, language, educationLevel, interest } = this.props;
-    const year  = birthday.split('-')[0];
-    const month = birthday.split('-')[1];
-    const day   = birthday.split('-')[2];
+    const { firstname, lastname, gender, year, month, day, language, educationLevel, sport, handmade, baking, art, history } = this.props;
 
     this.formElementEventHandler = this.formElementEventHandler.bind(this);
     this.saveButton              = this.saveButton.bind(this);
+    this.refreshLocalState       = this.refreshLocalState.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -25,8 +25,11 @@ class Profile extends React.Component {
      *                       *
      * * * * * * * * * * * * */
 
-    //  先透過 container component 轉換 app state 成 props
-    //  再將 props 嵌入 local state of Profile
+    /* value          : practical value of form elements.
+     * needToVerified : this element has other rule that must be validation.
+     * isRequired     : the element is required for this form.
+     * errorMessage   : just error message. if it have
+     */
 
      this.state = {
        formData: {
@@ -41,7 +44,7 @@ class Profile extends React.Component {
            errorMessage: ''
          },
          gender: {
-           value: !isEmpty(gender) ? gender : '',
+           value: gender,
            errorMessage: ''
          },
          month: {
@@ -60,45 +63,100 @@ class Profile extends React.Component {
            errorMessage: ''
          },
          language: {
-           value: !isEmpty(language) ? language : '',
+           value: language,
            errorMessage: ''
          },
          educationLevel: {
-           value: !isEmpty(educationLevel) ? educationLevel : '',
+           value: educationLevel,
            errorMessage: ''
          },
          sport: {
-           value: !isEmpty(interest) ? this._parseInterest(interest, 'sport') : false,
+           value: sport,
            errorMessage: ''
          },
          handmade: {
-           value: !isEmpty(interest) ? this._parseInterest(interest, 'hand_made') : false,
+           value: handmade,
            errorMessage: ''
          },
          baking: {
-           value: !isEmpty(interest) ? this._parseInterest(interest, 'baking') : false,
+           value: baking,
            errorMessage: ''
          },
          art: {
-           value: !isEmpty(interest) ? this._parseInterest(interest, 'art') : false,
+           value: art,
            errorMessage: ''
          },
          history: {
-           value: !isEmpty(interest) ? this._parseInterest(interest, 'history') : false,
+           value: history,
            errorMessage: ''
          }
        }
      };
   }
 
-  _parseInterest(interest, specifiedProperty) {
-    const indexOfSearchResult = interest.indexOf(specifiedProperty);
 
-    if(indexOfSearchResult !== -1) {
-      return true;
+  /* * * * * * * * * * * * *
+   *                       *
+   *   Lifecycle Methods   *
+   *                       *
+   * * * * * * * * * * * * */
+
+  componentWillMount() {
+    const { dispatch, hasLoggedIn } = this.props;
+
+    if(hasLoggedIn) {
+      dispatch(getProfile());
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const previousProps = this.props;
+    const currentProps  = nextProps;
+    var state;
+
+    if (!this.comparePropsOfPreviousAndCurrent(previousProps, nextProps)) {
+
+      state = this.refreshLocalState(currentProps);
+
+      this.setState(state);
+    }
+  }
+
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *    Private Methods    *
+   *                       *
+   * * * * * * * * * * * * */
+
+  comparePropsOfPreviousAndCurrent(previousProps, currentProps) {
+    var property;
+
+    for(property in previousProps) {
+      if (property !== 'email' || property !== 'hasLoggedIn') {
+        if(previousProps[property] !== currentProps[property]) {
+          return false;
+        }
+      }
     }
 
-    return false;
+    return true;
+  }
+
+  refreshLocalState(currentProps) {
+    var needToModifiedState = JSON.parse(JSON.stringify(this.state));
+    var modifiedProperty, property;
+
+    for(property in needToModifiedState.formData) {
+
+      modifiedProperty = {
+        [property]: Object.assign({}, needToModifiedState.formData[property], {value: currentProps[property]})
+      };
+
+      needToModifiedState.formData = Object.assign({}, needToModifiedState.formData, modifiedProperty);
+    }
+
+    return needToModifiedState;
   }
 
   saveButton() {
