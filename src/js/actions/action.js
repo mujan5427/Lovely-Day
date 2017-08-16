@@ -426,3 +426,51 @@ export function getProfile() {
     .catch(err => {console.log(`Error : ${err}`)});
   }
 }
+
+export function updateProfile(requestBody) {
+  return dispatch => {
+    const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/profile`;
+    const hasLoggedIn = verifyCookie();
+    const cookie      = getCookie();
+    const identity    = {
+      member_id: cookie.member_id,
+      token: cookie.token
+    };
+
+    var apiOption = {};
+
+    apiOption     = {
+      method: 'PUT',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    if (hasLoggedIn) {
+      apiOption.headers = Object.assign(apiOption.headers, identity);
+    }
+
+    // You can dispatch Progress Bar at this line. If you needed
+
+    fetch(apiPath, apiOption)
+    .then(responseData => {
+      if (responseData.status === 200) {
+        return responseData.json();
+
+      } else {
+        throw {message: 'API Error'};
+      }
+
+    })
+    .then(responseData => {
+      if (responseData.status === 'ok') {
+        // dispatch requestUpdate() for page profile
+      } else {
+        throw {message: 'API Error'};
+      }
+
+    })
+    .catch(err => {console.log(`Error : ${err}`)});
+  }
+};
