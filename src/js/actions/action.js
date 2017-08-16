@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { setCookie, getCookie, deleteCookie, ONE_WEEK_MILLISECOND } from '../helpers/cookie';
+import { setCookie, getCookie, deleteCookie, verifyCookie, ONE_WEEK_MILLISECOND } from '../helpers/cookie';
 
 export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
@@ -147,16 +147,30 @@ function shouldFetchIfNeeded(group, state) {
 
 // Logic of invoke API actually without Header、Input Data
 function getExperienceList(group) {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(requestBeginning(group));
 
-    const apiPath = `http://${apiServerUrl}/api/${apiVersion}/experience?item_limit=6&current_page=1&region=none&type=hand_made,outdoor`;
-    const state   = getState();
-    const headers = getCookie();
-    var apiOption = {};
+    var apiPath       = `http://${apiServerUrl}/api/${apiVersion}/experience`;
+    var queryString   = `?item_limit=6&current_page=1&region=none&type=hand_made,outdoor`;
+    const hasLoggedIn = verifyCookie();
+    var apiOption     = {};
 
-    if (state.hasLoggedIn) {
-      apiOption = {headers: headers};
+    apiPath = apiPath + queryString;
+
+    apiOption = {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    if (hasLoggedIn) {
+      const cookie   = getCookie();
+      const identity = {
+        member_id: cookie.member_id,
+        token: cookie.token
+      };
+
+      apiOption.headers = Object.assign(apiOption.headers, identity);
     }
 
     fetch(apiPath, apiOption)
@@ -222,12 +236,19 @@ export function logout() {
 export function addFavourite(experienceId) {
   return (dispatch, getState) => {
     const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/favourite`;
-    const state       = getState();
-    const headers     = getCookie();
+    const hasLoggedIn = verifyCookie();
+    const cookie      = getCookie();
+    const identity    = {
+      member_id: cookie.member_id,
+      token: cookie.token
+    };
     const requestBody = {
       experience_id: experienceId
     };
-    var apiOption     = {
+
+    var apiOption = {};
+
+    apiOption     = {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
@@ -235,8 +256,8 @@ export function addFavourite(experienceId) {
       }
     };
 
-    if (state.hasLoggedIn) {
-      apiOption.headers = Object.assign(apiOption.headers, headers);
+    if (hasLoggedIn) {
+      apiOption.headers = Object.assign(apiOption.headers, identity);
     }
 
     // You can dispatch Progress Bar at this line. If you needed
@@ -264,14 +285,21 @@ export function addFavourite(experienceId) {
 };
 
 export function deleteFavourite(experienceId) {
-  return (dispatch, getState) => {
+  return dispatch => {
     const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/favourite`;
-    const state       = getState();
-    const headers     = getCookie();
+    const hasLoggedIn = verifyCookie();
+    const cookie      = getCookie();
+    const identity    = {
+      member_id: cookie.member_id,
+      token: cookie.token
+    };
     const requestBody = {
       experience_id: experienceId
     };
-    var apiOption     = {
+
+    var apiOption = {};
+
+    apiOption     = {
       method: 'DELETE',
       body: JSON.stringify(requestBody),
       headers: {
@@ -279,8 +307,8 @@ export function deleteFavourite(experienceId) {
       }
     };
 
-    if (state.hasLoggedIn) {
-      apiOption.headers = Object.assign(apiOption.headers, headers);
+    if (hasLoggedIn) {
+      apiOption.headers = Object.assign(apiOption.headers, identity);
     }
 
     // You can dispatch Progress Bar at this line. If you needed
@@ -352,17 +380,28 @@ export function signup(requestData) {
   }
 };
 
-function getProfile() {
-  return (dispatch, getState) => {
+export function getProfile() {
+  return dispatch => {
     dispatch(requestBeginning(GROUP_PAGE_PROFILE));
 
-    const apiPath = `http://${apiServerUrl}/api/${apiVersion}/profile`;
-    const state   = getState();
-    const headers = getCookie();
+    const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/profile`;
+    const hasLoggedIn = verifyCookie();
+    const cookie      = getCookie();
+    const identity    = {
+      member_id: cookie.member_id,
+      token: cookie.token
+    };
+
     var apiOption = {};
 
-    if (state.hasLoggedIn) {
-      apiOption = {headers: headers};
+    apiOption = {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    if (hasLoggedIn) {
+      apiOption.headers = Object.assign(apiOption.headers, identity);
     }
 
     fetch(apiPath, apiOption)
