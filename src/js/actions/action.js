@@ -114,6 +114,9 @@ function requestUpdate(group) {
        switch(group) {
          case GROUP_PAGE_INDEX_EXPERIENCE_LIST:
           return dispatch(getExperienceList(group));
+
+         case GROUP_PAGE_PROFILE:
+          return dispatch(getProfile());
        }
      }
    };
@@ -127,6 +130,9 @@ function shouldFetchIfNeeded(group, state) {
     case GROUP_PAGE_INDEX_EXPERIENCE_LIST:
       groupState = state.pageIndex.experienceList;
       break;
+
+    case GROUP_PAGE_PROFILE:
+      groupState = state.pageProfile;
   }
 
   if (isEmpty(groupState)) {
@@ -373,7 +379,7 @@ export function signup(requestData) {
   }
 };
 
-export function getProfile() {
+function getProfile() {
   return dispatch => {
     dispatch(requestBeginning(GROUP_PAGE_PROFILE));
 
@@ -458,7 +464,9 @@ export function updateProfile(requestBody) {
     })
     .then(responseData => {
       if (responseData.status === 'ok') {
-        // dispatch requestUpdate() for page profile
+        dispatch(requestUpdate(GROUP_PAGE_PROFILE));
+        dispatch(fetchData(GROUP_PAGE_PROFILE));
+
       } else {
         throw {message: 'API Error'};
       }

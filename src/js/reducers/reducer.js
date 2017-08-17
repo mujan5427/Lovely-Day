@@ -134,6 +134,14 @@ function pageProfile(state = {}, action) {
 
       }
 
+    case 'REQUEST_UPDATE':
+      if (action.group !== 'GROUP_PAGE_PROFILE') {
+        return state;
+
+      } else {
+        return Object.assign({}, state, {needUpdate: true});
+      }
+
     default:
       return state;
   }
