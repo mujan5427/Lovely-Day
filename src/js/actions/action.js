@@ -11,7 +11,6 @@ export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
 export const REQUEST_UPDATE                   = 'REQUEST_UPDATE';
 export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
 export const GROUP_PAGE_PROFILE               = 'GROUP_PAGE_PROFILE';
-export const COPY_PROFILE_FROM_COOKIE         = 'COPY_PROFILE_FROM_COOKIE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -101,12 +100,6 @@ function requestUpdate(group) {
   };
 }
 
-export function copyProfileFromCookie(cookieObject) {
-  return {
-    type: COPY_PROFILE_FROM_COOKIE,
-    cookieObject
-  };
-}
 
 /* * * * * * * * * * * * *
  *                       *
