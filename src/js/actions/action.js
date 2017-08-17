@@ -6,11 +6,13 @@ export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
 export const TOGGLE_DISPLAYDIALOGSIGNUP       = 'TOGGLE_DISPLAYDIALOGSIGNUP';
 export const TOGGLE_DISPLAYMENUMAIN           = 'TOGGLE_DISPLAYMENUMAIN';
 export const TOGGLE_DISPLAYMENUNAVIGATION     = 'TOGGLE_DISPLAYMENUNAVIGATION';
+export const MODIFY_NAVIGATION_TYPE           = 'MODIFY_NAVIGATION_TYPE';
 export const REQUEST_BEGINNING                = 'REQUEST_BEGINNING';
 export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
 export const REQUEST_UPDATE                   = 'REQUEST_UPDATE';
 export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
 export const GROUP_PAGE_PROFILE               = 'GROUP_PAGE_PROFILE';
+export const GROUP_HEADER_NAVIGATION          = 'GROUP_HEADER_NAVIGATION';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -60,10 +62,13 @@ function requestBeginning(group) {
 }
 
 function requestSuccess(group, responseData) {
-  var items;
+  var items, property;
+  var navigationList       = {};
+  var navigationEntityList = {};
+  var navigationIndexList  = [];
 
-  if (responseData.hasOwnProperty('item')) {
-    items = responseData.item;
+  if (responseData.hasOwnProperty('items')) {
+    items = responseData.items;
   }
 
   switch(group) {
@@ -89,6 +94,30 @@ function requestSuccess(group, responseData) {
         group,
         responseData
       };
+
+    case GROUP_HEADER_NAVIGATION:
+      if (responseData.hasOwnProperty('status')) {
+        delete responseData.status;
+      }
+
+      for(property in items) {
+
+        // generate navigation list by filtering API response data
+        navigationIndexList = items[property].map(item => item.id);
+        navigationList = Object.assign({}, navigationList, {[property]: navigationIndexList});
+
+        // generate navigation entity list by filtering API response data
+        items[property].map(item => {
+          navigationEntityList = Object.assign({}, navigationEntityList, {[item.id]: item});
+        });
+      }
+
+      return {
+        type: REQUEST_SUCCESS,
+        group,
+        index: navigationList,
+        entity: navigationEntityList
+      };
   }
 
 }
@@ -99,6 +128,14 @@ function requestUpdate(group) {
     group
   };
 }
+
+export function modifyNavigationType(type) {
+  return {
+    type: MODIFY_NAVIGATION_TYPE,
+    selectedType: type
+  };
+}
+
 
 
 /* * * * * * * * * * * * *
@@ -117,6 +154,9 @@ function requestUpdate(group) {
 
          case GROUP_PAGE_PROFILE:
           return dispatch(getProfile());
+
+         case GROUP_HEADER_NAVIGATION:
+          return dispatch(getNavigationList());
        }
      }
    };
@@ -133,6 +173,10 @@ function shouldFetchIfNeeded(group, state) {
 
     case GROUP_PAGE_PROFILE:
       groupState = state.pageProfile;
+      break;
+
+    case GROUP_HEADER_NAVIGATION:
+      groupState = state.headerNavigation;
   }
 
   if (isEmpty(groupState)) {
@@ -471,6 +515,37 @@ export function updateProfile(requestBody) {
         throw {message: 'API Error'};
       }
 
+    })
+    .catch(err => {console.log(`Error : ${err}`)});
+  }
+};
+
+function getNavigationList() {
+  return dispatch => {
+    dispatch(requestBeginning(GROUP_HEADER_NAVIGATION));
+
+    const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/navigation`;
+
+    var apiOption = {};
+
+    apiOption = {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    fetch(apiPath, apiOption)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+
+      } else {
+        console.log(`API 呼叫失敗 : ${response.status}`);
+      }
+
+    })
+    .then(responseData => {
+      dispatch(requestSuccess(GROUP_HEADER_NAVIGATION, responseData));
     })
     .catch(err => {console.log(`Error : ${err}`)});
   }

@@ -61,13 +61,41 @@ function entityExperiences(state = {}, action) {
     case 'REQUEST_SUCCESS':
       switch(action.group) {
         case 'GROUP_PAGE_INDEX_EXPERIENCE_LIST':
+        case 'GROUP_HEADER_NAVIGATION':
           return {
-            experiences: parseExperience(state, action.entity)
+            experiences: parseExperience(state.experiences, action.entity)
           };
 
         default:
           return state;
       }
+
+    default:
+      return state;
+  }
+}
+
+function headerNavigation(state = {}, action) {
+  switch(action.type) {
+    case 'REQUEST_BEGINNING':
+      if (action.group !== 'GROUP_HEADER_NAVIGATION') {
+        return state;
+
+      } else {
+        return Object.assign({}, state, {isFetching: true, needUpdate: false});
+      }
+
+    case 'REQUEST_SUCCESS':
+      if (action.group !== 'GROUP_HEADER_NAVIGATION') {
+        return state;
+
+      } else {
+        return parseHeaderNavigation(action.index);
+
+      }
+
+    case 'MODIFY_NAVIGATION_TYPE':
+      return Object.assign({}, state, {selected: action.selectedType});
 
     default:
       return state;
@@ -163,7 +191,7 @@ function parsePageIndex(index) {
 }
 
 function parseExperience(originalState, entity) {
-  return Object.assign(originalState, entity);
+  return Object.assign({}, originalState, entity);
 }
 
 function parsePageProfile(responseData) {
@@ -174,12 +202,22 @@ function parsePageProfile(responseData) {
   };
 }
 
+function parseHeaderNavigation(index) {
+  return {
+    isFetching: false,
+    needUpdate: false,
+    selected: 'outdoor',
+    navigationList: index
+  };
+}
+
 
 const reducer = combineReducers({
   hasLoggedIn: hasLoggedIn,
   displayDialogAccount: displayDialogAccount,
   displayMenu: displayMenu,
   entities: entityExperiences,
+  headerNavigation: headerNavigation,
   pageIndex: pageIndexExperienceList,
   pageProfile: pageProfile
 });

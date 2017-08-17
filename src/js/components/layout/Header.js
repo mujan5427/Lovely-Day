@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCookie, verifyCookie } from '../../helpers/cookie';
-import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain, toggleDisplayMenuNavigation, logout } from '../../actions/action';
+import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain, toggleDisplayMenuNavigation, logout, fetchData, modifyNavigationType, GROUP_HEADER_NAVIGATION } from '../../actions/action';
 
 
 class Header extends React.Component {
@@ -15,10 +15,14 @@ class Header extends React.Component {
     this.toggleDialogSignup   = this.toggleDialogSignup.bind(this);
     this.toggleMenuMain       = this.toggleMenuMain.bind(this);
     this.toggleMenuNavigation = this.toggleMenuNavigation.bind(this);
+    this.getNavigationTitle   = this.getNavigationTitle.bind(this);
+    this.mouseEnterHandler    = this.mouseEnterHandler.bind(this);
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
+
+    dispatch(fetchData(GROUP_HEADER_NAVIGATION));
 
     if (verifyCookie()) {
         dispatch(toggleHasLoggedIn());
@@ -67,8 +71,47 @@ class Header extends React.Component {
     dispatch(toggleDisplayMenuNavigation());
   }
 
+  getNavigationTitle() {
+    const { selectedNavigationType } = this.props;
+    const titleList = {
+      outdoor: {
+        title: '愛上戶外'
+      },
+      summer_camp: {
+        title: '夏令營專區'
+      },
+      baking: {
+        title: '玩樂廚房'
+      },
+      lover: {
+        title: '情人專區'
+      },
+      group: {
+        title: '團體遊戲'
+      },
+      play_with_child: {
+        title: '親子專區'
+      },
+      hand_made: {
+        title: '藝文手作'
+      }
+    };
+
+    return titleList[selectedNavigationType].title;
+  }
+
+  mouseEnterHandler(event) {
+    const { dispatch }   = this.props;
+    const target         = event.target;
+    const navigationType = target.getAttribute('data-navigation-type');
+
+    if(!isEmpty(navigationType)) {
+      dispatch(modifyNavigationType(navigationType));
+    }
+  }
+
   render() {
-    const { hasLoggedIn = false, userName = 'user name' } = this.props;
+    const { hasLoggedIn = false, userName = 'user name', selectedNavigationList } = this.props;
     const { displayMenuMain } = this.props.displayMenu;
 
     return (
@@ -117,47 +160,44 @@ class Header extends React.Component {
             </a>
 
             {/* Drop-Down-Menu Navigation */}
-            <div
-              className='drop-down-menu-wrapper drop-down-menu-type-2'
-              onClick={ this.hiddenMenu }
-              onMouseLeave={ this.removeStyleAttribute }
-            >
-              <div>
-                <section>
-                  <h1>最新的 南澳生活節</h1>
-                  <div>
-                    <Link to='/experiences/1' data-can-be-triggered-element>
-                      <img src='/assets/product2.jpg' />
-                      <figcaption>遙望福爾摩沙的純粹，獨木舟敞洋忘憂藍海</figcaption>
-                    </Link>
-                    <Link to='/experiences/1' data-can-be-triggered-element>
-                      <img src='/assets/product4.jpg' />
-                      <figcaption>遙望基隆嶼，敞洋最美麗的東北角海域！</figcaption>
-                    </Link>
-                    <Link to='/experiences/1' data-can-be-triggered-element>
-                      <img src='/assets/product5.jpg' />
-                      <figcaption>墾丁國家公園，帆船之旅，日初東方至晚霞染起</figcaption>
-                    </Link>
-                    <Link to='/experiences/1' data-can-be-triggered-element>
-                      <img src='/assets/product6.jpg' />
-                      <figcaption>鹿野高台，熱氣球遨遊天際</figcaption>
-                    </Link>
-                  </div>
-                </section>
-                <section>
-                  <nav>
-                    <a>南澳生活節</a>
-                    <a>夏令營專區</a>
-                    <a>藝文手作</a>
-                    <a>玩樂廚房</a>
-                    <a>愛上戶外</a>
-                    <a>親子專區</a>
-                    <a>團體遊戲</a>
-                    <a>情人專區</a>
-                  </nav>
-                </section>
+            { selectedNavigationList &&
+              <div
+                className='drop-down-menu-wrapper drop-down-menu-type-2'
+                onClick={ this.hiddenMenu }
+                onMouseLeave={ this.removeStyleAttribute }
+              >
+                <div>
+                  <section>
+                    <h1>最新的 { this.getNavigationTitle() }</h1>
+                    <div>
+                      {
+                        selectedNavigationList.map(item => {
+                          return (
+                            <Link
+                              to={ `/experiences/${ item.id }` } data-can-be-triggered-element
+                            >
+                              <img src={ item.images[0] } />
+                              <figcaption>{ item.title }</figcaption>
+                            </Link>
+                          );
+                        })
+                      }
+                    </div>
+                  </section>
+                  <section>
+                    <nav>
+                      <a data-navigation-type='summer_camp' onMouseEnter={ this.mouseEnterHandler }>夏令營專區</a>
+                      <a data-navigation-type='hand_made' onMouseEnter={ this.mouseEnterHandler }>藝文手作</a>
+                      <a data-navigation-type='baking' onMouseEnter={ this.mouseEnterHandler }>玩樂廚房</a>
+                      <a data-navigation-type='outdoor' onMouseEnter={ this.mouseEnterHandler }>愛上戶外</a>
+                      <a data-navigation-type='play_with_child' onMouseEnter={ this.mouseEnterHandler }>親子專區</a>
+                      <a data-navigation-type='group' onMouseEnter={ this.mouseEnterHandler }>團體遊戲</a>
+                      <a data-navigation-type='lover' onMouseEnter={ this.mouseEnterHandler }>情人專區</a>
+                    </nav>
+                  </section>
+                </div>
               </div>
-            </div>
+            }
 
             <a>幫助</a>
 
