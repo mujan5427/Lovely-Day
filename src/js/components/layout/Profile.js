@@ -1,7 +1,7 @@
 import React from 'react';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
 import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
-import { getProfile, updateProfile } from '../../actions/action';
+import { fetchData, updateProfile, GROUP_PAGE_PROFILE } from '../../actions/action';
 import SelectBox from '../form/SelectBox';
 import InputBox from '../form/InputBox';
 import RadioBoxGroup from '../form/RadioBoxGroup';
@@ -105,7 +105,7 @@ class Profile extends React.Component {
     const { dispatch, hasLoggedIn } = this.props;
 
     if(hasLoggedIn) {
-      dispatch(getProfile());
+      dispatch(fetchData(GROUP_PAGE_PROFILE));
     }
   }
 
