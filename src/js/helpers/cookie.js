@@ -1,6 +1,6 @@
 export const ONE_WEEK_MILLISECOND = 604800000;
 
-export function setCookie(memberInfo, expirationDate) {
+export function setCookie(memberInfo, expirationDate = null) {
   var property;
 
   if(memberInfo.hasOwnProperty('member_id') && !isEmpty(memberInfo.member_id)) {
@@ -8,7 +8,13 @@ export function setCookie(memberInfo, expirationDate) {
   }
 
   for(property in memberInfo) {
-    document.cookie = `${property}=${memberInfo[property]};expires=${expirationDate};path=/`;
+    if(!isEmpty(expirationDate)) {
+      document.cookie = `${property}=${encodeURIComponent(memberInfo[property])};expires=${expirationDate};path=/`;
+
+    } else {
+      document.cookie = `${property}=${encodeURIComponent(memberInfo[property])};path=/`;
+
+    }
   }
 };
 
@@ -21,10 +27,10 @@ export function getCookie() {
 
     cookieArray.map(cookie => {
       var cookieKeyValuePair = cookie.split('=');
-      var cookieName = cookieKeyValuePair[0].trim();
-      var cookieValue = cookieKeyValuePair[1].trim();
+      var cookieName         = cookieKeyValuePair[0].trim();
+      var cookieValue        = cookieKeyValuePair[1].trim();
 
-      Object.assign(cookieObject, {[cookieName]: cookieValue})
+      Object.assign(cookieObject, {[cookieName]: decodeURIComponent(cookieValue)})
     });
   }
 

@@ -114,7 +114,7 @@ class Login extends React.Component {
     const validationRequiredField       = verifyRequiredField(this.state);
     const validationNeedToVerifiedField = verifyNeedToVerifiedField(this.state);
     var requestData                     = {};
-    var email, password;
+    var email, password, rememberMe;
 
     // Verify required field
     if (validationRequiredField.hasErrorMessage) {
@@ -129,12 +129,14 @@ class Login extends React.Component {
       // Complete all of validation step
       // and
       // dispatch specified API
-      email    = this.state.formData.email.value;
-      password = this.state.formData.password.value
+      email      = this.state.formData.email.value;
+      password   = this.state.formData.password.value;
+      rememberMe = this.state.formData.rememberMe.value;
 
       requestData = {
         email: email,
-        password: password
+        password: password,
+        rememberMe: rememberMe
       };
 
       dispatch(login(requestData));

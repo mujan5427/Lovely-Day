@@ -232,9 +232,10 @@ function getExperienceList(group) {
 
 export function login(requestData) {
   return dispatch => {
-    const email     = requestData.email;
-    const password  = requestData.password;
-    const apiPath   = `http://${apiServerUrl}/api/${apiVersion}/token?email=${email}&password=${password}`;
+    const email      = requestData.email;
+    const password   = requestData.password;
+    const rememberMe = requestData.rememberMe;
+    const apiPath    = `http://${apiServerUrl}/api/${apiVersion}/token?email=${email}&password=${password}`;
 
     // You can dispatch Progress Bar at this line. If you needed
     fetch(apiPath)
@@ -248,14 +249,16 @@ export function login(requestData) {
 
     })
     .then(responseData => {
-      var memberInfo  = responseData;
-      var currentDate = new Date();
-      var expirationDate;
+      var memberInfo     = responseData;
+      var currentDate    = new Date();
+      var expirationDate = null;
 
       delete memberInfo.status;
 
-      currentDate.setTime(currentDate.getTime() + ONE_WEEK_MILLISECOND);
-      expirationDate = currentDate.toUTCString();
+      if(rememberMe) {
+        currentDate.setTime(currentDate.getTime() + ONE_WEEK_MILLISECOND);
+        expirationDate = currentDate.toUTCString();
+      }
 
       setCookie(memberInfo, expirationDate);
       dispatch(toggleDisplayDialogLogin());
