@@ -300,53 +300,61 @@ class Signup extends React.Component {
           onChange={ this.formElementEventHandler }
           onClick={ this.formElementEventHandler }
         >
-          <InputBox
-            type='email'
-            value={ email.value }
-            errorMessage={ email.errorMessage }
-            hasIcon={ true }
-            hasPlaceholder={ true }
-          />
+          <div>
+            <InputBox
+              type='email'
+              value={ email.value }
+              errorMessage={ email.errorMessage }
+              hasIcon={ true }
+              hasPlaceholder={ true }
+            />
 
-          { !isEmpty(email.errorMessage) &&
-            <div className='form-error-message'>{ email.errorMessage }</div>
-          }
+            { !isEmpty(email.errorMessage) &&
+              <div className='form-error-message'>{ email.errorMessage }</div>
+            }
+          </div>
 
-          <InputBox
-            type='firstname'
-            value={ firstname.value }
-            errorMessage={ firstname.errorMessage }
-            hasIcon={ true }
-            hasPlaceholder={ true }
-          />
+          <div>
+            <InputBox
+              type='firstname'
+              value={ firstname.value }
+              errorMessage={ firstname.errorMessage }
+              hasIcon={ true }
+              hasPlaceholder={ true }
+            />
 
-          { !isEmpty(firstname.errorMessage) &&
-            <div className='form-error-message'>{ firstname.errorMessage }</div>
-          }
+            { !isEmpty(firstname.errorMessage) &&
+              <div className='form-error-message'>{ firstname.errorMessage }</div>
+            }
+          </div>
 
-          <InputBox
-            type='lastname'
-            value={ lastname.value }
-            errorMessage={ lastname.errorMessage }
-            hasIcon={ true }
-            hasPlaceholder={ true }
-          />
+          <div>
+            <InputBox
+              type='lastname'
+              value={ lastname.value }
+              errorMessage={ lastname.errorMessage }
+              hasIcon={ true }
+              hasPlaceholder={ true }
+            />
 
-          { !isEmpty(lastname.errorMessage) &&
-            <div className='form-error-message'>{ lastname.errorMessage }</div>
-          }
+            { !isEmpty(lastname.errorMessage) &&
+              <div className='form-error-message'>{ lastname.errorMessage }</div>
+            }
+          </div>
 
-          <InputBox
-            type='password'
-            value={ password.value }
-            errorMessage={ password.errorMessage }
-            hasIcon={ true }
-            hasPlaceholder={ true }
-          />
+          <div>
+            <InputBox
+              type='password'
+              value={ password.value }
+              errorMessage={ password.errorMessage }
+              hasIcon={ true }
+              hasPlaceholder={ true }
+            />
 
-          { !isEmpty(password.errorMessage) &&
-            <div className='form-error-message'>{ password.errorMessage }</div>
-          }
+            { !isEmpty(password.errorMessage) &&
+              <div className='form-error-message'>{ password.errorMessage }</div>
+            }
+          </div>
 
           {/* Select Box */}
           <section>
@@ -357,32 +365,34 @@ class Signup extends React.Component {
               <SelectBox type='day' value={ day.value } errorMessage={ day.errorMessage } />
               <SelectBox type='year' value={ year.value } errorMessage={ year.errorMessage } />
             </div>
+
+            { (!isEmpty(month.errorMessage) || !isEmpty(day.errorMessage) || !isEmpty(year.errorMessage)) &&
+              <div className='form-error-message'>
+                { month.errorMessage || day.errorMessage || year.errorMessage }
+              </div>
+            }
           </section>
 
-          { (!isEmpty(month.errorMessage) || !isEmpty(day.errorMessage) || !isEmpty(year.errorMessage)) &&
-            <div className='form-error-message'>
-              { month.errorMessage || day.errorMessage || year.errorMessage }
-            </div>
-          }
-
           {/* Check Box */}
-          <div className={ `checkbox
-            ${!isEmpty(iAgree.errorMessage) ?
-            'form-component-theme-orange' :
-            'form-component-theme-gray'}`}
-          >
-            <input id='iAgree' type='checkbox' checked={ iAgree.value } />
-            <label htmlFor='iAgree' data-element-name='iAgree'>
-              我同意 Lovely Day 的
-              <a className='href-highlight' href>服務條款</a>
-              、
-              <a className='href-highlight' href>隱私政策</a>
-            </label>
-          </div>
+          <div>
+            <div className={ `checkbox
+              ${!isEmpty(iAgree.errorMessage) ?
+              'form-component-theme-orange' :
+              'form-component-theme-gray'}`}
+            >
+              <input id='iAgree' type='checkbox' checked={ iAgree.value } />
+              <label htmlFor='iAgree' data-element-name='iAgree'>
+                我同意 Lovely Day 的
+                <a className='href-highlight' href>服務條款</a>
+                、
+                <a className='href-highlight' href>隱私政策</a>
+              </label>
+            </div>
 
-          { !isEmpty(iAgree.errorMessage) &&
-            <div className='form-error-message'>{ iAgree.errorMessage }</div>
-          }
+            { !isEmpty(iAgree.errorMessage) &&
+              <div className='form-error-message'>{ iAgree.errorMessage }</div>
+            }
+          </div>
 
           <a className='button solid solid-theme-pink' onClick={ this.signupButton }>註冊</a>
 
