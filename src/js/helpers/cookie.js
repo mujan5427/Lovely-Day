@@ -1,4 +1,4 @@
-export const ONE_WEEK_MILLISECOND = 604800000;
+export const NINETY_DAYS = 90;
 
 export function setCookie(memberInfo, expirationDate = null) {
   var property;

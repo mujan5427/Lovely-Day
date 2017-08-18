@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { setCookie, getCookie, deleteCookie, verifyCookie, ONE_WEEK_MILLISECOND } from '../helpers/cookie';
+import { setCookie, getCookie, deleteCookie, verifyCookie, NINETY_DAYS } from '../helpers/cookie';
 
 export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
@@ -256,7 +256,7 @@ export function login(requestData) {
       delete memberInfo.status;
 
       if(rememberMe) {
-        currentDate.setTime(currentDate.getTime() + ONE_WEEK_MILLISECOND);
+        currentDate.setUTCDate(currentDate.getUTCDate() + NINETY_DAYS);
         expirationDate = currentDate.toUTCString();
       }
 
