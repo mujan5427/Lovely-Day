@@ -10,22 +10,30 @@ import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers/reducer';
 
 
-/* * * * * * * * * * * * *
- *                       *
- *      Components       *
- *                       *
- * * * * * * * * * * * * */
+ /* * * * * * * * * * * * * * * *
+  *                             *
+  *     Container Components    *
+  *                             *
+  * * * * * * * * * * * * * * * */
 
 import ContainerHeader from './containers/ContainerHeader';
-import Footer from './components/layout/Footer';
 import ContainerMain from './containers/ContainerMain';
 import ContainerNavigation from './containers/ContainerNavigation';
-import DialogFilter from './components/dialog/Filter';
-import Index from './components/layout/Index';
-import Search from './components/layout/Search';
 import ContainerExperienceDetail from './containers/ContainerExperienceDetail';
 import ContainerDialogWrapper from './containers/ContainerDialogWrapper';
 import ContainerRedirectWrapper from './containers/ContainerRedirectWrapper'
+
+
+ /* * * * * * * * * * * * * * * *
+  *                             *
+  *  Presentational Components  *
+  *                             *
+  * * * * * * * * * * * * * * * */
+
+import Footer from './components/layout/Footer';
+import DialogFilter from './components/dialog/Filter';
+import Index from './components/layout/Index';
+import Search from './components/layout/Search';
 
 
 let store = createStore(reducer, applyMiddleware(thunk));
