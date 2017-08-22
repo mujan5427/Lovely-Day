@@ -16,6 +16,7 @@ export const REQUEST_UPDATE                   = 'REQUEST_UPDATE';
 export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
 export const GROUP_PAGE_PROFILE               = 'GROUP_PAGE_PROFILE';
 export const GROUP_HEADER_NAVIGATION          = 'GROUP_HEADER_NAVIGATION';
+export const GROUP_PAGE_EXPERIENCE_DETAIL     = 'GROUP_PAGE_EXPERIENCE_DETAIL';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -139,6 +140,18 @@ function requestSuccess(group, responseData) {
         index: navigationList,
         entity: navigationEntityList
       };
+
+    case GROUP_PAGE_EXPERIENCE_DETAIL:
+      if (responseData.hasOwnProperty('status')) {
+        delete responseData.status;
+      }
+
+      return {
+        type: REQUEST_SUCCESS,
+        group,
+        selected: responseData.id,
+        entity: {[responseData.id]: responseData}
+      };
   }
 
 }
@@ -166,7 +179,7 @@ export function modifyNavigationType(type) {
  * * * * * * * * * * * * */
 
  // This is invoked directly by logic of application
- export function fetchData(group) {
+ export function fetchData(group, requestData = null) {
    return (dispatch, getState) => {
      if (shouldFetchIfNeeded(group, getState())) {
        switch(group) {
@@ -178,6 +191,9 @@ export function modifyNavigationType(type) {
 
          case GROUP_HEADER_NAVIGATION:
           return dispatch(getNavigationList());
+
+         case GROUP_PAGE_EXPERIENCE_DETAIL:
+          return dispatch(getExperienceDetail(requestData.experienceId));
        }
      }
    };
@@ -198,6 +214,9 @@ function shouldFetchIfNeeded(group, state) {
 
     case GROUP_HEADER_NAVIGATION:
       groupState = state.headerNavigation;
+
+    case GROUP_PAGE_EXPERIENCE_DETAIL:
+      groupState = state.pageExperienceDetail.selected;
   }
 
   if (isEmpty(groupState)) {
@@ -570,6 +589,48 @@ function getNavigationList() {
     })
     .then(responseData => {
       dispatch(requestSuccess(GROUP_HEADER_NAVIGATION, responseData));
+    })
+    .catch(err => {console.log(`Error : ${err}`)});
+  }
+};
+
+function getExperienceDetail(experienceId) {
+  return dispatch => {
+    dispatch(requestBeginning(GROUP_PAGE_EXPERIENCE_DETAIL));
+
+    const id          = Number(experienceId);
+    const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/experience/${ id }`;
+    const hasLoggedIn = verifyCookie();
+    var apiOption     = {};
+
+    apiOption = {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    if (hasLoggedIn) {
+      const cookie   = getCookie();
+      const identity = {
+        member_id: cookie.member_id,
+        token: cookie.token
+      };
+
+      apiOption.headers = Object.assign(apiOption.headers, identity);
+    }
+
+    fetch(apiPath, apiOption)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+
+      } else {
+        console.log(`API 呼叫失敗 : ${response.status}`);
+      }
+
+    })
+    .then(responseData => {
+      dispatch(requestSuccess(GROUP_PAGE_EXPERIENCE_DETAIL, responseData));
     })
     .catch(err => {console.log(`Error : ${err}`)});
   }

@@ -62,6 +62,7 @@ function entityExperiences(state = {}, action) {
       switch(action.group) {
         case 'GROUP_PAGE_INDEX_EXPERIENCE_LIST':
         case 'GROUP_HEADER_NAVIGATION':
+        case 'GROUP_PAGE_EXPERIENCE_DETAIL':
           return {
             experiences: parseExperience(state.experiences, action.entity)
           };
@@ -176,11 +177,31 @@ function pageProfile(state = {}, action) {
 }
 
 function pageExperienceDetail(state = {
+  isFetching: false,
+  selected: '',
   displayContent: false,
   displayBrief: false,
   displayCancelMethod: false
 }, action) {
   switch(action.type) {
+    case 'REQUEST_BEGINNING':
+      if (action.group !== 'GROUP_PAGE_EXPERIENCE_DETAIL') {
+        return state;
+
+      } else {
+        return Object.assign({}, state, {isFetching: true});
+
+      }
+
+    case 'REQUEST_SUCCESS':
+      if (action.group !== 'GROUP_PAGE_EXPERIENCE_DETAIL') {
+        return state;
+
+      } else {
+        return Object.assign({}, state, parsePageExperienceDetail(action.selected));
+
+      }
+
     case 'TOGGLE_DISPLAY_CONTENT':
       return Object.assign({}, state, { displayContent: !state.displayContent });
 
@@ -228,6 +249,13 @@ function parseHeaderNavigation(index) {
     needUpdate: false,
     selected: 'outdoor',
     navigationList: index
+  };
+}
+
+function parsePageExperienceDetail(selected) {
+  return {
+    isFetching: false,
+    selected: selected
   };
 }
 
