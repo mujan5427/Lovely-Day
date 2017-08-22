@@ -84,7 +84,7 @@ exports.getAllExperience = function (inputData) {
 
 exports.getExperienceDetail = function (inputData) {
   const experienceId = inputData.experience_id;
-  const accountId    = Number(inputData.member_id);
+  const accountId    = inputData.hasOwnProperty('member_id') ? Number(inputData.member_id) : null;
   var sqlStatement, sqlPlaceholder, images, responseData;
 
 
