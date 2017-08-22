@@ -7,13 +7,6 @@ class ExperienceDetail extends React.Component {
     this.experienceDetailCSS = {
       'carousel-image': {
         'background-image': 'url(/assets/product7.jpg)'
-      },
-      'recommendationPanel': {
-        'text-align': 'center'
-      },
-      'protrait-circle-img': {
-        height: '70px',
-        width: '70px'
       }
     }
   }
@@ -54,13 +47,13 @@ class ExperienceDetail extends React.Component {
                     <div>Garrett</div>
                   </div>
                   <div className='portrait-circle'>
-                    <img style={ this.experienceDetailCSS['protrait-circle-img'] } src='/assets/person1.jpg' />
+                    <img src='/assets/host/1.jpg' />
                   </div>
                 </div>
               </section>
 
               {/* Experience Information Panel */}
-              <section className='experience-detail-section article'>
+              <section className='experience-detail-section article-close'>
                 <h2>
                   體驗內容
                 </h2>
@@ -71,13 +64,12 @@ class ExperienceDetail extends React.Component {
                   <li>工作室至划舟點來回接送</li>
                 </ul>
 
-                <div className='linear-gradient-block'></div>
-                <div className='article-show-more'>
+                <div className='article-smoke'>
                   <a>看更多</a>
                 </div>
               </section>
 
-              <section className='experience-detail-section article'>
+              <section className='experience-detail-section article-close'>
                 <h2>
                   簡介
                 </h2>
@@ -91,13 +83,12 @@ class ExperienceDetail extends React.Component {
                 <p>玩不夠嗎?更多海科館探索X水上活動體驗行程等著你！</p>
 
 
-                <div className='linear-gradient-block'></div>
-                <div className='article-show-more'>
+                <div className='article-smoke'>
                   <a>看更多</a>
                 </div>
               </section>
 
-              <section className='experience-detail-section article'>
+              <section className='experience-detail-section article-close'>
                 <h2>
                   取消辦法
                 </h2>
@@ -110,8 +101,7 @@ class ExperienceDetail extends React.Component {
                   <li>如因天災等不可抗力因素，Lovely Day 將主動聯繫延期或退款。</li>
                 </ul>
 
-                <div className='linear-gradient-block'></div>
-                <div className='article-show-more'>
+                <div className='article-smoke'>
                   <a>看更多</a>
                 </div>
               </section>
@@ -126,9 +116,7 @@ class ExperienceDetail extends React.Component {
           {/* Bottom Panel */}
           <div className='experience-detail-bottom-panel'>
             <section className='experience-detail-section'>
-              <h1 style={ this.experienceDetailCSS.recommendationPanel }>
-                你可能會喜歡
-              </h1>
+              <h1>你可能會喜歡</h1>
             </section>
 
             {/* Recommendation Panel */}
