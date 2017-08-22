@@ -100,14 +100,17 @@
   position: relative;
 
   > h2 {
-    font-size: 22px;
+    font-size: 22px !important;
     padding-bottom: 24px;
   }
 
-  > p {
+  & * {
+    font-size: 1.1em !important;
+  }
+
+  & p {
     line-height: 2em;
     padding: 8px 0;
-    text-indent: 2em;
   }
 
   > ul {
