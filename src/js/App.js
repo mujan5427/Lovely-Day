@@ -23,7 +23,7 @@ import ContainerNavigation from './containers/ContainerNavigation';
 import DialogFilter from './components/dialog/Filter';
 import Index from './components/layout/Index';
 import Search from './components/layout/Search';
-import ExperienceDetail from './components/layout/ExperienceDetail';
+import ContainerExperienceDetail from './containers/ContainerExperienceDetail';
 import ContainerDialogWrapper from './containers/ContainerDialogWrapper';
 import ContainerRedirectWrapper from './containers/ContainerRedirectWrapper'
 
@@ -38,7 +38,7 @@ ReactDOM.render(
         <Route exact path='/' component={Index} />
         <Route path='/search' component={Search} />
         <Route path='/profile' component={ContainerRedirectWrapper} />
-        <Route path='/experiences/:id' component={ExperienceDetail} />
+        <Route path='/experiences/:id' component={ ContainerExperienceDetail } />
         <ContainerMain />
         <ContainerNavigation />
         <DialogFilter />

@@ -1,4 +1,6 @@
 import React from 'react';
+import { toggleDisplayContent, toggleDisplayBrief, toggleDisplayCancelMethod } from '../../actions/action';
+
 
 class ExperienceDetail extends React.Component {
   constructor(props) {
@@ -9,9 +11,33 @@ class ExperienceDetail extends React.Component {
         'background-image': 'url(/assets/product7.jpg)'
       }
     }
+
+    this.toggleArticleContent      = this.toggleArticleContent.bind(this);
+    this.toggleArticleBrief        = this.toggleArticleBrief.bind(this);
+    this.toggleArticleCancelMethod = this.toggleArticleCancelMethod.bind(this);
+  }
+
+  toggleArticleContent() {
+    const { dispatch } = this.props;
+
+    dispatch(toggleDisplayContent());
+  }
+
+  toggleArticleBrief() {
+    const { dispatch } = this.props;
+
+    dispatch(toggleDisplayBrief());
+  }
+
+  toggleArticleCancelMethod() {
+    const { dispatch } = this.props;
+
+    dispatch(toggleDisplayCancelMethod());
   }
 
   render() {
+    const { displayContent, displayBrief, displayCancelMethod } = this.props;
+
     return (
       <div>
         <div className='content'>
@@ -53,7 +79,10 @@ class ExperienceDetail extends React.Component {
               </section>
 
               {/* Experience Information Panel */}
-              <section className='experience-detail-section article-close'>
+              <section
+                className={ `experience-detail-section ${ displayContent ? 'article-open' : 'article-close'}` }
+                onClick={ this.toggleArticleContent }
+              >
                 <h2>
                   體驗內容
                 </h2>
@@ -69,7 +98,10 @@ class ExperienceDetail extends React.Component {
                 </div>
               </section>
 
-              <section className='experience-detail-section article-close'>
+              <section
+                className={ `experience-detail-section ${ displayBrief ? 'article-open' : 'article-close'}` }
+                onClick={ this.toggleArticleBrief }
+              >
                 <h2>
                   簡介
                 </h2>
@@ -88,7 +120,10 @@ class ExperienceDetail extends React.Component {
                 </div>
               </section>
 
-              <section className='experience-detail-section article-close'>
+              <section
+                className={ `experience-detail-section ${ displayCancelMethod ? 'article-open' : 'article-close'}` }
+                onClick={ this.toggleArticleCancelMethod }
+              >
                 <h2>
                   取消辦法
                 </h2>

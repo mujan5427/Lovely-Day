@@ -6,6 +6,9 @@ export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
 export const TOGGLE_DISPLAYDIALOGSIGNUP       = 'TOGGLE_DISPLAYDIALOGSIGNUP';
 export const TOGGLE_DISPLAYMENUMAIN           = 'TOGGLE_DISPLAYMENUMAIN';
 export const TOGGLE_DISPLAYMENUNAVIGATION     = 'TOGGLE_DISPLAYMENUNAVIGATION';
+export const TOGGLE_DISPLAY_CONTENT           = 'TOGGLE_DISPLAY_CONTENT';
+export const TOGGLE_DISPLAY_BRIEF             = 'TOGGLE_DISPLAY_BRIEF';
+export const TOGGLE_DISPLAY_CANCEL_METHOD     = 'TOGGLE_DISPLAY_CANCEL_METHOD';
 export const MODIFY_NAVIGATION_TYPE           = 'MODIFY_NAVIGATION_TYPE';
 export const REQUEST_BEGINNING                = 'REQUEST_BEGINNING';
 export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
@@ -51,6 +54,24 @@ export function toggleDisplayMenuMain() {
 export function toggleDisplayMenuNavigation() {
   return {
     type: TOGGLE_DISPLAYMENUNAVIGATION
+  };
+}
+
+export function toggleDisplayContent() {
+  return {
+    type: TOGGLE_DISPLAY_CONTENT
+  };
+}
+
+export function toggleDisplayBrief() {
+  return {
+    type: TOGGLE_DISPLAY_BRIEF
+  };
+}
+
+export function toggleDisplayCancelMethod() {
+  return {
+    type: TOGGLE_DISPLAY_CANCEL_METHOD
   };
 }
 

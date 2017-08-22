@@ -175,6 +175,26 @@ function pageProfile(state = {}, action) {
   }
 }
 
+function pageExperienceDetail(state = {
+  displayContent: false,
+  displayBrief: false,
+  displayCancelMethod: false
+}, action) {
+  switch(action.type) {
+    case 'TOGGLE_DISPLAY_CONTENT':
+      return Object.assign({}, state, { displayContent: !state.displayContent });
+
+    case 'TOGGLE_DISPLAY_BRIEF':
+      return Object.assign({}, state, { displayBrief: !state.displayBrief });
+
+    case 'TOGGLE_DISPLAY_CANCEL_METHOD':
+      return Object.assign({}, state, { displayCancelMethod: !state.displayCancelMethod });
+
+    default:
+      return state;
+  }
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -219,7 +239,8 @@ const reducer = combineReducers({
   entities: entityExperiences,
   headerNavigation: headerNavigation,
   pageIndex: pageIndexExperienceList,
-  pageProfile: pageProfile
+  pageProfile: pageProfile,
+  pageExperienceDetail: pageExperienceDetail
 });
 
 export default reducer;
