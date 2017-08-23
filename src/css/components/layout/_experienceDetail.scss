@@ -74,6 +74,10 @@
 .experience-detail-bottom-panel {
   clear: both;
   margin-bottom: 30px;
+
+  > section > h1 {
+    text-align: center;
+  }
 }
 
 .experience-detail-section {
@@ -81,7 +85,6 @@
   padding: 24px 0;
 
   > h1 {
-    text-align: center;
     font-size: 28px;
     font-weight: 400;
     line-height: 1.5em;
@@ -100,16 +103,15 @@
   position: relative;
 
   > h2 {
-    font-size: 22px !important;
     padding-bottom: 24px;
   }
 
   & * {
-    font-size: 1.1em !important;
+    font-size: 20px !important;
   }
 
   & p {
-    line-height: 2em;
+    line-height: 1.7em;
     padding: 8px 0;
   }
 
@@ -136,12 +138,16 @@
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
-  font-size: 1.1em;
+  font-size: 20px;
   justify-content: space-between;
 
   & > div:nth-child(1) {
-    > div {
+    > * {
       padding: 9px 0;
+    }
+
+    > h2 {
+      font-weight: 400;
     }
   }
 }
@@ -234,13 +240,18 @@
     display: none;
   }
 
-  > span {
+  > *:nth-child(1) {
+    font-size: 1.3em;
+    width: 40%;
+  }
+
+  > *:nth-child(2) {
     font-size: 1.3em;
     width: 30%;
   }
 
   > *:last-child {
-    width: 40%;
+    width: 30%;
   }
 }
 
