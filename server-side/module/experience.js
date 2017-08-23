@@ -85,7 +85,7 @@ exports.getAllExperience = function (inputData) {
 exports.getExperienceDetail = function (inputData) {
   const experienceId = inputData.experience_id;
   const accountId    = inputData.hasOwnProperty('member_id') ? Number(inputData.member_id) : null;
-  var sqlStatement, sqlPlaceholder, images, responseData;
+  var sqlStatement, sqlPlaceholder, images, responseData, hostName, hostImagePath;
 
 
   if (isEmpty(accountId)) {
@@ -118,11 +118,14 @@ exports.getExperienceDetail = function (inputData) {
       }
 
       if (rows.length > 0) {
-        images       = rows[0].images.split(',');
-        images       = images.map(image => `/assets/${ image }.jpg`);
+        images        = rows[0].images.split(',');
+        images        = images.map(image => `/assets/${ image }.jpg`);
+
+        hostName      = rows[0].host_name;
+        hostImagePath = `/assets/host/${ rows[0].host_image }.jpg`;
 
         responseData = Object.assign({}, {status: 'ok'}, rows[0]);
-        responseData = Object.assign({}, responseData, {host: {name: rows[0].host_name, image: rows[0].host_image}});
+        responseData = Object.assign({}, responseData, {host: {name: hostName, image: hostImagePath}});
         responseData = Object.assign({}, responseData, {favorited: responseData.favorited === 'true'});
         responseData = Object.assign({}, responseData, {images: images});
 
