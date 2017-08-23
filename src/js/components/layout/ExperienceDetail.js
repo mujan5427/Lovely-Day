@@ -112,7 +112,6 @@ class ExperienceDetail extends React.Component {
               {/* Experience Information Panel */}
               <section
                 className={ `experience-detail-section ${ displayContent ? 'article-open' : 'article-close'}` }
-                onClick={ this.toggleArticleContent }
               >
                 <h2>
                   體驗內容
@@ -123,13 +122,12 @@ class ExperienceDetail extends React.Component {
                 }
 
                 <div className='article-smoke'>
-                  <a>看更多</a>
+                  <a onClick={ this.toggleArticleContent }>看更多</a>
                 </div>
               </section>
 
               <section
                 className={ `experience-detail-section ${ displayBrief ? 'article-open' : 'article-close'}` }
-                onClick={ this.toggleArticleBrief }
               >
                 <h2>
                   簡介
@@ -139,13 +137,12 @@ class ExperienceDetail extends React.Component {
                 }
 
                 <div className='article-smoke'>
-                  <a>看更多</a>
+                  <a onClick={ this.toggleArticleBrief }>看更多</a>
                 </div>
               </section>
 
               <section
                 className={ `experience-detail-section ${ displayCancelMethod ? 'article-open' : 'article-close'}` }
-                onClick={ this.toggleArticleCancelMethod }
               >
                 <h2>
                   取消辦法
@@ -156,7 +153,7 @@ class ExperienceDetail extends React.Component {
                 }
 
                 <div className='article-smoke'>
-                  <a>看更多</a>
+                  <a onClick={ this.toggleArticleCancelMethod }>看更多</a>
                 </div>
               </section>
             </div>
