@@ -95,10 +95,16 @@ class ExperienceDetail extends React.Component {
                 <div className='experience-detail-host-information-panel'>
                   <div>
                     <div>Hosted by </div>
-                    <div>Garrett</div>
+                    <div>
+                      { (host && host.name) &&
+                        host.name
+                      }
+                    </div>
                   </div>
                   <div className='portrait-circle'>
-                    <img src='/assets/host/1.jpg' />
+                    { (host && host.image) &&
+                      <img src={ host.image } />
+                    }
                   </div>
                 </div>
               </section>
