@@ -62,6 +62,14 @@ function getRecommendationListByType(state, currentType) {
   return undefined;
 }
 
+function getCarouselData(images) {
+  if(!isEmpty(images)) {
+    return images.map(image => ({image: image}));
+  }
+
+  return undefined;
+}
+
 function mapStateToProps(state) {
   return {
     displayContent: state.pageExperienceDetail.displayContent,
@@ -72,9 +80,9 @@ function mapStateToProps(state) {
     content: getSpecifiedEntity(state, 'content'),
     brief: getSpecifiedEntity(state, 'brief'),
     cancelMethod: getSpecifiedEntity(state, 'cancel_method'),
-    images: getSpecifiedEntity(state, 'images'),
     host: getSpecifiedEntity(state, 'host'),
     favorited: getSpecifiedEntity(state, 'favorited'),
+    carousel: getCarouselData(getSpecifiedEntity(state, 'images')),
     recommendationList: getRecommendationListByType(state, getSpecifiedEntity(state, 'type'))
   };
 }
