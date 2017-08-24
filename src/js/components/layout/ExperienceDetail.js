@@ -1,5 +1,6 @@
 import React from 'react';
 import Recommendation from '../experience/Recommendation';
+import Carousel from '../carousel/Carousel';
 import { fetchData, toggleDisplayContent, toggleDisplayBrief,
          toggleDisplayCancelMethod, GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
 
@@ -7,12 +8,6 @@ import { fetchData, toggleDisplayContent, toggleDisplayBrief,
 class ExperienceDetail extends React.Component {
   constructor(props) {
     super(props);
-
-    this.experienceDetailCSS = {
-      'carousel-image': {
-        'background-image': 'url(/assets/product7.jpg)'
-      }
-    }
 
     this.toggleArticleContent      = this.toggleArticleContent.bind(this);
     this.toggleArticleBrief        = this.toggleArticleBrief.bind(this);
@@ -60,7 +55,7 @@ class ExperienceDetail extends React.Component {
 
   render() {
     const { displayContent, displayBrief, displayCancelMethod, title, price,
-            content, brief, cancelMethod, images, host, favorited, recommendationList } = this.props;
+            content, brief, cancelMethod, host, favorited, carousel, recommendationList } = this.props;
 
     return (
       <div>
@@ -68,13 +63,19 @@ class ExperienceDetail extends React.Component {
 
           {/* Carousel */}
           <div className='experience-detail-carousel'>
-            <div style={ this.experienceDetailCSS['carousel-image'] } className='carousel-image'></div>
-            <div className='carousel-picker'>
-              <img src='/assets/product7.jpg' />
-              <img src='/assets/product8.jpg' />
-              <img src='/assets/product9.jpg' />
-              <img src='/assets/product10.jpg' />
-            </div>
+            { carousel &&
+              <Carousel useDashboard={ false }>
+                {
+                  carousel.map(item => {
+                    return (
+                      <div className='experience-detail-carousel-item'>
+                        <img src={ item.image } />
+                      </div>
+                    );
+                  })
+                }
+              </Carousel>
+            }
           </div>
 
           <div className='experience-detail-body'>

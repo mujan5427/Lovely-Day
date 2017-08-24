@@ -1,37 +1,11 @@
 .experience-detail-carousel {
   @include mq-medium-up {
-    max-height: 500px;
     overflow: hidden;
   }
+}
 
-  > .carousel-image {
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    @include mq-medium {
-      height: 250px;
-    }
-
-    @include mq-medium-up {
-      height: 500px;
-    }
-  }
-
-  > .carousel-picker {
-    display: flex;
-    flex-flow: row nowrap;
-
-    @include mq-medium-up {
-      display: none;
-    }
-
-    > img {
-      height: 100%;
-      margin: 4px 2px;
-      width: calc(25% - 4px);
-    }
-  }
+.experience-detail-carousel-item {
+  max-height: 500px;
 }
 
 .experience-detail-body {
