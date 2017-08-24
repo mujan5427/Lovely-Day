@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Carousel from '../carousel/Carousel';
 import FilteredExperienceList from '../../containers/FilteredExperienceList';
 
@@ -8,7 +9,7 @@ class Index extends React.Component {
   }
 
   render() {
-    const carouselData = [
+    const carousel = [
       {
         image: '/assets/carousel1.jpg',
         href: '/profile'
@@ -33,14 +34,23 @@ class Index extends React.Component {
 
     return (
       <div className='content'>
+
+        {/* Carousel */}
         <section className='index-carousel'>
-          <Carousel
-            useDashboard={ true }
-            useAutomaticLoop={ true }
-            carouselData={ carouselData }
-          ></Carousel>
+          <Carousel useAutomaticLoop={ true } >
+            {
+              carousel.map(item => {
+                return (
+                  <Link to={ item.href }>
+                    <img src={ item.image } />
+                  </Link>
+                );
+              })
+            }
+          </Carousel>
         </section>
 
+        {/* Experience List */}
         <section className='index-experience'>
           <FilteredExperienceList />
         </section>
