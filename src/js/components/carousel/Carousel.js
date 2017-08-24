@@ -300,7 +300,6 @@ class Carousel extends React.Component {
               {/* Content Placeholder Start */}
               { carouselData &&
                 <Link
-                  key={ `carousel-placeholder-start-${ new Date().getTime().toString(36) }` }
                   to={ carouselData[carouselData.length - 1].href }
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
@@ -331,7 +330,6 @@ class Carousel extends React.Component {
               {/* Content Placeholder End */}
               { carouselData &&
                 <Link
-                  key={ `carousel-placeholder-end-${ new Date().getTime().toString(36) }` }
                   to={ carouselData[0].href }
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
