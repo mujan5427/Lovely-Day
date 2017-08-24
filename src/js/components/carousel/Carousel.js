@@ -1,6 +1,14 @@
+/*
+ * Instructions :
+ *
+ * You can set height of carousel by height of `children` of <Carousel> component.
+ *
+ * Make `children` have hyperlink by using <Link> component of React-Router or just use <a> tag.
+ */
+
+
 import React from 'react';
 var Hammer = require('react-hammerjs');
-import { Link } from 'react-router-dom';
 
 class Carousel extends React.Component {
   constructor (props) {
@@ -21,7 +29,7 @@ class Carousel extends React.Component {
     this.CAROUDEL_WIDTH_CHECKED = false;
     this.MOUSE_DOWN_COORDINATE  = 0;
     this.MOUSE_UP_COORDINATE    = 0;
-    this.CARD_TOTAL             = this.props.carouselData.length;
+    this.CARD_TOTAL             = this.props.children.length;
     this.USE_AUTOMATIC_LOOP     = this.props.useAutomaticLoop !== undefined ? this.props.useAutomaticLoop : false;
     this.INTERVAL               = 5000;
 
@@ -272,7 +280,8 @@ class Carousel extends React.Component {
   }
 
   render() {
-    const { useDashboard = true, carouselData } = this.props;
+    const { useDashboard = true, children } = this.props;
+    const childrenCount  = children.length;
     var animationArguments;
 
     if (this.state.useAnimation !== true) {
@@ -298,46 +307,43 @@ class Carousel extends React.Component {
             <div style={ animationArguments }>
 
               {/* Content Placeholder Start */}
-              { carouselData &&
-                <Link
-                  to={ carouselData[carouselData.length - 1].href }
+              { children &&
+                <div
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
                   onMouseDown={ this.recordMouseDownCoordinate }
                   onMouseUp={ this.recordMouseUpCoordinate }
                   onLoad={ this.contentDataLoaded }
                 >
-                  <img src={ carouselData[carouselData.length - 1].image }/>
-                </Link>
+                  { children[childrenCount - 1] }
+                </div>
               }
 
               {/* Content Data */}
-              { carouselData &&
-                carouselData.map((data, index) => {
-                  return (<Link
+              { children &&
+                children.map((item, index) => {
+                  return (<div
                     key={ index }
-                    to={ data.href }
                     onDragStart={ this.preventDefaultBehavior }
                     onClick={ this.preventUnexpectedEventTriggered }
                     onMouseDown={ this.recordMouseDownCoordinate }
                     onMouseUp={ this.recordMouseUpCoordinate }
                   >
-                    <img src={ data.image }/>
-                  </Link>)
+                    { children[index] }
+                  </div>)
                 })
               }
 
               {/* Content Placeholder End */}
-              { carouselData &&
-                <Link
-                  to={ carouselData[0].href }
+              { children &&
+                <div
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
                   onMouseDown={ this.recordMouseDownCoordinate }
                   onMouseUp={ this.recordMouseUpCoordinate }
                 >
-                  <img src={ carouselData[0].image }/>
-                </Link>
+                  { children[0] }
+                </div>
               }
             </div>
 
