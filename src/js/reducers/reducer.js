@@ -71,6 +71,13 @@ function displayExperienceDetail(state = {
     case 'TOGGLE_DISPLAY_CANCEL_METHOD':
       return Object.assign({}, state, { displayCancelMethod: !state.displayCancelMethod });
 
+    case 'RESET_DISPLAY_EXPERIENCE_DETAIL':
+      return {
+        displayContent: false,
+        displayBrief: false,
+        displayCancelMethod: false
+      };
+
     default:
       return state;
   }
@@ -203,7 +210,7 @@ function pageExperienceDetail(state = {}, action) {
         return state;
 
       } else {
-        return Object.assign({}, state, {isFetching: true});
+        return Object.assign({}, state, {isFetching: true, needUpdate: false});
 
       }
 
@@ -214,6 +221,14 @@ function pageExperienceDetail(state = {}, action) {
       } else {
         return Object.assign({}, state, parsePageExperienceDetail(action.selected));
 
+      }
+
+    case 'REQUEST_UPDATE':
+      if (action.group !== 'GROUP_PAGE_EXPERIENCE_DETAIL') {
+        return state;
+
+      } else {
+        return Object.assign({}, state, {needUpdate: true});
       }
 
     default:
@@ -260,6 +275,7 @@ function parseHeaderNavigation(index) {
 function parsePageExperienceDetail(selected) {
   return {
     isFetching: false,
+    needUpdate: false,
     selected: selected
   };
 }

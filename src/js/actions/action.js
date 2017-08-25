@@ -9,6 +9,7 @@ export const TOGGLE_DISPLAYMENUNAVIGATION     = 'TOGGLE_DISPLAYMENUNAVIGATION';
 export const TOGGLE_DISPLAY_CONTENT           = 'TOGGLE_DISPLAY_CONTENT';
 export const TOGGLE_DISPLAY_BRIEF             = 'TOGGLE_DISPLAY_BRIEF';
 export const TOGGLE_DISPLAY_CANCEL_METHOD     = 'TOGGLE_DISPLAY_CANCEL_METHOD';
+export const RESET_DISPLAY_EXPERIENCE_DETAIL  = 'RESET_DISPLAY_EXPERIENCE_DETAIL';
 export const MODIFY_NAVIGATION_TYPE           = 'MODIFY_NAVIGATION_TYPE';
 export const REQUEST_BEGINNING                = 'REQUEST_BEGINNING';
 export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
@@ -73,6 +74,12 @@ export function toggleDisplayBrief() {
 export function toggleDisplayCancelMethod() {
   return {
     type: TOGGLE_DISPLAY_CANCEL_METHOD
+  };
+}
+
+export function resetDisplayExperienceDetail() {
+  return {
+    type: RESET_DISPLAY_EXPERIENCE_DETAIL
   };
 }
 
@@ -156,7 +163,7 @@ function requestSuccess(group, responseData) {
 
 }
 
-function requestUpdate(group) {
+export function requestUpdate(group) {
   return {
     type: REQUEST_UPDATE,
     group
@@ -216,7 +223,7 @@ function shouldFetchIfNeeded(group, state) {
       groupState = state.headerNavigation;
 
     case GROUP_PAGE_EXPERIENCE_DETAIL:
-      groupState = state.pageExperienceDetail.selected;
+      groupState = state.pageExperienceDetail;
   }
 
   if (isEmpty(groupState)) {
@@ -316,6 +323,7 @@ export function logout() {
     deleteCookie();
     dispatch(toggleHasLoggedIn());
     dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+    dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
   }
 };
 
