@@ -72,9 +72,9 @@ function getCarouselData(images) {
 
 function mapStateToProps(state) {
   return {
-    displayContent: state.pageExperienceDetail.displayContent,
-    displayBrief: state.pageExperienceDetail.displayBrief,
-    displayCancelMethod: state.pageExperienceDetail.displayCancelMethod,
+    displayContent: state.displayExperienceDetail.displayContent,
+    displayBrief: state.displayExperienceDetail.displayBrief,
+    displayCancelMethod: state.displayExperienceDetail.displayCancelMethod,
     title: getSpecifiedEntity(state, 'title'),
     price: getSpecifiedEntity(state, 'price'),
     content: getSpecifiedEntity(state, 'content'),

@@ -56,6 +56,26 @@ function displayMenu(state = {
   }
 }
 
+function displayExperienceDetail(state = {
+  displayContent: false,
+  displayBrief: false,
+  displayCancelMethod: false
+}, action) {
+  switch(action.type) {
+    case 'TOGGLE_DISPLAY_CONTENT':
+      return Object.assign({}, state, { displayContent: !state.displayContent });
+
+    case 'TOGGLE_DISPLAY_BRIEF':
+      return Object.assign({}, state, { displayBrief: !state.displayBrief });
+
+    case 'TOGGLE_DISPLAY_CANCEL_METHOD':
+      return Object.assign({}, state, { displayCancelMethod: !state.displayCancelMethod });
+
+    default:
+      return state;
+  }
+}
+
 function entityExperiences(state = {}, action) {
   switch(action.type) {
     case 'REQUEST_SUCCESS':
@@ -176,13 +196,7 @@ function pageProfile(state = {}, action) {
   }
 }
 
-function pageExperienceDetail(state = {
-  isFetching: false,
-  selected: '',
-  displayContent: false,
-  displayBrief: false,
-  displayCancelMethod: false
-}, action) {
+function pageExperienceDetail(state = {}, action) {
   switch(action.type) {
     case 'REQUEST_BEGINNING':
       if (action.group !== 'GROUP_PAGE_EXPERIENCE_DETAIL') {
@@ -201,15 +215,6 @@ function pageExperienceDetail(state = {
         return Object.assign({}, state, parsePageExperienceDetail(action.selected));
 
       }
-
-    case 'TOGGLE_DISPLAY_CONTENT':
-      return Object.assign({}, state, { displayContent: !state.displayContent });
-
-    case 'TOGGLE_DISPLAY_BRIEF':
-      return Object.assign({}, state, { displayBrief: !state.displayBrief });
-
-    case 'TOGGLE_DISPLAY_CANCEL_METHOD':
-      return Object.assign({}, state, { displayCancelMethod: !state.displayCancelMethod });
 
     default:
       return state;
@@ -264,6 +269,7 @@ const reducer = combineReducers({
   hasLoggedIn: hasLoggedIn,
   displayDialogAccount: displayDialogAccount,
   displayMenu: displayMenu,
+  displayExperienceDetail: displayExperienceDetail,
   entities: entityExperiences,
   headerNavigation: headerNavigation,
   pageIndex: pageIndexExperienceList,
