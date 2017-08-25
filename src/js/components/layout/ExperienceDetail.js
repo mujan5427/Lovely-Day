@@ -1,8 +1,9 @@
 import React from 'react';
 import Recommendation from '../experience/Recommendation';
 import Carousel from '../carousel/Carousel';
-import { fetchData, toggleDisplayContent, toggleDisplayBrief,
-         toggleDisplayCancelMethod, GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
+import { fetchData, requestUpdate, toggleDisplayContent, toggleDisplayBrief,
+         toggleDisplayCancelMethod, resetDisplayExperienceDetail,
+         GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
 
 
 class ExperienceDetail extends React.Component {
@@ -22,10 +23,38 @@ class ExperienceDetail extends React.Component {
    * * * * * * * * * * * * */
 
   componentWillMount() {
-    const { dispatch, match }  = this.props;
-    const selectedExperienceId = match.params.id;
+    const { dispatch, match, selectedExperienceId }  = this.props;
+    const urlExperienceId = Number(match.params.id);
 
-    dispatch(fetchData(GROUP_PAGE_EXPERIENCE_DETAIL, {experienceId: selectedExperienceId}));
+    if(!isEmpty(selectedExperienceId) && (selectedExperienceId !== urlExperienceId)) {
+      dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
+    }
+
+    dispatch(fetchData(GROUP_PAGE_EXPERIENCE_DETAIL, {experienceId: urlExperienceId}));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { dispatch }    = nextProps;
+    const urlExperienceId = Number(nextProps.match.params.id);
+    const previousProps   = this.props;
+    const currentProps    = nextProps;
+
+    if(previousProps.match.url !== currentProps.match.url) {
+      dispatch(resetDisplayExperienceDetail());
+      dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
+      dispatch(fetchData(GROUP_PAGE_EXPERIENCE_DETAIL, {experienceId: urlExperienceId}));
+    }
+
+    if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
+      dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
+      dispatch(fetchData(GROUP_PAGE_EXPERIENCE_DETAIL, {experienceId: urlExperienceId}));
+    }
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+
+    dispatch(resetDisplayExperienceDetail());
   }
 
 
