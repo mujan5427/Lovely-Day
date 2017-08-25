@@ -72,9 +72,11 @@ function getCarouselData(images) {
 
 function mapStateToProps(state) {
   return {
+    hasLoggedIn: state.hasLoggedIn,
     displayContent: state.displayExperienceDetail.displayContent,
     displayBrief: state.displayExperienceDetail.displayBrief,
     displayCancelMethod: state.displayExperienceDetail.displayCancelMethod,
+    selectedExperienceId: !isEmpty(state.pageExperienceDetail.selected) ? state.pageExperienceDetail.selected : undefined,
     title: getSpecifiedEntity(state, 'title'),
     price: getSpecifiedEntity(state, 'price'),
     content: getSpecifiedEntity(state, 'content'),
