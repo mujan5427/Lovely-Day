@@ -22,6 +22,7 @@ import ContainerNavigation from './containers/ContainerNavigation';
 import ContainerExperienceDetail from './containers/ContainerExperienceDetail';
 import ContainerDialogWrapper from './containers/ContainerDialogWrapper';
 import ContainerRedirectWrapper from './containers/ContainerRedirectWrapper'
+import ContainerIndex from './containers/ContainerIndex';
 
 
  /* * * * * * * * * * * * * * * *
@@ -32,7 +33,6 @@ import ContainerRedirectWrapper from './containers/ContainerRedirectWrapper'
 
 import Footer from './components/layout/Footer';
 import DialogFilter from './components/dialog/Filter';
-import Index from './components/layout/Index';
 import Search from './components/layout/Search';
 
 
@@ -43,7 +43,7 @@ ReactDOM.render(
     <Router>
       <div>
         <ContainerHeader />
-        <Route exact path='/' component={Index} />
+        <Route exact path='/' component={ ContainerIndex } />
         <Route path='/search' component={Search} />
         <Route path='/profile' component={ContainerRedirectWrapper} />
         <Route path='/experiences/:id' component={ ContainerExperienceDetail } />
