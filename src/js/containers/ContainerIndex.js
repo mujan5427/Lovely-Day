@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import Index from '../components/layout/Index';
+import { hasPropertyInDeep } from '../helpers/object';
 
 
 function getExperienceList(state) {
-  if(!isEmpty(state.entities.experiences) && !isEmpty(state.pageIndex.experienceList.items)) {
+  if(!isEmpty(state.entities.experiences) && hasPropertyInDeep(state.pageIndex, 'experienceList.items')) {
     const experience          = state.entities.experiences;
     const experienceListIndex = state.pageIndex.experienceList.items;
 
