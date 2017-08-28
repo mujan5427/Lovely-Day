@@ -1,11 +1,69 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from '../carousel/Carousel';
-import FilteredExperienceList from '../../containers/FilteredExperienceList';
+import Experience from '../experience/Experience';
+import { fetchData, requestUpdate, addFavourite, deleteFavourite,
+         GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../../actions/action';
+
 
 class Index extends React.Component {
   constructor(props) {
     super(props);
+
+    this.toggleFavorite = this.toggleFavorite.bind(this);
+  }
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *   Lifecycle Methods   *
+   *                       *
+   * * * * * * * * * * * * */
+
+
+  componentWillMount() {
+    const { dispatch } = this.props;
+
+    dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { dispatch }  = nextProps;
+    const previousProps = this.props;
+    const currentProps  = nextProps;
+
+    if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
+      dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+    }
+
+    if(previousProps.needUpdate !== currentProps.needUpdate) {
+      dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+    }
+  }
+
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *    Private Methods    *
+   *                       *
+   * * * * * * * * * * * * */
+
+  toggleFavorite(experienceId, favorited) {
+    const { dispatch, hasLoggedIn } = this.props;
+
+    if (!hasLoggedIn) {
+
+      // This can be replace by using Dialog Message component
+      console.log(`此操作需要先登入帳號 !`);
+
+    } else {
+
+      // If `favorited` is `true` executes deleteFavourite，otherwise executes addFavourite
+      if (favorited) {
+        dispatch(deleteFavourite(experienceId));
+      } else {
+        dispatch(addFavourite(experienceId));
+      }
+    }
   }
 
   render() {
@@ -31,6 +89,7 @@ class Index extends React.Component {
         href: '/profile'
       }
     ];
+    const { experienceList } = this.props;
 
     return (
       <div className='content'>
@@ -52,7 +111,21 @@ class Index extends React.Component {
 
         {/* Experience List */}
         <section className='index-experience'>
-          <FilteredExperienceList />
+          <div className='experience-list'>
+            {experienceList &&
+              experienceList.map(item =>
+                <Experience
+                  key={ item.id }
+                  id={ item.id }
+                  image={ item.image }
+                  title={ item.title }
+                  price={ item.price }
+                  favorited={ item.favorited }
+                  toggleFavorite={ this.toggleFavorite }
+                />
+              )
+            }
+          </div>
         </section>
       </div>
     );
