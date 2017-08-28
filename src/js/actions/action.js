@@ -310,7 +310,6 @@ export function login(requestData) {
       setCookie(memberInfo, expirationDate);
       dispatch(toggleDisplayDialogLogin());
       dispatch(toggleHasLoggedIn());
-      dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
       dispatch(getProfile());
       // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
     })
