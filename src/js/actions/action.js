@@ -1,23 +1,24 @@
 import fetch from 'isomorphic-fetch';
 import { setCookie, getCookie, deleteCookie, verifyCookie, NINETY_DAYS } from '../helpers/cookie';
 
-export const TOGGLE_HASLOGGEDIN               = 'TOGGLE_HASLOGGEDIN';
-export const TOGGLE_DISPLAYDIALOGLOGIN        = 'TOGGLE_DISPLAYDIALOGLOGIN';
-export const TOGGLE_DISPLAYDIALOGSIGNUP       = 'TOGGLE_DISPLAYDIALOGSIGNUP';
-export const TOGGLE_DISPLAYMENUMAIN           = 'TOGGLE_DISPLAYMENUMAIN';
-export const TOGGLE_DISPLAYMENUNAVIGATION     = 'TOGGLE_DISPLAYMENUNAVIGATION';
-export const TOGGLE_DISPLAY_CONTENT           = 'TOGGLE_DISPLAY_CONTENT';
-export const TOGGLE_DISPLAY_BRIEF             = 'TOGGLE_DISPLAY_BRIEF';
-export const TOGGLE_DISPLAY_CANCEL_METHOD     = 'TOGGLE_DISPLAY_CANCEL_METHOD';
-export const RESET_DISPLAY_EXPERIENCE_DETAIL  = 'RESET_DISPLAY_EXPERIENCE_DETAIL';
-export const MODIFY_NAVIGATION_TYPE           = 'MODIFY_NAVIGATION_TYPE';
-export const REQUEST_BEGINNING                = 'REQUEST_BEGINNING';
-export const REQUEST_SUCCESS                  = 'REQUEST_SUCCESS';
-export const REQUEST_UPDATE                   = 'REQUEST_UPDATE';
-export const GROUP_PAGE_INDEX_EXPERIENCE_LIST = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
-export const GROUP_PAGE_PROFILE               = 'GROUP_PAGE_PROFILE';
-export const GROUP_HEADER_NAVIGATION          = 'GROUP_HEADER_NAVIGATION';
-export const GROUP_PAGE_EXPERIENCE_DETAIL     = 'GROUP_PAGE_EXPERIENCE_DETAIL';
+export const TOGGLE_HASLOGGEDIN                 = 'TOGGLE_HASLOGGEDIN';
+export const TOGGLE_DISPLAYDIALOGLOGIN          = 'TOGGLE_DISPLAYDIALOGLOGIN';
+export const TOGGLE_DISPLAYDIALOGSIGNUP         = 'TOGGLE_DISPLAYDIALOGSIGNUP';
+export const TOGGLE_DISPLAYMENUMAIN             = 'TOGGLE_DISPLAYMENUMAIN';
+export const TOGGLE_DISPLAYMENUNAVIGATION       = 'TOGGLE_DISPLAYMENUNAVIGATION';
+export const TOGGLE_DISPLAY_CONTENT             = 'TOGGLE_DISPLAY_CONTENT';
+export const TOGGLE_DISPLAY_BRIEF               = 'TOGGLE_DISPLAY_BRIEF';
+export const TOGGLE_DISPLAY_CANCEL_METHOD       = 'TOGGLE_DISPLAY_CANCEL_METHOD';
+export const TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS = 'TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS';
+export const RESET_DISPLAY_EXPERIENCE_DETAIL    = 'RESET_DISPLAY_EXPERIENCE_DETAIL';
+export const MODIFY_NAVIGATION_TYPE             = 'MODIFY_NAVIGATION_TYPE';
+export const REQUEST_BEGINNING                  = 'REQUEST_BEGINNING';
+export const REQUEST_SUCCESS                    = 'REQUEST_SUCCESS';
+export const REQUEST_UPDATE                     = 'REQUEST_UPDATE';
+export const GROUP_PAGE_INDEX_EXPERIENCE_LIST   = 'GROUP_PAGE_INDEX_EXPERIENCE_LIST';
+export const GROUP_PAGE_PROFILE                 = 'GROUP_PAGE_PROFILE';
+export const GROUP_HEADER_NAVIGATION            = 'GROUP_HEADER_NAVIGATION';
+export const GROUP_PAGE_EXPERIENCE_DETAIL       = 'GROUP_PAGE_EXPERIENCE_DETAIL';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -174,6 +175,12 @@ export function modifyNavigationType(type) {
   return {
     type: MODIFY_NAVIGATION_TYPE,
     selectedType: type
+  };
+}
+
+export function togglePageIndexScrollbarStatus() {
+  return {
+    type: TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS
   };
 }
 
