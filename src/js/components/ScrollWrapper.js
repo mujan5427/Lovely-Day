@@ -17,7 +17,6 @@ class ScrollWrapper extends React.Component {
     const percentage                = Math.round(currentYScrollBarPosition / heightOfChildren * 1000) / 10;
 
     if(percentage === 100) {
-      console.log('Welcome to my secret base 😎');
       callback();
     }
 
