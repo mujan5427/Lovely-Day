@@ -149,7 +149,7 @@ function pageIndexExperienceList(state = {}, action) {
 
       } else {
         return {
-          experienceList: parsePageIndex(action.index)
+          experienceList: parsePageIndex(state.experienceList, action.index)
         };
 
       }
@@ -248,12 +248,20 @@ function pageExperienceDetail(state = {}, action) {
  *                       *
  * * * * * * * * * * * * */
 
-function parsePageIndex(index) {
+function parsePageIndex(originalState, index) {
+  var mergedItems;
+
+  if(!originalState.hasOwnProperty('items')) {
+    mergedItems = index;
+  } else {
+    mergedItems = originalState.items.concat(index);
+  }
+
   return {
     isFetching: false,
     needUpdate: false,
     scrolledToBottom: false,
-    items: index
+    items: mergedItems
   };
 }
 
