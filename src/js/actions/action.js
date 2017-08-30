@@ -198,7 +198,7 @@ export function togglePageIndexScrollbarStatus() {
      if (shouldFetchIfNeeded(group, getState())) {
        switch(group) {
          case GROUP_PAGE_INDEX_EXPERIENCE_LIST:
-          return dispatch(getExperienceList(group));
+          return dispatch(getExperienceList(group, requestData));
 
          case GROUP_PAGE_PROFILE:
           return dispatch(getProfile());
@@ -243,12 +243,17 @@ function shouldFetchIfNeeded(group, state) {
 }
 
 // Logic of invoke API actually without Header、Input Data
-function getExperienceList(group) {
+function getExperienceList(group, requestBody) {
   return dispatch => {
     dispatch(requestBeginning(group));
 
+    const itemLimit   = 6;
+    const currentPage = requestBody.current_page;
+    const region      = requestBody.region;
+    const type        = requestBody.type;
+
     var apiPath       = `http://${apiServerUrl}/api/${apiVersion}/experience`;
-    var queryString   = `?item_limit=6&current_page=1&region=none&type=hand_made,outdoor`;
+    var queryString   = `?item_limit=${ itemLimit }&current_page=${ currentPage }&region=${ region }&type=${ type }`;
     const hasLoggedIn = verifyCookie();
     var apiOption     = {};
 
