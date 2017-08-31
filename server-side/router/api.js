@@ -57,4 +57,9 @@ router.get(`/${ API_VERSION }/navigation`, function (req, res) {
   experience.getExperienceForNavigation(req, res);
 });
 
+router.get(`/${ API_VERSION }/favourite`, function (req, res) {
+
+  favourite.getFavourite(req, res);
+});
+
 module.exports = router;

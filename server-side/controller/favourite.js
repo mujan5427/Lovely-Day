@@ -41,3 +41,20 @@ exports.deleteFavourite = function(req, res) {
     error.analysisErrorObject(err, res);
   }
 };
+
+exports.getFavourite = function(req, res) {
+  const inputData        = req.headers;
+  const headerColumnName = ['member_id', 'token'];
+  const columnName       = headerColumnName;
+
+  try {
+    verification.verifyColumnIsExist(columnName, inputData);
+    verification.verifyToken(inputData.member_id, inputData.token)
+    favourite.get(inputData)
+    .then(value => res.json(value))
+    .catch(err => { error.analysisErrorObject(err, res) });
+
+  } catch(err) {
+    error.analysisErrorObject(err, res);
+  }
+};
