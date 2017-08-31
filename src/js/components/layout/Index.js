@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import ScrollWrapper from '../ScrollWrapper';
 import Carousel from '../carousel/Carousel';
 import Experience from '../experience/Experience';
-import { fetchData, requestUpdate, addFavourite, deleteFavourite,
-         togglePageIndexScrollbarStatus,
+import { fetchData, requestUpdate, getFavourite, addFavourite, deleteFavourite,
+         togglePageIndexScrollbarStatus, resetEntityExperienceFavorite,
          GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../../actions/action';
 
 
@@ -60,6 +60,22 @@ class Index extends React.Component {
     };
 
     if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
+      if(currentProps.hasLoggedIn) {
+
+        // update `favorited` of entity experience list of app state
+        dispatch(getFavourite());
+
+      } else {
+
+        // reset `favorited` of entity experience list of app state
+        dispatch(resetEntityExperienceFavorite());
+      }
+
+    }
+
+    if(previousProps.scrolledToBottom !== currentProps.scrolledToBottom) {
+      this.setState(Object.assign({}, this.state, { currentPage: this.state.currentPage + 1 }));
+
       dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
     }
 
