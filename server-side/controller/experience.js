@@ -15,7 +15,8 @@ exports.getExperienceList = function(req, res) {
 
     if (!isEmpty(inputData.member_id)) { verification.verifyToken(inputData.member_id, inputData.token); }
 
-    experience.getAllExperience(inputData)
+    experience.getExperienceListTotal(inputData)
+    .then(value => experience.getAllExperience(inputData, value.total))
     .then(value => res.json(value))
     .catch(err => { error.analysisErrorObject(err, res) });
 

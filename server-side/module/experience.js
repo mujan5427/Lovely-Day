@@ -3,12 +3,15 @@ const db          = require('./database');
 const errorConfig = require('../error_config');
 
 
-exports.getAllExperience = function (inputData) {
-  const itemLimit   = Number(inputData.item_limit);
-  const currentPage = Number(inputData.current_page) <= 1 ? 0 : (Number(inputData.current_page) - 1) * itemLimit;
+exports.getAllExperience = function (inputData, total) {
+  const itemLimit           = Number(inputData.item_limit);
+  const currentPage         = Number(inputData.current_page) <= 1 ? 0 : (Number(inputData.current_page) - 1) * itemLimit;
+  const experienceListTotal = Number(total);
   var syntheticWhereCondition, accountId, sqlStatement, sqlPlaceholder, type,
-      region, responseData, preparedData, images;
+      region, responseData, preparedData, images, currentExperienceListTotal;
 
+
+  currentExperienceListTotal = Number(inputData.current_page) * itemLimit;
 
   if (inputData.type !== 'none' || inputData.region !== 'none') {
     type   = inputData.type.split(',');
@@ -71,7 +74,53 @@ exports.getAllExperience = function (inputData) {
         responseData = {
           status: 'ok',
           dataCount: rows.length,
+          isThisLastPage: currentExperienceListTotal === experienceListTotal ? true : undefined,
           items: preparedData
+        };
+
+        resolve(responseData);
+      } else {
+        reject({type: 'client', message: errorConfig.client[6].message});
+      }
+    });
+  });
+};
+
+exports.getExperienceListTotal = function (inputData) {
+  var syntheticWhereCondition, sqlStatement, type, region, responseData;
+
+
+  if (inputData.type !== 'none' || inputData.region !== 'none') {
+    type   = inputData.type.split(',');
+    region = inputData.region.split(',');
+    type   = type.map(item => `'${item}'`);
+    region = region.map(item => `'${item}'`);
+
+    if (inputData.type === 'none') {
+      syntheticWhereCondition = `WHERE region IN (${region})`;
+    }
+    if (inputData.region === 'none') {
+      syntheticWhereCondition = `WHERE type IN (${type})`;
+    }
+    if (inputData.type !== 'none' && inputData.region !== 'none') {
+      syntheticWhereCondition = `WHERE type IN (${type}) AND region IN (${region})`;
+    }
+
+  } else {
+    syntheticWhereCondition = '';
+  }
+
+  sqlStatement = `SELECT count(*) as total FROM experience ${syntheticWhereCondition}`;
+
+  return new Promise(function(resolve, reject) {
+    db.singleQuery.query(sqlStatement, (error, rows) => {
+      if (error) {
+        return reject({type: 'database', message: error.code});
+      }
+
+      if (rows.length > 0) {
+        responseData = {
+          total: rows[0].total
         };
 
         resolve(responseData);
