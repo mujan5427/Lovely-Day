@@ -94,9 +94,19 @@ function entityExperiences(state = {}, action) {
             experiences: parseExperience(state.experiences, action.entity)
           };
 
+        case 'GROUP_ENTITY':
+          return {
+            experiences: toggleFavoritedProperty(state.experiences, action.index)
+          };
+
         default:
           return state;
       }
+
+    case 'RESET_ENTITY_EXPERIENCE_FAVORITE':
+      return {
+        experiences: toggleFavoritedProperty(state.experiences)
+      };
 
     default:
       return state;
@@ -267,6 +277,24 @@ function parsePageIndex(originalState, index) {
 
 function parseExperience(originalState, entity) {
   return Object.assign({}, originalState, entity);
+}
+
+function toggleFavoritedProperty(originalState, favoritedExperienceId = undefined) {
+  var property;
+
+  if(!isEmpty(favoritedExperienceId)) {
+    favoritedExperienceId.map(experienceId => {
+      if(!isEmpty(originalState[experienceId])) {
+        originalState[experienceId].favorited = !originalState[experienceId].favorited;
+      }
+    });
+  } else {
+    for(property in originalState) {
+      originalState[property].favorited = false;
+    }
+  }
+
+  return originalState;
 }
 
 function parsePageProfile(responseData) {

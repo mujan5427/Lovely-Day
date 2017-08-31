@@ -19,6 +19,8 @@ export const GROUP_PAGE_INDEX_EXPERIENCE_LIST   = 'GROUP_PAGE_INDEX_EXPERIENCE_L
 export const GROUP_PAGE_PROFILE                 = 'GROUP_PAGE_PROFILE';
 export const GROUP_HEADER_NAVIGATION            = 'GROUP_HEADER_NAVIGATION';
 export const GROUP_PAGE_EXPERIENCE_DETAIL       = 'GROUP_PAGE_EXPERIENCE_DETAIL';
+export const GROUP_ENTITY                       = 'GROUP_ENTITY';
+export const RESET_ENTITY_EXPERIENCE_FAVORITE   = 'RESET_ENTITY_EXPERIENCE_FAVORITE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -160,6 +162,13 @@ function requestSuccess(group, responseData) {
         selected: responseData.id,
         entity: {[responseData.id]: responseData}
       };
+
+    case GROUP_ENTITY:
+      return {
+        type: REQUEST_SUCCESS,
+        group,
+        index: items
+      };
   }
 
 }
@@ -181,6 +190,12 @@ export function modifyNavigationType(type) {
 export function togglePageIndexScrollbarStatus() {
   return {
     type: TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS
+  };
+}
+
+export function resetEntityExperienceFavorite() {
+  return {
+    type: RESET_ENTITY_EXPERIENCE_FAVORITE
   };
 }
 
@@ -333,8 +348,49 @@ export function logout() {
   return dispatch => {
     deleteCookie();
     dispatch(toggleHasLoggedIn());
-    dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
     dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
+  }
+};
+
+export function getFavourite() {
+  return dispatch => {
+    dispatch(requestBeginning(GROUP_ENTITY));
+
+    const apiPath     = `http://${apiServerUrl}/api/${apiVersion}/favourite`;
+    const hasLoggedIn = verifyCookie();
+
+    var apiOption = {};
+
+    apiOption = {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      }
+    };
+
+    if (hasLoggedIn) {
+      const cookie      = getCookie();
+      const identity    = {
+        member_id: cookie.member_id,
+        token: cookie.token
+      };
+
+      apiOption.headers = Object.assign(apiOption.headers, identity);
+    }
+
+    fetch(apiPath, apiOption)
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+
+      } else {
+        console.log(`API 呼叫失敗 : ${response.status}`);
+      }
+
+    })
+    .then(responseData => {
+      dispatch(requestSuccess(GROUP_ENTITY, responseData));
+    })
+    .catch(err => {console.log(`Error : ${err}`)});
   }
 };
 
