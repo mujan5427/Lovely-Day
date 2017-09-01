@@ -16,13 +16,15 @@ class Index extends React.Component {
 
     /* * * * * * * * * * * * *
      *                       *
-     *     Constant Area     *
+     *      Local State      *
      *                       *
      * * * * * * * * * * * * */
 
-    this.CURRENT_PAGE = 1;
-    this.REGION       = 'none';
-    this.TYPE         = 'none';
+    this.state = {
+      currentPage : 1,
+      region      : 'none',
+      type        : 'none'
+    };
 
 
     /* * * * * * * * * * * * *
@@ -44,10 +46,11 @@ class Index extends React.Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
+    const { currentPage, region, type } = this.state;
     const requestData = {
-      current_page: this.CURRENT_PAGE,
-      region: this.REGION,
-      type: this.TYPE
+      current_page : currentPage,
+      region       : region,
+      type         : type
     };
 
     dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST, requestData));
@@ -55,12 +58,15 @@ class Index extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { dispatch }  = nextProps;
-    const previousProps = this.props;
-    const currentProps  = nextProps;
-    const requestData   = {
-      current_page: this.CURRENT_PAGE,
-      region: this.REGION,
-      type: this.TYPE
+    const { currentPage, region, type } = this.state;
+    const previousProps          = this.props;
+    const currentProps           = nextProps;
+    const currentExperienceCount = currentProps.experienceList.length;
+    const currentExperienceTotal = currentPage * 6;
+    const requestData            = {
+      current_page : currentPage,
+      region       : region,
+      type         : type
     };
 
     if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
@@ -77,13 +83,25 @@ class Index extends React.Component {
 
     }
 
+    // If experience count of app state is equal expected total (current page * item limit)
+    // update the `currentPage` property of local state
+    if(currentExperienceCount === currentExperienceTotal) {
+      this.setState(Object.assign({}, this.state, { currentPage: currentPage + 1 }));
+    }
+
     if(previousProps.needUpdate !== currentProps.needUpdate) {
       dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST, requestData));
     }
   }
 
   componentWillUnmount() {
-    this.CURRENT_PAGE = 1;
+    const defaultValueOfLocalState = {
+      currentPage : 1,
+      region      : 'none',
+      type        : 'none'
+    };
+
+    this.setState(Object.assign({}, this.state, defaultValueOfLocalState));
 
     // reset pageIndex experienceList
   }
@@ -115,15 +133,10 @@ class Index extends React.Component {
   }
 
   toggleScrollbarStatus() {
-    const { dispatch, isThisLastPage, experienceList } = this.props;
-    const currentExperienceCount = experienceList.length;
-    const currentExperienceTotal = this.CURRENT_PAGE * 6;
+    const { dispatch, isThisLastPage } = this.props;
 
     if(isEmpty(isThisLastPage)) {
-      if(currentExperienceCount === currentExperienceTotal) {
-        this.CURRENT_PAGE++;
-        dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
-      }
+      dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
     }
   }
 
