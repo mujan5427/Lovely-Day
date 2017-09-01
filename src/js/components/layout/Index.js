@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ScrollWrapper from '../ScrollWrapper';
 import Carousel from '../carousel/Carousel';
 import Experience from '../experience/Experience';
+import Footer from './Footer';
 import { fetchData, requestUpdate, getFavourite, addFavourite, deleteFavourite,
          resetEntityExperienceFavorite,
          GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../../actions/action';
@@ -81,6 +82,12 @@ class Index extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.CURRENT_PAGE = 1;
+
+    // reset pageIndex experienceList
+  }
+
 
   /* * * * * * * * * * * * *
    *                       *
@@ -108,10 +115,16 @@ class Index extends React.Component {
   }
 
   toggleScrollbarStatus() {
-    const { dispatch } = this.props;
+    const { dispatch, isThisLastPage, experienceList } = this.props;
+    const currentExperienceCount = experienceList.length;
+    const currentExperienceTotal = this.CURRENT_PAGE * 6;
 
-    this.CURRENT_PAGE++;
-    dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+    if(isEmpty(isThisLastPage)) {
+      if(currentExperienceCount === currentExperienceTotal) {
+        this.CURRENT_PAGE++;
+        dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+      }
+    }
   }
 
   render() {
@@ -137,7 +150,7 @@ class Index extends React.Component {
         href: '/profile'
       }
     ];
-    const { experienceList } = this.props;
+    const { experienceList, isThisLastPage } = this.props;
 
     return (
       <ScrollWrapper callback={ this.toggleScrollbarStatus }>
@@ -176,7 +189,15 @@ class Index extends React.Component {
               }
             </div>
           </section>
+
+          {/* You can place Progress Bar component in this line */}
+          {/* and determine whether to show it with `isFetching` props */}
+
         </div>
+
+        { isThisLastPage &&
+          <Footer />
+        }
       </ScrollWrapper>
     );
   }
