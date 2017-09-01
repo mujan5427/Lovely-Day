@@ -159,7 +159,7 @@ function pageIndexExperienceList(state = {}, action) {
 
       } else {
         return {
-          experienceList: parsePageIndex(state.experienceList, action.index)
+          experienceList: parsePageIndex(state.experienceList, action.index, action.isThisLastPage)
         };
 
       }
@@ -253,7 +253,7 @@ function pageExperienceDetail(state = {}, action) {
  *                       *
  * * * * * * * * * * * * */
 
-function parsePageIndex(originalState, index) {
+function parsePageIndex(originalState, index, isThisLastPage) {
   var mergedItems;
 
   if(!originalState.hasOwnProperty('items')) {
@@ -265,6 +265,7 @@ function parsePageIndex(originalState, index) {
   return {
     isFetching: false,
     needUpdate: false,
+    isThisLastPage: isThisLastPage,
     items: mergedItems
   };
 }

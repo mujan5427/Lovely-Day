@@ -112,7 +112,8 @@ function requestSuccess(group, responseData) {
         type: REQUEST_SUCCESS,
         group,
         index: items.map(item => Number(item.id)),
-        entity: entity
+        entity: entity,
+        isThisLastPage: responseData.hasOwnProperty('isThisLastPage') ? true : undefined
       };
 
     case GROUP_PAGE_PROFILE:
