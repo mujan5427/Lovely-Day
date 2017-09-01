@@ -25,6 +25,7 @@ function mapStateToProps(state) {
   return {
     hasLoggedIn: state.hasLoggedIn,
     needUpdate: !isEmpty(state.pageIndex.experienceList) ? state.pageIndex.experienceList.needUpdate : false,
+    isThisLastPage: !isEmpty(state.pageIndex.experienceList) ? state.pageIndex.experienceList.isThisLastPage : undefined,
     experienceList: getExperienceList(state)
   };
 }
