@@ -4,7 +4,7 @@ import ScrollWrapper from '../ScrollWrapper';
 import Carousel from '../carousel/Carousel';
 import Experience from '../experience/Experience';
 import { fetchData, requestUpdate, getFavourite, addFavourite, deleteFavourite,
-         togglePageIndexScrollbarStatus, resetEntityExperienceFavorite,
+         resetEntityExperienceFavorite,
          GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../../actions/action';
 
 
@@ -12,22 +12,28 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggleFavorite        = this.toggleFavorite.bind(this);
-    this.toggleScrollbarStatus = this.toggleScrollbarStatus.bind(this);
+
+    /* * * * * * * * * * * * *
+     *                       *
+     *     Constant Area     *
+     *                       *
+     * * * * * * * * * * * * */
+
+    this.CURRENT_PAGE = 1;
+    this.REGION       = 'none';
+    this.TYPE         = 'none';
 
 
     /* * * * * * * * * * * * *
      *                       *
-     *      Local State      *
+     *   Methods Bind Area   *
      *                       *
      * * * * * * * * * * * * */
 
-    this.state = {
-      currentPage: 1,
-      region: 'none',
-      type: 'none'
-    };
+    this.toggleFavorite        = this.toggleFavorite.bind(this);
+    this.toggleScrollbarStatus = this.toggleScrollbarStatus.bind(this);
   }
+
 
   /* * * * * * * * * * * * *
    *                       *
@@ -35,28 +41,25 @@ class Index extends React.Component {
    *                       *
    * * * * * * * * * * * * */
 
-
   componentWillMount() {
-    const { dispatch }                  = this.props;
-    const { currentPage, region, type } = this.state;
+    const { dispatch } = this.props;
     const requestData = {
-      current_page: currentPage,
-      region: region,
-      type: type
+      current_page: this.CURRENT_PAGE,
+      region: this.REGION,
+      type: this.TYPE
     };
 
     dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST, requestData));
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dispatch }                  = nextProps;
-    const { currentPage, region, type } = this.state;
+    const { dispatch }  = nextProps;
     const previousProps = this.props;
     const currentProps  = nextProps;
     const requestData   = {
-      current_page: currentPage,
-      region: region,
-      type: type
+      current_page: this.CURRENT_PAGE,
+      region: this.REGION,
+      type: this.TYPE
     };
 
     if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
@@ -71,12 +74,6 @@ class Index extends React.Component {
         dispatch(resetEntityExperienceFavorite());
       }
 
-    }
-
-    if(previousProps.scrolledToBottom !== currentProps.scrolledToBottom) {
-      this.setState(Object.assign({}, this.state, { currentPage: this.state.currentPage + 1 }));
-
-      dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
     }
 
     if(previousProps.needUpdate !== currentProps.needUpdate) {
@@ -113,7 +110,8 @@ class Index extends React.Component {
   toggleScrollbarStatus() {
     const { dispatch } = this.props;
 
-    dispatch(togglePageIndexScrollbarStatus());
+    this.CURRENT_PAGE++;
+    dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
   }
 
   render() {
