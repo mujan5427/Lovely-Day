@@ -9,7 +9,6 @@ export const TOGGLE_DISPLAYMENUNAVIGATION       = 'TOGGLE_DISPLAYMENUNAVIGATION'
 export const TOGGLE_DISPLAY_CONTENT             = 'TOGGLE_DISPLAY_CONTENT';
 export const TOGGLE_DISPLAY_BRIEF               = 'TOGGLE_DISPLAY_BRIEF';
 export const TOGGLE_DISPLAY_CANCEL_METHOD       = 'TOGGLE_DISPLAY_CANCEL_METHOD';
-export const TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS = 'TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS';
 export const RESET_DISPLAY_EXPERIENCE_DETAIL    = 'RESET_DISPLAY_EXPERIENCE_DETAIL';
 export const MODIFY_NAVIGATION_TYPE             = 'MODIFY_NAVIGATION_TYPE';
 export const REQUEST_BEGINNING                  = 'REQUEST_BEGINNING';
@@ -184,12 +183,6 @@ export function modifyNavigationType(type) {
   return {
     type: MODIFY_NAVIGATION_TYPE,
     selectedType: type
-  };
-}
-
-export function togglePageIndexScrollbarStatus() {
-  return {
-    type: TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS
   };
 }
 

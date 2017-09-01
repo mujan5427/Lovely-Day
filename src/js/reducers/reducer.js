@@ -148,7 +148,7 @@ function pageIndexExperienceList(state = {}, action) {
 
       } else {
         return {
-          experienceList: Object.assign({}, state.experienceList, {isFetching: true, needUpdate: false, scrolledToBottom: false})
+          experienceList: Object.assign({}, state.experienceList, {isFetching: true, needUpdate: false})
         };
 
       }
@@ -174,11 +174,6 @@ function pageIndexExperienceList(state = {}, action) {
         };
 
       }
-
-    case 'TOGGLE_PAGE_INDEX_SCROLLBAR_STATUS':
-      return {
-        experienceList: Object.assign({}, state.experienceList, {scrolledToBottom: true})
-      };
 
     default:
       return state;
@@ -270,7 +265,6 @@ function parsePageIndex(originalState, index) {
   return {
     isFetching: false,
     needUpdate: false,
-    scrolledToBottom: false,
     items: mergedItems
   };
 }
