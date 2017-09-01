@@ -175,6 +175,9 @@ function pageIndexExperienceList(state = {}, action) {
 
       }
 
+    case 'RESET_PAGE_INDEX_EXPERIENCE_LIST':
+      return {};
+
     default:
       return state;
   }
