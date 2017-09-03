@@ -1,6 +1,7 @@
 import React from 'react';
 import Recommendation from '../experience/Recommendation';
 import Carousel from '../carousel/Carousel';
+import Footer from './Footer';
 import { fetchData, requestUpdate, toggleDisplayContent, toggleDisplayBrief,
          toggleDisplayCancelMethod, resetDisplayExperienceDetail,
          GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
@@ -230,6 +231,9 @@ class ExperienceDetail extends React.Component {
           <span>/ 每人</span>
           <a className='button solid solid-theme-pink'>申請預訂</a>
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     );
   }

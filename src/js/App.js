@@ -31,7 +31,6 @@ import ContainerIndex from './containers/ContainerIndex';
   *                             *
   * * * * * * * * * * * * * * * */
 
-import Footer from './components/layout/Footer';
 import DialogFilter from './components/dialog/Filter';
 import Search from './components/layout/Search';
 
@@ -51,7 +50,6 @@ ReactDOM.render(
         <ContainerNavigation />
         <DialogFilter />
         <ContainerDialogWrapper />
-        <Footer />
       </div>
     </Router>
   </Provider>,

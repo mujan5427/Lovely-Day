@@ -6,6 +6,7 @@ import SelectBox from '../form/SelectBox';
 import InputBox from '../form/InputBox';
 import RadioBoxGroup from '../form/RadioBoxGroup';
 import CheckBox from '../form/CheckBox';
+import Footer from './Footer';
 
 
 class Profile extends React.Component {
@@ -364,117 +365,122 @@ class Profile extends React.Component {
     const { firstname, lastname, gender, year, month, day, language, educationLevel, sport, handmade, baking, art, history } = this.state.formData;
 
     return (
-      <div className='content'>
-        <section
-          className='profile-section'
-          onChange={ this.formElementEventHandler }
-          onClick={ this.formElementEventHandler }
-        >
-          <h1>個人資料</h1>
+      <div>
+        <div className='content'>
+          <section
+            className='profile-section'
+            onChange={ this.formElementEventHandler }
+            onClick={ this.formElementEventHandler }
+          >
+            <h1>個人資料</h1>
 
-          <div>
-            <label>名字</label>
-            <InputBox type='firstname' value={ firstname.value } errorMessage={ firstname.errorMessage } />
+            <div>
+              <label>名字</label>
+              <InputBox type='firstname' value={ firstname.value } errorMessage={ firstname.errorMessage } />
 
-            { !isEmpty(firstname.errorMessage) &&
-              <div className='form-error-message'>{ firstname.errorMessage }</div>
-            }
+              { !isEmpty(firstname.errorMessage) &&
+                <div className='form-error-message'>{ firstname.errorMessage }</div>
+              }
 
-          </div>
-
-          <div>
-            <label>姓氏</label>
-            <InputBox type='lastname' value={ lastname.value } errorMessage={ lastname.errorMessage } />
-
-            { !isEmpty(lastname.errorMessage) &&
-              <div className='form-error-message'>{ lastname.errorMessage }</div>
-            }
-
-            <div className='profile-form-component-description'>您的公開個人資料僅會顯示您的名字。</div>
-          </div>
-
-          <div>
-            <label>性別</label>
-            <SelectBox type='gender' value={ gender.value } errorMessage={ gender.errorMessage } />
-            <div className='profile-form-component-description'>此數據僅作分析用途，不會透露給其他用戶。</div>
-          </div>
-
-          <div>
-            <label>出生日期</label>
-            <div className='selectbox-for-birthday'>
-              <SelectBox type='month' value={ month.value } errorMessage={ month.errorMessage } />
-              <SelectBox type='day' value={ day.value } errorMessage={ day.errorMessage } />
-              <SelectBox type='year' value={ year.value } errorMessage={ year.errorMessage } />
             </div>
 
-            { (!isEmpty(month.errorMessage) || !isEmpty(day.errorMessage) || !isEmpty(year.errorMessage)) &&
-              <div className='form-error-message'>
-                { month.errorMessage || day.errorMessage || year.errorMessage }
+            <div>
+              <label>姓氏</label>
+              <InputBox type='lastname' value={ lastname.value } errorMessage={ lastname.errorMessage } />
+
+              { !isEmpty(lastname.errorMessage) &&
+                <div className='form-error-message'>{ lastname.errorMessage }</div>
+              }
+
+              <div className='profile-form-component-description'>您的公開個人資料僅會顯示您的名字。</div>
+            </div>
+
+            <div>
+              <label>性別</label>
+              <SelectBox type='gender' value={ gender.value } errorMessage={ gender.errorMessage } />
+              <div className='profile-form-component-description'>此數據僅作分析用途，不會透露給其他用戶。</div>
+            </div>
+
+            <div>
+              <label>出生日期</label>
+              <div className='selectbox-for-birthday'>
+                <SelectBox type='month' value={ month.value } errorMessage={ month.errorMessage } />
+                <SelectBox type='day' value={ day.value } errorMessage={ day.errorMessage } />
+                <SelectBox type='year' value={ year.value } errorMessage={ year.errorMessage } />
               </div>
-            }
 
-            <div className='profile-form-component-description'>您來到這個世界的神奇日子。此數據僅作分析用途，不會透露給其他用戶。</div>
-          </div>
+              { (!isEmpty(month.errorMessage) || !isEmpty(day.errorMessage) || !isEmpty(year.errorMessage)) &&
+                <div className='form-error-message'>
+                  { month.errorMessage || day.errorMessage || year.errorMessage }
+                </div>
+              }
 
-          <div>
-            <label>電子郵件</label>
-            <InputBox
-              type='email'
-              value={ email }
-              disabled={ true }
-            />
-            <div className='profile-form-component-description'>我們不會向其他 Levely Day 用戶透露您的個人電子郵件地址。</div>
-          </div>
+              <div className='profile-form-component-description'>您來到這個世界的神奇日子。此數據僅作分析用途，不會透露給其他用戶。</div>
+            </div>
 
-          <div>
-            <label>語言</label>
-            <SelectBox type='language' value={ language.value } errorMessage={ language.errorMessage } />
-            <div className='profile-form-component-description'>我們會使用此語言向您發送訊息。</div>
-          </div>
-
-          <div>
-            <label>教育程度</label>
-            <div className='profile-form-component-group'>
-              <RadioBoxGroup
-                type='educationLevel'
-                selected={ educationLevel.value }
-                errorMessage={ educationLevel.errorMessage }
+            <div>
+              <label>電子郵件</label>
+              <InputBox
+                type='email'
+                value={ email }
+                disabled={ true }
               />
+              <div className='profile-form-component-description'>我們不會向其他 Levely Day 用戶透露您的個人電子郵件地址。</div>
             </div>
-            <div className='profile-form-component-description'>此數據僅作分析用途，不會透露給其他用戶。</div>
-          </div>
 
-          <div>
-            <label>興趣類型</label>
-            <div className='profile-form-component-group'>
-              <CheckBox id='sport' value={ sport.value } errorMessage={ sport.errorMessage }>
-                <label htmlFor='sport' data-element-name='sport'>運動</label>
-              </CheckBox>
-
-              <CheckBox id='handmade' value={ handmade.value } errorMessage={ handmade.errorMessage }>
-                <label htmlFor='handmade' data-element-name='handmade'>手作</label>
-              </CheckBox>
-
-              <CheckBox id='baking' value={ baking.value } errorMessage={ baking.errorMessage }>
-                <label htmlFor='baking' data-element-name='baking'>烘焙</label>
-              </CheckBox>
-
-              <CheckBox id='art' value={ art.value } errorMessage={ art.errorMessage }>
-                <label htmlFor='art' data-element-name='art'>藝術</label>
-              </CheckBox>
-
-              <CheckBox id='history' value={ history.value } errorMessage={ history.errorMessage }>
-                <label htmlFor='history' data-element-name='history'>歷史</label>
-              </CheckBox>
+            <div>
+              <label>語言</label>
+              <SelectBox type='language' value={ language.value } errorMessage={ language.errorMessage } />
+              <div className='profile-form-component-description'>我們會使用此語言向您發送訊息。</div>
             </div>
-            <div className='profile-form-component-description'>此數據僅作分析用途，不會透露給其他用戶。</div>
-          </div>
 
-          <div>
-            <a className='button solid solid-theme-pink' onClick={ this.saveButton }>儲存</a>
-          </div>
+            <div>
+              <label>教育程度</label>
+              <div className='profile-form-component-group'>
+                <RadioBoxGroup
+                  type='educationLevel'
+                  selected={ educationLevel.value }
+                  errorMessage={ educationLevel.errorMessage }
+                />
+              </div>
+              <div className='profile-form-component-description'>此數據僅作分析用途，不會透露給其他用戶。</div>
+            </div>
 
-        </section>
+            <div>
+              <label>興趣類型</label>
+              <div className='profile-form-component-group'>
+                <CheckBox id='sport' value={ sport.value } errorMessage={ sport.errorMessage }>
+                  <label htmlFor='sport' data-element-name='sport'>運動</label>
+                </CheckBox>
+
+                <CheckBox id='handmade' value={ handmade.value } errorMessage={ handmade.errorMessage }>
+                  <label htmlFor='handmade' data-element-name='handmade'>手作</label>
+                </CheckBox>
+
+                <CheckBox id='baking' value={ baking.value } errorMessage={ baking.errorMessage }>
+                  <label htmlFor='baking' data-element-name='baking'>烘焙</label>
+                </CheckBox>
+
+                <CheckBox id='art' value={ art.value } errorMessage={ art.errorMessage }>
+                  <label htmlFor='art' data-element-name='art'>藝術</label>
+                </CheckBox>
+
+                <CheckBox id='history' value={ history.value } errorMessage={ history.errorMessage }>
+                  <label htmlFor='history' data-element-name='history'>歷史</label>
+                </CheckBox>
+              </div>
+              <div className='profile-form-component-description'>此數據僅作分析用途，不會透露給其他用戶。</div>
+            </div>
+
+            <div>
+              <a className='button solid solid-theme-pink' onClick={ this.saveButton }>儲存</a>
+            </div>
+
+          </section>
+        </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     );
   }
