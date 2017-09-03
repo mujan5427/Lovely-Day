@@ -21,6 +21,7 @@ export const GROUP_PAGE_EXPERIENCE_DETAIL     = 'GROUP_PAGE_EXPERIENCE_DETAIL';
 export const GROUP_ENTITY                     = 'GROUP_ENTITY';
 export const RESET_ENTITY_EXPERIENCE_FAVORITE = 'RESET_ENTITY_EXPERIENCE_FAVORITE';
 export const RESET_PAGE_INDEX_EXPERIENCE_LIST = 'RESET_PAGE_INDEX_EXPERIENCE_LIST';
+export const TOGGLE_ENTITY_FAVORITE           = 'TOGGLE_ENTITY_FAVORITE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -197,6 +198,13 @@ export function resetEntityExperienceFavorite() {
 export function resetPageIndexExperienceList() {
   return {
     type: RESET_PAGE_INDEX_EXPERIENCE_LIST
+  };
+}
+
+export function toggleEntityFavourite(experienceId) {
+  return {
+    type: TOGGLE_ENTITY_FAVORITE,
+    experienceId
   };
 }
 
@@ -435,7 +443,7 @@ export function addFavourite(experienceId) {
     })
     .then(responseData => {
       if (responseData.status === 'ok') {
-        dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+        dispatch(toggleEntityFavourite(experienceId));
       } else {
         throw {message: 'API Error'};
       }
@@ -486,7 +494,7 @@ export function deleteFavourite(experienceId) {
     })
     .then(responseData => {
       if (responseData.status === 'ok') {
-        dispatch(requestUpdate(GROUP_PAGE_INDEX_EXPERIENCE_LIST));
+        dispatch(toggleEntityFavourite(experienceId));
       } else {
         throw {message: 'API Error'};
       }

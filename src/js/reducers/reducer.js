@@ -108,6 +108,11 @@ function entityExperiences(state = {}, action) {
         experiences: toggleFavoritedProperty(state.experiences)
       };
 
+    case 'TOGGLE_ENTITY_FAVORITE':
+      return {
+        experiences: toggleSpecifiedEntityFavorited(state.experiences, action.experienceId)
+      };
+
     default:
       return state;
   }
@@ -293,6 +298,12 @@ function toggleFavoritedProperty(originalState, favoritedExperienceId = undefine
   }
 
   return originalState;
+}
+
+function toggleSpecifiedEntityFavorited(originalState, experienceId) {
+  const specifiedEntity = Object.assign({}, originalState[experienceId], {favorited: !originalState[experienceId].favorited});
+
+  return Object.assign({}, originalState, {[experienceId]: specifiedEntity});
 }
 
 function parsePageProfile(responseData) {
