@@ -96,7 +96,7 @@ function entityExperiences(state = {}, action) {
 
         case 'GROUP_ENTITY':
           return {
-            experiences: toggleFavoritedProperty(state.experiences, action.index)
+            experiences: refreshAllEntityFavorited(state.experiences, action.experienceId)
           };
 
         default:
@@ -105,7 +105,7 @@ function entityExperiences(state = {}, action) {
 
     case 'RESET_ENTITY_EXPERIENCE_FAVORITE':
       return {
-        experiences: toggleFavoritedProperty(state.experiences)
+        experiences: refreshAllEntityFavorited(state.experiences)
       };
 
     case 'TOGGLE_ENTITY_FAVORITE':
@@ -282,19 +282,21 @@ function parseExperience(originalState, entity) {
   return Object.assign({}, originalState, entity);
 }
 
-function toggleFavoritedProperty(originalState, favoritedExperienceId = undefined) {
+function refreshAllEntityFavorited(originalState, experienceId = undefined) {
   var property;
 
-  if(!isEmpty(favoritedExperienceId)) {
-    favoritedExperienceId.map(experienceId => {
-      if(!isEmpty(originalState[experienceId])) {
-        originalState[experienceId].favorited = !originalState[experienceId].favorited;
+  if(!isEmpty(experienceId) && Array.isArray(experienceId)) {
+    experienceId.map(item => {
+      if(!isEmpty(originalState[item])) {
+        originalState[item].favorited = true;
       }
     });
+
   } else {
     for(property in originalState) {
       originalState[property].favorited = false;
     }
+
   }
 
   return originalState;

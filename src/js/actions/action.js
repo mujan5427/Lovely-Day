@@ -169,7 +169,7 @@ function requestSuccess(group, responseData) {
       return {
         type: REQUEST_SUCCESS,
         group,
-        index: items
+        experienceId: items
       };
   }
 
