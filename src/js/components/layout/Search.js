@@ -12,7 +12,9 @@ class Search extends React.Component {
       <div>
         <div className='content'>
           <section className='search-experience-list-panel'>
-            <Experience />
+
+            {/* loop Experience component in this line */}
+            {/* <Experience /> */}
           </section>
           <Filter />
         </div>
