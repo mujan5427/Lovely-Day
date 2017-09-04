@@ -31,7 +31,7 @@ class Search extends React.Component {
           </div>
         </section>
 
-        {/* Picker of Filter for region */}
+        {/* Filter Picker for region */}
         <div className='search-filter-picker-background'>
           <div className='search-filter-picker-box filter-picker-region'>
             <section>
