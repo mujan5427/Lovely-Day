@@ -1,23 +1,10 @@
 import React from 'react';
-import Experience from '../Experience';
+import Experience from '../experience/Experience';
 import Filter from '../button/Filter';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
-
-    this.searchCSS = {
-      'filter-picker-region': {
-        'layout': {
-          'margin-left': '30px'
-        }
-      },
-      'filter-picker-type': {
-        'layout': {
-          'margin-left': '120px'
-        }
-      }
-    }
   }
 
   render() {
@@ -44,7 +31,7 @@ class Search extends React.Component {
 
         {/* Picker of Filter for region */}
         <div className='search-filter-picker-background'>
-          <div className='search-filter-picker-box' style={ this.searchCSS['filter-picker-region'].layout }>
+          <div className='search-filter-picker-box filter-picker-region'>
             <section>
               <div className='checkbox form-component-theme-gray'>
                 <input id='region-1' type='checkbox' />
@@ -89,7 +76,7 @@ class Search extends React.Component {
 
         {/* Filter Picker for type */}
         <div className='search-filter-picker-background'>
-          <div className='search-filter-picker-box' style={ this.searchCSS['filter-picker-type'].layout }>
+          <div className='search-filter-picker-box filter-picker-type'>
             <section>
               <div className='checkbox form-component-theme-gray'>
                 <input id='type-1' type='checkbox' />
