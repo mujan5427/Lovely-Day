@@ -1,0 +1,53 @@
+.filter-picker-background {
+  background-color: rgba(255, 255, 255, .8);
+  display: none;
+  height: 100%;
+  position: fixed;
+  top: 143px;
+  width: 100%;
+}
+
+.filter-picker-box {
+  background-color: #ffffff;
+  border: 1px solid $horizontal-line-color;
+  border-radius: 4px;
+  box-shadow: 0 14px 36px 2px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  padding: 30px;
+
+  > section:nth-child(1) {
+    display: flex;
+    flex-flow: column wrap;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    max-height: 250px;
+
+    > div.checkbox {
+      margin-bottom: 20px;
+    }
+  }
+
+  > section:nth-child(2) {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    font-weight: 400;
+    justify-content: space-between;
+
+    > a:last-child {
+      color: $official-blue;
+    }
+  }
+}
+
+.filter-picker-region {
+  & div.filter-picker-box {
+    margin-left: 30px;
+  }
+}
+
+.filter-picker-type {
+  & div.filter-picker-box {
+    margin-left: 117px;
+  }
+}
