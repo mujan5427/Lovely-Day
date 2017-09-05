@@ -23,6 +23,7 @@ import ContainerExperienceDetail from './containers/ContainerExperienceDetail';
 import ContainerDialogWrapper from './containers/ContainerDialogWrapper';
 import ContainerRedirectWrapper from './containers/ContainerRedirectWrapper'
 import ContainerIndex from './containers/ContainerIndex';
+import ContainerSearch from './containers/ContainerSearch';
 
 
  /* * * * * * * * * * * * * * * *
@@ -32,7 +33,6 @@ import ContainerIndex from './containers/ContainerIndex';
   * * * * * * * * * * * * * * * */
 
 import DialogFilter from './components/dialog/Filter';
-import Search from './components/layout/Search';
 
 
 let store = createStore(reducer, applyMiddleware(thunk));
@@ -43,7 +43,7 @@ ReactDOM.render(
       <div>
         <ContainerHeader />
         <Route exact path='/' component={ ContainerIndex } />
-        <Route path='/search' component={Search} />
+        <Route path='/search' component={ ContainerSearch } />
         <Route path='/profile' component={ContainerRedirectWrapper} />
         <Route path='/experiences/:id' component={ ContainerExperienceDetail } />
         <ContainerMain />
