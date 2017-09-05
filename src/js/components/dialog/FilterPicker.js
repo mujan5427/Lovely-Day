@@ -6,7 +6,7 @@ class FilterPicker extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, cancelHandler } = this.props;
 
     return (
       <div className='filter-picker-background'>
@@ -16,7 +16,7 @@ class FilterPicker extends React.Component {
           </section>
 
           <section>
-            <a>取消</a>
+            <a onClick={ cancelHandler }>取消</a>
             <a>確定</a>
           </section>
         </div>
