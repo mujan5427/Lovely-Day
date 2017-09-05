@@ -379,10 +379,10 @@ class Search extends React.Component {
           </div>
         }
 
-        {/* Filter Picker for type */}
+        {/* Filter Picker for category */}
         { displayFilterPickerType &&
           <div
-            className='filter-picker-type'
+            className='filter-picker-category'
             onChange={ this.formElementEventHandler }
             onClick={ this.formElementEventHandler }
           >
