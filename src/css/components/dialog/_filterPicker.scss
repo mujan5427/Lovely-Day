@@ -4,6 +4,10 @@
   position: fixed;
   top: 143px;
   width: 100%;
+
+  @include mq-medium {
+    display: none;
+  }
 }
 
 .filter-picker-box {
