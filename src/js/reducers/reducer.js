@@ -83,6 +83,28 @@ function displayExperienceDetail(state = {
   }
 }
 
+function displaySearch(state = {
+  displayFilterPickerRegion: false,
+  displayFilterPickerType: false
+}, action) {
+  switch(action.type) {
+    case 'TOGGLE_DISPLAY_FILTERPICKER_REGION':
+      return {
+        displayFilterPickerRegion: !state.displayFilterPickerRegion,
+        displayFilterPickerType: false
+      };
+
+    case 'TOGGLE_DISPLAY_FILTERPICKER_TYPE':
+      return {
+        displayFilterPickerRegion: false,
+        displayFilterPickerType: !state.displayFilterPickerType
+      };
+
+    default:
+      return state;
+  }
+}
+
 function entityExperiences(state = {}, action) {
   switch(action.type) {
     case 'REQUEST_SUCCESS':
@@ -339,6 +361,7 @@ const reducer = combineReducers({
   displayDialogAccount: displayDialogAccount,
   displayMenu: displayMenu,
   displayExperienceDetail: displayExperienceDetail,
+  displaySearch: displaySearch,
   entities: entityExperiences,
   headerNavigation: headerNavigation,
   pageIndex: pageIndexExperienceList,
