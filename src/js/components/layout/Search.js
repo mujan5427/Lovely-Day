@@ -24,21 +24,21 @@ class Search extends React.Component {
 
     this.state = {
       formData: {
-        taipeiNewTaipei        : { value: false, errorMessage: '' },
-        taoyuanHsinchuMiaoli   : { value: false, errorMessage: '' },
-        ilan                   : { value: false, errorMessage: '' },
-        taichungChanghuaNantou : { value: false, errorMessage: '' },
-        yunlinChiayiTainan     : { value: false, errorMessage: '' },
-        kaohsiungPingtung      : { value: false, errorMessage: '' },
-        hualienTaito           : { value: false, errorMessage: '' },
-        outlyingIslands        : { value: false, errorMessage: '' },
-        summerCamp             : { value: false, errorMessage: '' },
-        handMade               : { value: false, errorMessage: '' },
-        baking                 : { value: false, errorMessage: '' },
-        outdoor                : { value: false, errorMessage: '' },
-        playWithChild          : { value: false, errorMessage: '' },
-        group                  : { value: false, errorMessage: '' },
-        lover                  : { value: false, errorMessage: '' },
+        region_1 : { value: false, errorMessage: '' },
+        region_2 : { value: false, errorMessage: '' },
+        region_3 : { value: false, errorMessage: '' },
+        region_4 : { value: false, errorMessage: '' },
+        region_5 : { value: false, errorMessage: '' },
+        region_6 : { value: false, errorMessage: '' },
+        region_7 : { value: false, errorMessage: '' },
+        region_8 : { value: false, errorMessage: '' },
+        type_1   : { value: false, errorMessage: '' },
+        type_2   : { value: false, errorMessage: '' },
+        type_3   : { value: false, errorMessage: '' },
+        type_4   : { value: false, errorMessage: '' },
+        type_5   : { value: false, errorMessage: '' },
+        type_6   : { value: false, errorMessage: '' },
+        type_7   : { value: false, errorMessage: '' },
       }
     };
   }
@@ -52,140 +52,140 @@ class Search extends React.Component {
 
     if (elementName) {
       switch(elementName) {
-        case 'region-1':
+        case 'region_1':
           needToModifiedState = {
-            value        : !this.state.formData.taipeiNewTaipei.value,
+            value        : !this.state.formData.region_1.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'taipeiNewTaipei', needToModifiedState);
+          state  = changeFormState(this.state, 'region_1', needToModifiedState);
           break;
 
-        case 'region-2':
+        case 'region_2':
           needToModifiedState = {
-            value        : !this.state.formData.taoyuanHsinchuMiaoli.value,
+            value        : !this.state.formData.region_2.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'taoyuanHsinchuMiaoli', needToModifiedState);
+          state  = changeFormState(this.state, 'region_2', needToModifiedState);
           break;
 
-        case 'region-3':
+        case 'region_3':
           needToModifiedState = {
-            value        : !this.state.formData.ilan.value,
+            value        : !this.state.formData.region_3.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'ilan', needToModifiedState);
+          state  = changeFormState(this.state, 'region_3', needToModifiedState);
           break;
 
-        case 'region-4':
+        case 'region_4':
           needToModifiedState = {
-            value        : !this.state.formData.taichungChanghuaNantou.value,
+            value        : !this.state.formData.region_4.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'taichungChanghuaNantou', needToModifiedState);
+          state  = changeFormState(this.state, 'region_4', needToModifiedState);
           break;
 
-        case 'region-5':
+        case 'region_5':
           needToModifiedState = {
-            value        : !this.state.formData.yunlinChiayiTainan.value,
+            value        : !this.state.formData.region_5.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'yunlinChiayiTainan', needToModifiedState);
+          state  = changeFormState(this.state, 'region_5', needToModifiedState);
           break;
 
-        case 'region-6':
+        case 'region_6':
           needToModifiedState = {
-            value        : !this.state.formData.kaohsiungPingtung.value,
+            value        : !this.state.formData.region_6.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'kaohsiungPingtung', needToModifiedState);
+          state  = changeFormState(this.state, 'region_6', needToModifiedState);
           break;
 
-        case 'region-7':
+        case 'region_7':
           needToModifiedState = {
-            value        : !this.state.formData.hualienTaito.value,
+            value        : !this.state.formData.region_7.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'hualienTaito', needToModifiedState);
+          state  = changeFormState(this.state, 'region_7', needToModifiedState);
           break;
 
-        case 'region-8':
+        case 'region_8':
           needToModifiedState = {
-            value        : !this.state.formData.outlyingIslands.value,
+            value        : !this.state.formData.region_8.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'outlyingIslands', needToModifiedState);
+          state  = changeFormState(this.state, 'region_8', needToModifiedState);
           break;
 
-        case 'type-1':
+        case 'type_1':
           needToModifiedState = {
-            value        : !this.state.formData.summerCamp.value,
+            value        : !this.state.formData.type_1.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'summerCamp', needToModifiedState);
+          state  = changeFormState(this.state, 'type_1', needToModifiedState);
           break;
 
-        case 'type-2':
+        case 'type_2':
           needToModifiedState = {
-            value        : !this.state.formData.handMade.value,
+            value        : !this.state.formData.type_2.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'handMade', needToModifiedState);
+          state  = changeFormState(this.state, 'type_2', needToModifiedState);
 
           break;
 
-        case 'type-3':
+        case 'type_3':
           needToModifiedState = {
-            value        : !this.state.formData.baking.value,
+            value        : !this.state.formData.type_3.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'baking', needToModifiedState);
+          state  = changeFormState(this.state, 'type_3', needToModifiedState);
           break;
 
-        case 'type-4':
+        case 'type_4':
           needToModifiedState = {
-            value        : !this.state.formData.outdoor.value,
+            value        : !this.state.formData.type_4.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'outdoor', needToModifiedState);
+          state  = changeFormState(this.state, 'type_4', needToModifiedState);
           break;
 
-        case 'type-5':
+        case 'type_5':
           needToModifiedState = {
-            value        : !this.state.formData.playWithChild.value,
+            value        : !this.state.formData.type_5.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'playWithChild', needToModifiedState);
+          state  = changeFormState(this.state, 'type_5', needToModifiedState);
           break;
 
-        case 'type-6':
+        case 'type_6':
           needToModifiedState = {
-            value        : !this.state.formData.group.value,
+            value        : !this.state.formData.type_6.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'group', needToModifiedState);
+          state  = changeFormState(this.state, 'type_6', needToModifiedState);
           break;
 
-        case 'type-7':
+        case 'type_7':
           needToModifiedState = {
-            value        : !this.state.formData.lover.value,
+            value        : !this.state.formData.type_7.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'lover', needToModifiedState);
+          state  = changeFormState(this.state, 'type_7', needToModifiedState);
           break;
 
         default:
@@ -197,8 +197,8 @@ class Search extends React.Component {
   }
 
   render() {
-    const { summerCamp, handMade, baking, outdoor, playWithChild, group, lover } = this.state.formData;
-    const { taipeiNewTaipei, taoyuanHsinchuMiaoli, ilan, taichungChanghuaNantou, yunlinChiayiTainan, kaohsiungPingtung, hualienTaito, outlyingIslands } = this.state.formData;
+    const { type_1, type_2, type_3, type_4, type_5, type_6, type_7 } = this.state.formData;
+    const { region_1, region_2, region_3, region_4, region_5, region_6, region_7, region_8 } = this.state.formData;
 
 
     return (
@@ -231,29 +231,29 @@ class Search extends React.Component {
           onClick={ this.formElementEventHandler }
         >
           <FilterPicker>
-            <CheckBox id='region-1' value={ taipeiNewTaipei.value } errorMessage={ taipeiNewTaipei.errorMessage }>
-              <label htmlFor='region-1' data-element-name='region-1'>大台北</label>
+            <CheckBox id='region_1' value={ region_1.value } errorMessage={ region_1.errorMessage }>
+              <label htmlFor='region_1' data-element-name='region_1'>大台北</label>
             </CheckBox>
-            <CheckBox id='region-2' value={ taoyuanHsinchuMiaoli.value } errorMessage={ taoyuanHsinchuMiaoli.errorMessage }>
-              <label htmlFor='region-2' data-element-name='region-2'>桃竹苗</label>
+            <CheckBox id='region_2' value={ region_2.value } errorMessage={ region_2.errorMessage }>
+              <label htmlFor='region_2' data-element-name='region_2'>桃竹苗</label>
             </CheckBox>
-            <CheckBox id='region-3' value={ ilan.value } errorMessage={ ilan.errorMessage }>
-              <label htmlFor='region-3' data-element-name='region-3'>宜蘭</label>
+            <CheckBox id='region_3' value={ region_3.value } errorMessage={ region_3.errorMessage }>
+              <label htmlFor='region_3' data-element-name='region_3'>宜蘭</label>
             </CheckBox>
-            <CheckBox id='region-4' value={ taichungChanghuaNantou.value } errorMessage={ taichungChanghuaNantou.errorMessage }>
-              <label htmlFor='region-4' data-element-name='region-4'>中彰投</label>
+            <CheckBox id='region_4' value={ region_4.value } errorMessage={ region_4.errorMessage }>
+              <label htmlFor='region_4' data-element-name='region_4'>中彰投</label>
             </CheckBox>
-            <CheckBox id='region-5' value={ yunlinChiayiTainan.value } errorMessage={ yunlinChiayiTainan.errorMessage }>
-              <label htmlFor='region-5' data-element-name='region-5'>雲嘉南</label>
+            <CheckBox id='region_5' value={ region_5.value } errorMessage={ region_5.errorMessage }>
+              <label htmlFor='region_5' data-element-name='region_5'>雲嘉南</label>
             </CheckBox>
-            <CheckBox id='region-6' value={ kaohsiungPingtung.value } errorMessage={ kaohsiungPingtung.errorMessage }>
-              <label htmlFor='region-6' data-element-name='region-6'>高屏</label>
+            <CheckBox id='region_6' value={ region_6.value } errorMessage={ region_6.errorMessage }>
+              <label htmlFor='region_6' data-element-name='region_6'>高屏</label>
             </CheckBox>
-            <CheckBox id='region-7' value={ hualienTaito.value } errorMessage={ hualienTaito.errorMessage }>
-              <label htmlFor='region-7' data-element-name='region-7'>花東</label>
+            <CheckBox id='region_7' value={ region_7.value } errorMessage={ region_7.errorMessage }>
+              <label htmlFor='region_7' data-element-name='region_7'>花東</label>
             </CheckBox>
-            <CheckBox id='region-8' value={ outlyingIslands.value } errorMessage={ outlyingIslands.errorMessage }>
-              <label htmlFor='region-8' data-element-name='region-8'>離島</label>
+            <CheckBox id='region_8' value={ region_8.value } errorMessage={ region_8.errorMessage }>
+              <label htmlFor='region_8' data-element-name='region_8'>離島</label>
             </CheckBox>
           </FilterPicker>
         </div>
@@ -265,26 +265,26 @@ class Search extends React.Component {
           onClick={ this.formElementEventHandler }
         >
           <FilterPicker>
-            <CheckBox id='type-1' value={ summerCamp.value } errorMessage={ summerCamp.errorMessage }>
-              <label htmlFor='type-1' data-element-name='type-1'>夏令營專區</label>
+            <CheckBox id='type_1' value={ type_1.value } errorMessage={ type_1.errorMessage }>
+              <label htmlFor='type_1' data-element-name='type_1'>夏令營專區</label>
             </CheckBox>
-            <CheckBox id='type-2' value={ handMade.value } errorMessage={ handMade.errorMessage }>
-              <label htmlFor='type-2' data-element-name='type-2'>藝文手作</label>
+            <CheckBox id='type_2' value={ type_2.value } errorMessage={ type_2.errorMessage }>
+              <label htmlFor='type_2' data-element-name='type_2'>藝文手作</label>
             </CheckBox>
-            <CheckBox id='type-3' value={ baking.value } errorMessage={ baking.errorMessage }>
-              <label htmlFor='type-3' data-element-name='type-3'>玩樂廚房</label>
+            <CheckBox id='type_3' value={ type_3.value } errorMessage={ type_3.errorMessage }>
+              <label htmlFor='type_3' data-element-name='type_3'>玩樂廚房</label>
             </CheckBox>
-            <CheckBox id='type-4' value={ outdoor.value } errorMessage={ outdoor.errorMessage }>
-              <label htmlFor='type-4' data-element-name='type-4'>愛上戶外</label>
+            <CheckBox id='type_4' value={ type_4.value } errorMessage={ type_4.errorMessage }>
+              <label htmlFor='type_4' data-element-name='type_4'>愛上戶外</label>
             </CheckBox>
-            <CheckBox id='type-5' value={ playWithChild.value } errorMessage={ playWithChild.errorMessage }>
-              <label htmlFor='type-5' data-element-name='type-5'>親子專區</label>
+            <CheckBox id='type_5' value={ type_5.value } errorMessage={ type_5.errorMessage }>
+              <label htmlFor='type_5' data-element-name='type_5'>親子專區</label>
             </CheckBox>
-            <CheckBox id='type-6' value={ group.value } errorMessage={ group.errorMessage }>
-              <label htmlFor='type-6' data-element-name='type-6'>團體遊戲</label>
+            <CheckBox id='type_6' value={ type_6.value } errorMessage={ type_6.errorMessage }>
+              <label htmlFor='type_6' data-element-name='type_6'>團體遊戲</label>
             </CheckBox>
-            <CheckBox id='type-7' value={ lover.value } errorMessage={ lover.errorMessage }>
-              <label htmlFor='type-7' data-element-name='type-7'>情人專區</label>
+            <CheckBox id='type_7' value={ type_7.value } errorMessage={ type_7.errorMessage }>
+              <label htmlFor='type_7' data-element-name='type_7'>情人專區</label>
             </CheckBox>
           </FilterPicker>
         </div>
