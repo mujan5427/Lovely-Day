@@ -11,9 +11,11 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    this.formElementEventHandler  = this.formElementEventHandler.bind(this);
-    this.toggleFilterPickerRegion = this.toggleFilterPickerRegion.bind(this);
-    this.toggleFilterPickerType   = this.toggleFilterPickerType.bind(this);
+    this.formElementEventHandler          = this.formElementEventHandler.bind(this);
+    this.toggleFilterPickerRegion         = this.toggleFilterPickerRegion.bind(this);
+    this.toggleFilterPickerType           = this.toggleFilterPickerType.bind(this);
+    this.updateFilterPickerCache          = this.updateFilterPickerCache.bind(this);
+    this.resetFormDataByFilterPickerCache = this.resetFormDataByFilterPickerCache.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -28,21 +30,25 @@ class Search extends React.Component {
 
     this.state = {
       formData: {
-        region_1 : { value: false, errorMessage: '' },
-        region_2 : { value: false, errorMessage: '' },
-        region_3 : { value: false, errorMessage: '' },
-        region_4 : { value: false, errorMessage: '' },
-        region_5 : { value: false, errorMessage: '' },
-        region_6 : { value: false, errorMessage: '' },
-        region_7 : { value: false, errorMessage: '' },
-        region_8 : { value: false, errorMessage: '' },
-        type_1   : { value: false, errorMessage: '' },
-        type_2   : { value: false, errorMessage: '' },
-        type_3   : { value: false, errorMessage: '' },
-        type_4   : { value: false, errorMessage: '' },
-        type_5   : { value: false, errorMessage: '' },
-        type_6   : { value: false, errorMessage: '' },
-        type_7   : { value: false, errorMessage: '' },
+        region_1   : { value: false, errorMessage: '' },
+        region_2   : { value: false, errorMessage: '' },
+        region_3   : { value: false, errorMessage: '' },
+        region_4   : { value: false, errorMessage: '' },
+        region_5   : { value: false, errorMessage: '' },
+        region_6   : { value: false, errorMessage: '' },
+        region_7   : { value: false, errorMessage: '' },
+        region_8   : { value: false, errorMessage: '' },
+        category_1 : { value: false, errorMessage: '' },
+        category_2 : { value: false, errorMessage: '' },
+        category_3 : { value: false, errorMessage: '' },
+        category_4 : { value: false, errorMessage: '' },
+        category_5 : { value: false, errorMessage: '' },
+        category_6 : { value: false, errorMessage: '' },
+        category_7 : { value: false, errorMessage: '' },
+      },
+      filterPickerCache: {
+        region   : [],
+        category : []
       }
     };
   }
@@ -55,15 +61,93 @@ class Search extends React.Component {
    * * * * * * * * * * * * */
 
   toggleFilterPickerRegion() {
-    const { dispatch } = this.props;
+    const { dispatch, displayFilterPickerRegion } = this.props;
 
-    dispatch(toggleDisplayFilterPickerRegion());
+    if(displayFilterPickerRegion) {
+      this.resetFormDataByFilterPickerCache('region');
+
+    } else {
+      this.resetFormDataByFilterPickerCache('category');
+      dispatch(toggleDisplayFilterPickerRegion());
+
+    }
   }
 
   toggleFilterPickerType() {
-    const { dispatch } = this.props;
+    const { dispatch, displayFilterPickerType } = this.props;
 
-    dispatch(toggleDisplayFilterPickerType());
+    if(displayFilterPickerType) {
+      this.resetFormDataByFilterPickerCache('category');
+
+    } else {
+      this.resetFormDataByFilterPickerCache('region');
+      dispatch(toggleDisplayFilterPickerType());
+
+    }
+  }
+
+  updateFilterPickerCache(type) {
+    const { dispatch } = this.props;
+    const formData     = this.state.formData;
+    var cacheList      = [];
+    var property, typeOfProperty, indexOfProperty, updatedFilterPickerCache;
+
+    for(property in formData) {
+      typeOfProperty    = property.split('_')[0];
+      indexOfProperty   = property.split('_')[1];
+
+      if(typeOfProperty === type && formData[property].value === true) {
+        cacheList.push(indexOfProperty);
+      }
+    }
+
+    updatedFilterPickerCache = Object.assign({}, this.state.filterPickerCache, {[type]: cacheList});
+
+    this.setState(Object.assign({}, this.state, {filterPickerCache: updatedFilterPickerCache}));
+
+    if(type === 'region') {
+      dispatch(toggleDisplayFilterPickerRegion());
+
+    } else if(type === 'category') {
+      dispatch(toggleDisplayFilterPickerType());
+
+    }
+
+  }
+
+  resetFormDataByFilterPickerCache(type) {
+    const { dispatch }      = this.props;
+    const formData          = this.state.formData;
+    const filterPickerCache = this.state.filterPickerCache;
+    var resetList           = {};
+    var property, typeOfProperty, indexOfProperty, specifiedProperty, updatedFormData;
+
+    for(property in formData) {
+      typeOfProperty    = property.split('_')[0];
+      indexOfProperty   = property.split('_')[1];
+      specifiedProperty = `${ type }_${ indexOfProperty }`;
+
+      if(typeOfProperty === type && filterPickerCache[type].indexOf(indexOfProperty) !== -1) {
+        resetList[specifiedProperty] =
+        Object.assign({}, this.state.formData[specifiedProperty], {value: true});
+
+      } else if(typeOfProperty === type && filterPickerCache[type].indexOf(indexOfProperty) === -1) {
+        resetList[specifiedProperty] =
+        Object.assign({}, this.state.formData[specifiedProperty], {value: false});
+      }
+    }
+
+    updatedFormData = Object.assign({}, this.state.formData, resetList);
+
+    this.setState(Object.assign({}, this.state, {formData: updatedFormData}));
+
+    if(type === 'region') {
+      dispatch(toggleDisplayFilterPickerRegion());
+
+    } else if(type === 'category') {
+      dispatch(toggleDisplayFilterPickerType());
+
+    }
   }
 
   formElementEventHandler(event) {
@@ -147,68 +231,68 @@ class Search extends React.Component {
           state  = changeFormState(this.state, 'region_8', needToModifiedState);
           break;
 
-        case 'type_1':
+        case 'category_1':
           needToModifiedState = {
-            value        : !this.state.formData.type_1.value,
+            value        : !this.state.formData.category_1.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'type_1', needToModifiedState);
+          state  = changeFormState(this.state, 'category_1', needToModifiedState);
           break;
 
-        case 'type_2':
+        case 'category_2':
           needToModifiedState = {
-            value        : !this.state.formData.type_2.value,
+            value        : !this.state.formData.category_2.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'type_2', needToModifiedState);
+          state  = changeFormState(this.state, 'category_2', needToModifiedState);
 
           break;
 
-        case 'type_3':
+        case 'category_3':
           needToModifiedState = {
-            value        : !this.state.formData.type_3.value,
+            value        : !this.state.formData.category_3.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'type_3', needToModifiedState);
+          state  = changeFormState(this.state, 'category_3', needToModifiedState);
           break;
 
-        case 'type_4':
+        case 'category_4':
           needToModifiedState = {
-            value        : !this.state.formData.type_4.value,
+            value        : !this.state.formData.category_4.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'type_4', needToModifiedState);
+          state  = changeFormState(this.state, 'category_4', needToModifiedState);
           break;
 
-        case 'type_5':
+        case 'category_5':
           needToModifiedState = {
-            value        : !this.state.formData.type_5.value,
+            value        : !this.state.formData.category_5.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'type_5', needToModifiedState);
+          state  = changeFormState(this.state, 'category_5', needToModifiedState);
           break;
 
-        case 'type_6':
+        case 'category_6':
           needToModifiedState = {
-            value        : !this.state.formData.type_6.value,
+            value        : !this.state.formData.category_6.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'type_6', needToModifiedState);
+          state  = changeFormState(this.state, 'category_6', needToModifiedState);
           break;
 
-        case 'type_7':
+        case 'category_7':
           needToModifiedState = {
-            value        : !this.state.formData.type_7.value,
+            value        : !this.state.formData.category_7.value,
             errorMessage : ''
           };
 
-          state  = changeFormState(this.state, 'type_7', needToModifiedState);
+          state  = changeFormState(this.state, 'category_7', needToModifiedState);
           break;
 
         default:
@@ -220,7 +304,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const { type_1, type_2, type_3, type_4, type_5, type_6, type_7 } = this.state.formData;
+    const { category_1, category_2, category_3, category_4, category_5, category_6, category_7 } = this.state.formData;
     const { region_1, region_2, region_3, region_4, region_5, region_6, region_7, region_8 } = this.state.formData;
     const { displayFilterPickerRegion, displayFilterPickerType } = this.props;
 
@@ -262,7 +346,11 @@ class Search extends React.Component {
             onChange={ this.formElementEventHandler }
             onClick={ this.formElementEventHandler }
           >
-            <FilterPicker cancelHandler={ this.toggleFilterPickerRegion }>
+            <FilterPicker
+              type='region'
+              cancelHandler={ this.resetFormDataByFilterPickerCache }
+              confirmHandler={ this.updateFilterPickerCache }
+            >
               <CheckBox id='region_1' value={ region_1.value } errorMessage={ region_1.errorMessage }>
                 <label htmlFor='region_1' data-element-name='region_1'>大台北</label>
               </CheckBox>
@@ -298,27 +386,31 @@ class Search extends React.Component {
             onChange={ this.formElementEventHandler }
             onClick={ this.formElementEventHandler }
           >
-            <FilterPicker cancelHandler={ this.toggleFilterPickerType }>
-              <CheckBox id='type_1' value={ type_1.value } errorMessage={ type_1.errorMessage }>
-                <label htmlFor='type_1' data-element-name='type_1'>夏令營專區</label>
+            <FilterPicker
+              type='category'
+              cancelHandler={ this.resetFormDataByFilterPickerCache }
+              confirmHandler={ this.updateFilterPickerCache }
+            >
+              <CheckBox id='category_1' value={ category_1.value } errorMessage={ category_1.errorMessage }>
+                <label htmlFor='category_1' data-element-name='category_1'>夏令營專區</label>
               </CheckBox>
-              <CheckBox id='type_2' value={ type_2.value } errorMessage={ type_2.errorMessage }>
-                <label htmlFor='type_2' data-element-name='type_2'>藝文手作</label>
+              <CheckBox id='category_2' value={ category_2.value } errorMessage={ category_2.errorMessage }>
+                <label htmlFor='category_2' data-element-name='category_2'>藝文手作</label>
               </CheckBox>
-              <CheckBox id='type_3' value={ type_3.value } errorMessage={ type_3.errorMessage }>
-                <label htmlFor='type_3' data-element-name='type_3'>玩樂廚房</label>
+              <CheckBox id='category_3' value={ category_3.value } errorMessage={ category_3.errorMessage }>
+                <label htmlFor='category_3' data-element-name='category_3'>玩樂廚房</label>
               </CheckBox>
-              <CheckBox id='type_4' value={ type_4.value } errorMessage={ type_4.errorMessage }>
-                <label htmlFor='type_4' data-element-name='type_4'>愛上戶外</label>
+              <CheckBox id='category_4' value={ category_4.value } errorMessage={ category_4.errorMessage }>
+                <label htmlFor='category_4' data-element-name='category_4'>愛上戶外</label>
               </CheckBox>
-              <CheckBox id='type_5' value={ type_5.value } errorMessage={ type_5.errorMessage }>
-                <label htmlFor='type_5' data-element-name='type_5'>親子專區</label>
+              <CheckBox id='category_5' value={ category_5.value } errorMessage={ category_5.errorMessage }>
+                <label htmlFor='category_5' data-element-name='category_5'>親子專區</label>
               </CheckBox>
-              <CheckBox id='type_6' value={ type_6.value } errorMessage={ type_6.errorMessage }>
-                <label htmlFor='type_6' data-element-name='type_6'>團體遊戲</label>
+              <CheckBox id='category_6' value={ category_6.value } errorMessage={ category_6.errorMessage }>
+                <label htmlFor='category_6' data-element-name='category_6'>團體遊戲</label>
               </CheckBox>
-              <CheckBox id='type_7' value={ type_7.value } errorMessage={ type_7.errorMessage }>
-                <label htmlFor='type_7' data-element-name='type_7'>情人專區</label>
+              <CheckBox id='category_7' value={ category_7.value } errorMessage={ category_7.errorMessage }>
+                <label htmlFor='category_7' data-element-name='category_7'>情人專區</label>
               </CheckBox>
             </FilterPicker>
           </div>
