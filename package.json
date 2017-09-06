@@ -27,6 +27,7 @@
     "isomorphic-fetch": "^2.2.1",
     "js-sha3": "^0.6.1",
     "mysql": "^2.13.0",
+    "query-string": "^5.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hammerjs": "^0.5.0",

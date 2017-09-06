@@ -1,5 +1,6 @@
 import React from 'react';
 import { changeFormState } from '../../helpers/localState';
+import { getSpecifiedPropertyOfQuerystring, isLegal } from '../../helpers/querystring';
 import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType } from '../../actions/action';
 import Experience from '../experience/Experience';
 import Filter from '../button/Filter';
@@ -52,6 +53,29 @@ class Search extends React.Component {
       }
     };
   }
+
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *   Lifecycle Methods   *
+   *                       *
+   * * * * * * * * * * * * */
+
+  componentWillMount() {
+    const { location } = this.props;
+
+    // The returned object does not have a prototype by invoking parse function.
+    // So, we must create a new object and merge the original value to it.
+    const parsedQueryString             = Object.assign({}, queryString.parse(location.search));
+    const regionOfQuerystring           = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
+    const categoryOfQuerystring         = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
+    const validateRegionOfQueryString   = isLegal(regionOfQuerystring, 'region');
+    const validateCategoryOfQueryString = isLegal(categoryOfQuerystring, 'category');
+  }
+
+  componentWillReceiveProps(nextProps) {}
+
+  componentWillUnmount() {}
 
 
   /* * * * * * * * * * * * *
