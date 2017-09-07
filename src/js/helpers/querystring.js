@@ -1,5 +1,43 @@
 export function getSpecifiedPropertyOfQuerystring(querystringData, type) {
-  return querystringData.hasOwnProperty(type) ? querystringData[type] : undefined;
+  var querystringArrayContainer = [];
+
+  if(querystringData.hasOwnProperty(type)) {
+    if(Array.isArray(querystringData[type])) {
+      querystringArrayContainer = querystringData[type];
+
+      // extracting array of fixed length
+      switch(type) {
+        case 'region':
+          querystringArrayContainer = querystringArrayContainer.map((item, index) => {
+            if(index < 8) {
+              return item;
+            }
+          });
+          break;
+
+        case 'category':
+          querystringArrayContainer = querystringArrayContainer.map((item, index) => {
+            if(index < 7) {
+              return item;
+            }
+          });
+          break;
+
+        default:
+          return undefined;
+      }
+
+      return isLegal(querystringArrayContainer, type);
+
+    } else {
+      querystringArrayContainer = querystringArrayContainer.concat(querystringData[type]);
+
+      return isLegal(querystringArrayContainer, type);
+    }
+
+  } else {
+    return undefined;
+  }
 };
 
 export function isLegal(querystringData, type) {
@@ -8,42 +46,18 @@ export function isLegal(querystringData, type) {
   if(!isEmpty(querystringData) && Array.isArray(querystringData)) {
     switch(type) {
       case 'region':
-        validateResult = querystringData.map(item => checkRegion(item));
+        validateResult = querystringData.filter(checkRegion);
         break;
 
       case 'category':
-        validateResult = querystringData.map(item => checkCategory(item));
+        validateResult = querystringData.filter(checkCategory);
         break;
 
       default:
         break;
     }
 
-    if(validateResult.indexOf(false) === -1) {
-      return true;
-    } else {
-      return false;
-    }
-
-  } else if (!isEmpty(querystringData)) {
-    switch(type) {
-      case 'region':
-        validateResult = checkRegion(querystringData.toString());
-        break;
-
-      case 'category':
-        validateResult = checkCategory(querystringData.toString());
-        break;
-
-      default:
-        break;
-    }
-
-    if(validateResult !== true) {
-      return false;
-    } else {
-      return true;
-    }
+    return !isEmpty(validateResult) ? validateResult : undefined;
 
   } else {
     return undefined;
@@ -54,19 +68,19 @@ export function isLegal(querystringData, type) {
 function checkRegion(item) {
   const REGION_LIST = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-  if(REGION_LIST.indexOf(item) === -1) {
-    return false;
+  if(REGION_LIST.indexOf(item) !== -1) {
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 function checkCategory(item) {
   const CATEGORY_LIST = ['outdoor', 'summercamp', 'handmade', 'baking' ,'playwithchild', 'group', 'lover'];
 
-  if(CATEGORY_LIST.indexOf(item) === -1) {
-    return false;
+  if(CATEGORY_LIST.indexOf(item) !== -1) {
+    return true;
   }
 
-  return true;
+  return false;
 }
