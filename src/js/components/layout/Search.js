@@ -143,7 +143,7 @@ class Search extends React.Component {
     updatedFilterPickerCache = Object.assign({}, this.state.filterPickerCache, updatedFilterPickerCache);
 
     // merge updated `formData` with updated `filterPickerCache` as new local state
-    waitForUpdatedState      = Object.assign({}, {formData: updatedFormData}, {filterPickerCache: updatedFilter
+    waitForUpdatedState      = Object.assign({}, {formData: updatedFormData}, {filterPickerCache: updatedFilterPickerCache});
 
     return waitForUpdatedState;
   }
