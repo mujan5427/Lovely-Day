@@ -17,6 +17,7 @@ class Search extends React.Component {
     this.toggleFilterPickerType           = this.toggleFilterPickerType.bind(this);
     this.updateFilterPickerCache          = this.updateFilterPickerCache.bind(this);
     this.resetFormDataByFilterPickerCache = this.resetFormDataByFilterPickerCache.bind(this);
+    this.localStateFromQuerystring        = this.localStateFromQuerystring.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -66,11 +67,12 @@ class Search extends React.Component {
 
     // The returned object does not have a prototype by invoking parse function.
     // So, we must create a new object and merge the original value to it.
-    const parsedQueryString             = Object.assign({}, queryString.parse(location.search));
-    const regionOfQuerystring           = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
-    const categoryOfQuerystring         = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
-    const validateRegionOfQueryString   = isLegal(regionOfQuerystring, 'region');
-    const validateCategoryOfQueryString = isLegal(categoryOfQuerystring, 'category');
+    const parsedQueryString         = Object.assign({}, queryString.parse(location.search));
+    const regionOfQuerystring       = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
+    const categoryOfQuerystring     = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
+    const locatStateFromQuerystring = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
+
+    this.setState(locatStateFromQuerystring);
   }
 
   componentWillReceiveProps(nextProps) {}
@@ -108,6 +110,42 @@ class Search extends React.Component {
       dispatch(toggleDisplayFilterPickerType());
 
     }
+  }
+
+  localStateFromQuerystring(region, category) {
+    var updatedRegion = {}, updatedCategory = {}, updatedFormData, updatedFilterPickerCache = {};
+    var waitForUpdatedState;
+
+    // produce new local state for `region`
+    if(!isEmpty(region) && Array.isArray(region)) {
+      region.map(item => {
+        updatedRegion[`region_${ item }`] = { value: true, errorMessage: '' };
+      });
+
+      updatedFilterPickerCache.region = region;
+    }
+
+    // produce new local state for `category`
+    if(!isEmpty(category) && Array.isArray(category)) {
+      category.map(item => {
+        updatedCategory[`category_${ item }`] = { value: true, errorMessage: '' };
+      });
+
+      updatedFilterPickerCache.category = category;
+    }
+
+    // merge `formData` of local state with data of querystring
+    updatedFormData          = Object.assign({}, updatedRegion, updatedCategory);
+    updatedFormData          = Object.assign({}, this.state.formData, updatedFormData);
+
+    // merge `filterPickerCache` of local state with data of querystring
+    updatedFilterPickerCache = Object.assign({}, updatedFilterPickerCache);
+    updatedFilterPickerCache = Object.assign({}, this.state.filterPickerCache, updatedFilterPickerCache);
+
+    // merge updated `formData` with updated `filterPickerCache` as new local state
+    waitForUpdatedState      = Object.assign({}, {formData: updatedFormData}, {filterPickerCache: updatedFilter
+
+    return waitForUpdatedState;
   }
 
   updateFilterPickerCache(type) {
