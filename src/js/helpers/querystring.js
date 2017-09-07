@@ -76,7 +76,7 @@ function checkRegion(item) {
 }
 
 function checkCategory(item) {
-  const CATEGORY_LIST = ['outdoor', 'summercamp', 'handmade', 'baking' ,'playwithchild', 'group', 'lover'];
+  const CATEGORY_LIST = ['1', '2', '3', '4' ,'5', '6', '7'];
 
   if(CATEGORY_LIST.indexOf(item) !== -1) {
     return true;
