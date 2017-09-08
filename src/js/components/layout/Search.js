@@ -1,6 +1,6 @@
 import React from 'react';
 import { changeFormState } from '../../helpers/localState';
-import { getSpecifiedPropertyOfQuerystring, isLegal } from '../../helpers/querystring';
+import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
 import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType } from '../../actions/action';
 import Experience from '../experience/Experience';
 import Filter from '../button/Filter';
@@ -62,7 +62,7 @@ class Search extends React.Component {
    *                       *
    * * * * * * * * * * * * */
 
-  componentWillMount() {
+  componentDidMount() {
     const { location } = this.props;
 
     // The returned object does not have a prototype by invoking parse function.
@@ -72,10 +72,46 @@ class Search extends React.Component {
     const categoryOfQuerystring     = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
     const locatStateFromQuerystring = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
 
-    this.setState(locatStateFromQuerystring);
+    if(isEmpty(regionOfQuerystring) && isEmpty(categoryOfQuerystring)) {
+      // fetching data directly without 'region' or 'category' property.
+
+    } else {
+      this.setState(locatStateFromQuerystring);
+
+    }
   }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillUpdate(nextProps, nextState) {
+    const { history } = nextProps;
+    const previousFilterPickerCache = this.state.filterPickerCache;
+    const currentFilterPickerCache  = nextState.filterPickerCache;
+    var needDisplayedQuerystring = '', historyStack;
+
+    // Note that you cannot call this.setState() here.
+
+    if(!objectEqual(currentFilterPickerCache, previousFilterPickerCache)) {
+      // fetching data with 'region' or 'category' property.
+
+
+
+      // change history stack here by using `history.push()`.
+      if(currentFilterPickerCache.hasOwnProperty('region') &&
+         !isEmpty(currentFilterPickerCache.region)) {
+
+        needDisplayedQuerystring += queryString.stringify({region: currentFilterPickerCache.region});
+      }
+
+      if(currentFilterPickerCache.hasOwnProperty('category') &&
+         !isEmpty(currentFilterPickerCache.category)) {
+
+        needDisplayedQuerystring += queryString.stringify({category: currentFilterPickerCache.category});
+      }
+
+      historyStack = createHistoryStack('search', needDisplayedQuerystring);
+
+      history.push(historyStack);
+    }
+  }
 
   componentWillUnmount() {}
 
