@@ -84,3 +84,12 @@ function checkCategory(item) {
 
   return false;
 }
+
+export function createHistoryStack(page, querystring) {
+  var historyStack = {
+    path: `/${ page }`,
+    search: `?${ querystring }`
+  };
+
+  return historyStack;
+};
