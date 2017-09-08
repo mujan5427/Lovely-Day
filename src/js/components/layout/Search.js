@@ -3,7 +3,6 @@ import { changeFormState } from '../../helpers/localState';
 import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
 import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType } from '../../actions/action';
 import Experience from '../experience/Experience';
-import Filter from '../button/Filter';
 import FilterPicker from '../dialog/FilterPicker';
 import CheckBox from '../form/CheckBox';
 
@@ -415,11 +414,18 @@ class Search extends React.Component {
             {/* loop Experience component in this line */}
             {/* <Experience /> */}
           </section>
-          <Filter />
+
+          {/* Filter Panel of mobile version */}
+          <div className='search-filter-panel-mobile-version'>
+            <a className='skeuomorphism-button'>
+              <span>篩選條件</span>
+              <i className='fa fa-sliders' aria-hidden='true'></i>
+            </a>
+          </div>
         </div>
 
-        {/* Filter Panel */}
-        <section className='search-filter-panel'>
+        {/* Filter Panel of desktop version */}
+        <section className='search-filter-panel-desktop-version'>
           <div
             className={ displayFilterPickerRegion ? 'filter-panel-activity' : null }
             onClick={ this.toggleFilterPickerRegion }
