@@ -25,7 +25,7 @@ class Filter extends React.Component {
       <Wrapper>
 
         {/* Header */}
-        <Header type='TYPE-2' />
+        <Header type='TYPE-2' title='篩選條件' />
 
         {/* Content */}
         <div className='dialog-content' style={ this.dialogContentCSS }>

@@ -6,7 +6,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { type, toggleDialogLogin, toggleDialogSignup } = this.props;
+    const { type, title, toggleDialogLogin, toggleDialogSignup } = this.props;
 
     switch (type) {
       case 'TYPE-2':
@@ -15,7 +15,7 @@ class Header extends React.Component {
             <a className='custom-close-dialog-button'>
               <i className='fa fa-times fa-2x' aria-hidden='true'></i>
             </a>
-            <span>篩選條件</span>
+            <span>{ title }</span>
             <a className='href-highlight'>重設</a>
           </div>
         );
