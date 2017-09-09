@@ -12,12 +12,17 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    this.formElementEventHandler          = this.formElementEventHandler.bind(this);
-    this.toggleFilterPickerRegion         = this.toggleFilterPickerRegion.bind(this);
-    this.toggleFilterPickerType           = this.toggleFilterPickerType.bind(this);
-    this.updateFilterPickerCache          = this.updateFilterPickerCache.bind(this);
-    this.resetFormDataByFilterPickerCache = this.resetFormDataByFilterPickerCache.bind(this);
-    this.localStateFromQuerystring        = this.localStateFromQuerystring.bind(this);
+    this.formElementEventHandler                     = this.formElementEventHandler.bind(this);
+    this.toggleFilterPickerRegion                    = this.toggleFilterPickerRegion.bind(this);
+    this.toggleFilterPickerType                      = this.toggleFilterPickerType.bind(this);
+    this.confirmButtonOfFilterPickerOfDesktopVersion = this.confirmButtonOfFilterPickerOfDesktopVersion.bind(this);
+    this.confirmButtonOfFilterPickerOfMobileVersion  = this.confirmButtonOfFilterPickerOfMobileVersion.bind(this);
+    this.cancelButtonOfFilterPickerOfDesktopVersion  = this.cancelButtonOfFilterPickerOfDesktopVersion.bind(this);
+    this.cancelButtonOfFilterPickerOfMobileVersion   = this.cancelButtonOfFilterPickerOfMobileVersion.bind(this);
+    this.localStateFromQuerystring                   = this.localStateFromQuerystring.bind(this);
+    this.updateFilterPickerCache                     = this.updateFilterPickerCache.bind(this);
+    this.resetFormDataByFilterPickerCache            = this.resetFormDataByFilterPickerCache.bind(this);
+    this.cleanFormData                               = this.cleanFormData.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -119,10 +124,10 @@ class Search extends React.Component {
     const { dispatch, displayFilterPickerRegion } = this.props;
 
     if(displayFilterPickerRegion) {
-      this.resetFormDataByFilterPickerCache('region');
+      this.cancelButtonOfFilterPickerOfDesktopVersion('region');
 
     } else {
-      this.resetFormDataByFilterPickerCache('category');
+      this.cancelButtonOfFilterPickerOfDesktopVersion('category');
       dispatch(toggleDisplayFilterPickerRegion());
 
     }
@@ -132,10 +137,10 @@ class Search extends React.Component {
     const { dispatch, displayFilterPickerType } = this.props;
 
     if(displayFilterPickerType) {
-      this.resetFormDataByFilterPickerCache('category');
+      this.cancelButtonOfFilterPickerOfDesktopVersion('category');
 
     } else {
-      this.resetFormDataByFilterPickerCache('region');
+      this.cancelButtonOfFilterPickerOfDesktopVersion('region');
       dispatch(toggleDisplayFilterPickerType());
 
     }
@@ -177,24 +182,10 @@ class Search extends React.Component {
     return waitForUpdatedState;
   }
 
-  updateFilterPickerCache(type) {
+  confirmButtonOfFilterPickerOfDesktopVersion(type) {
     const { dispatch } = this.props;
-    const formData     = this.state.formData;
-    var cacheList      = [];
-    var property, typeOfProperty, indexOfProperty, updatedFilterPickerCache;
 
-    for(property in formData) {
-      typeOfProperty    = property.split('_')[0];
-      indexOfProperty   = property.split('_')[1];
-
-      if(typeOfProperty === type && formData[property].value === true) {
-        cacheList.push(indexOfProperty);
-      }
-    }
-
-    updatedFilterPickerCache = Object.assign({}, this.state.filterPickerCache, {[type]: cacheList});
-
-    this.setState(Object.assign({}, this.state, {filterPickerCache: updatedFilterPickerCache}));
+    this.updateFilterPickerCache();
 
     if(type === 'region') {
       dispatch(toggleDisplayFilterPickerRegion());
@@ -206,31 +197,14 @@ class Search extends React.Component {
 
   }
 
-  resetFormDataByFilterPickerCache(type) {
-    const { dispatch }      = this.props;
-    const formData          = this.state.formData;
-    const filterPickerCache = this.state.filterPickerCache;
-    var resetList           = {};
-    var property, typeOfProperty, indexOfProperty, specifiedProperty, updatedFormData;
+  confirmButtonOfFilterPickerOfMobileVersion() {
+    this.updateFilterPickerCache();
+  }
 
-    for(property in formData) {
-      typeOfProperty    = property.split('_')[0];
-      indexOfProperty   = property.split('_')[1];
-      specifiedProperty = `${ type }_${ indexOfProperty }`;
+  cancelButtonOfFilterPickerOfDesktopVersion(type) {
+    const { dispatch } = this.props;
 
-      if(typeOfProperty === type && filterPickerCache[type].indexOf(indexOfProperty) !== -1) {
-        resetList[specifiedProperty] =
-        Object.assign({}, this.state.formData[specifiedProperty], {value: true});
-
-      } else if(typeOfProperty === type && filterPickerCache[type].indexOf(indexOfProperty) === -1) {
-        resetList[specifiedProperty] =
-        Object.assign({}, this.state.formData[specifiedProperty], {value: false});
-      }
-    }
-
-    updatedFormData = Object.assign({}, this.state.formData, resetList);
-
-    this.setState(Object.assign({}, this.state, {formData: updatedFormData}));
+    this.resetFormDataByFilterPickerCache();
 
     if(type === 'region') {
       dispatch(toggleDisplayFilterPickerRegion());
@@ -239,6 +213,91 @@ class Search extends React.Component {
       dispatch(toggleDisplayFilterPickerType());
 
     }
+  }
+
+  cancelButtonOfFilterPickerOfMobileVersion() {
+    this.resetFormDataByFilterPickerCache();
+  }
+
+  resetFormDataByFilterPickerCache() {
+    const { formData, filterPickerCache } = this.state;
+    var resetList = {};
+    var property, typeOfProperty, indexOfProperty, updatedFormData;
+
+    for(property in formData) {
+      typeOfProperty    = property.split('_')[0];
+      indexOfProperty   = property.split('_')[1];
+
+      switch(typeOfProperty) {
+        case 'region':
+          if(filterPickerCache.region.indexOf(indexOfProperty) !== -1) {
+            resetList[property] = Object.assign({}, formData[property], {value: true});
+
+          } else {
+            resetList[property] = Object.assign({}, formData[property], {value: false});
+
+          }
+          break;
+
+        case 'category':
+          if(filterPickerCache.category.indexOf(indexOfProperty) !== -1) {
+            resetList[property] = Object.assign({}, formData[property], {value: true});
+
+          } else {
+            resetList[property] = Object.assign({}, formData[property], {value: false});
+
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    updatedFormData = Object.assign({}, formData, resetList);
+
+    this.setState(Object.assign({}, this.state, {formData: updatedFormData}));
+  }
+
+  updateFilterPickerCache() {
+    const { formData, filterPickerCache } = this.state;
+    var regionCacheList   = [];
+    var categoryCacheList = [];
+    var property, typeOfProperty, indexOfProperty, updatedFilterPickerCache;
+
+    for(property in formData) {
+      typeOfProperty    = property.split('_')[0];
+      indexOfProperty   = property.split('_')[1];
+
+      if(typeOfProperty === 'region' && formData[property].value === true) {
+        regionCacheList.push(indexOfProperty);
+
+      }
+
+      if(typeOfProperty === 'category' && formData[property].value === true) {
+        categoryCacheList.push(indexOfProperty);
+
+      }
+    }
+
+    updatedFilterPickerCache =
+    Object.assign({}, filterPickerCache, {region: regionCacheList, category: categoryCacheList});
+
+    this.setState(Object.assign({}, this.state, {filterPickerCache: updatedFilterPickerCache}));
+  }
+
+  cleanFormData() {
+    const { formData } = this.state;
+    var cleanList = {};
+    var property, cleanedFormData;
+
+    for(property in formData) {
+      cleanList[property] = Object.assign({}, formData[property], {value: false});
+    }
+
+    cleanedFormData = Object.assign({}, formData, cleanList);
+
+    this.setState(Object.assign({}, this.state, {formData: cleanedFormData}));
   }
 
   formElementEventHandler(event) {
@@ -446,8 +505,8 @@ class Search extends React.Component {
           >
             <FilterPicker
               type='region'
-              cancelHandler={ this.resetFormDataByFilterPickerCache }
-              confirmHandler={ this.updateFilterPickerCache }
+              cancelHandler={ this.cancelButtonOfFilterPickerOfDesktopVersion }
+              confirmHandler={ this.confirmButtonOfFilterPickerOfDesktopVersion }
             >
               <CheckBox id='region_1' value={ region_1.value } errorMessage={ region_1.errorMessage }>
                 <label htmlFor='region_1' data-element-name='region_1'>大台北</label>
@@ -486,8 +545,8 @@ class Search extends React.Component {
           >
             <FilterPicker
               type='category'
-              cancelHandler={ this.resetFormDataByFilterPickerCache }
-              confirmHandler={ this.updateFilterPickerCache }
+              cancelHandler={ this.cancelButtonOfFilterPickerOfDesktopVersion }
+              confirmHandler={ this.confirmButtonOfFilterPickerOfDesktopVersion }
             >
               <CheckBox id='category_1' value={ category_1.value } errorMessage={ category_1.errorMessage }>
                 <label htmlFor='category_1' data-element-name='category_1'>夏令營專區</label>
