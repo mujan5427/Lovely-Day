@@ -28,15 +28,6 @@ import ContainerIndex from './containers/ContainerIndex';
 import ContainerSearch from './containers/ContainerSearch';
 
 
- /* * * * * * * * * * * * * * * *
-  *                             *
-  *  Presentational Components  *
-  *                             *
-  * * * * * * * * * * * * * * * */
-
-import DialogFilter from './components/dialog/Filter';
-
-
 let store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
@@ -50,7 +41,6 @@ ReactDOM.render(
         <Route path='/experiences/:id' component={ ContainerExperienceDetail } />
         <ContainerMain />
         <ContainerNavigation />
-        <DialogFilter />
         <ContainerDialogWrapper />
       </div>
     </Router>
