@@ -1,7 +1,7 @@
 .dialog-box-background {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+  display: flex;
   height: 100%;
   justify-content: center;
   position: fixed;
@@ -46,12 +46,8 @@
   overflow: auto;
   width: 100%;
 
-  section {
+  > section {
     padding: 20px 0;
-
-    > .dialog-item-name {
-      margin: 16px 0 32px;
-    }
 
     > span {
       display: block;
@@ -66,4 +62,10 @@
   > div {
     margin-bottom: 16px;
   }
+}
+
+.dialog-have-header-footer {
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  height: calc(100% - 64px - 72px);
 }
