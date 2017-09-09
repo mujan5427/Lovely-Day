@@ -70,7 +70,9 @@ class Filter extends React.Component {
         </div>
 
         {/* Footer */}
-        <Footer />
+        <Footer>
+          <a className='button solid solid-theme-pink'>查看體驗</a>
+        </Footer>
       </Wrapper>
     );
   }
