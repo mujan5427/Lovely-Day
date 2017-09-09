@@ -93,19 +93,12 @@ class Search extends React.Component {
       // fetching data with 'region' or 'category' property.
 
 
-
       // change history stack here by using `history.push()`.
-      if(currentFilterPickerCache.hasOwnProperty('region') &&
-         !isEmpty(currentFilterPickerCache.region)) {
-
-        needDisplayedQuerystring += queryString.stringify({region: currentFilterPickerCache.region});
-      }
-
-      if(currentFilterPickerCache.hasOwnProperty('category') &&
-         !isEmpty(currentFilterPickerCache.category)) {
-
-        needDisplayedQuerystring += queryString.stringify({category: currentFilterPickerCache.category});
-      }
+      needDisplayedQuerystring = queryString.stringify(
+        {
+          region: !isEmpty(currentFilterPickerCache.region) ? currentFilterPickerCache.region : undefined,
+          category: !isEmpty(currentFilterPickerCache.category) ? currentFilterPickerCache.category : undefined
+        });
 
       historyStack = createHistoryStack('search', needDisplayedQuerystring);
 
@@ -523,7 +516,11 @@ class Search extends React.Component {
 
         {/* Filter Picker of mobile version */}
         <Filter>
-          <div className='search-filter-picker-dialog-content'>
+          <div
+            className='search-filter-picker-dialog-content'
+            onChange={ this.formElementEventHandler }
+            onClick={ this.formElementEventHandler }
+          >
 
             {/* Filter Picker for region */}
             <section>
