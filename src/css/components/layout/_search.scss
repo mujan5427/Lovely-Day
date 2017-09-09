@@ -66,3 +66,22 @@
 .filter-panel-activity {
   background: #f9f9f9;
 }
+
+.search-filter-picker-dialog-content {
+  font-size: 1.4em;
+
+  div.checkbox {
+    display: block;
+    margin: 20px 0;
+  }
+
+  > section {
+    &:last-child {
+      padding-top: 20px;
+    }
+
+    > h1 {
+      margin: 16px 0 32px;
+    }
+  }
+}
