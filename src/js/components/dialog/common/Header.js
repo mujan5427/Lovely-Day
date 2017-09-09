@@ -12,11 +12,11 @@ class Header extends React.Component {
       case 'TYPE-2':
         return (
           <div className='dialog-header'>
-            <a href className='custom-close-dialog-button'>
+            <a className='custom-close-dialog-button'>
               <i className='fa fa-times fa-2x' aria-hidden='true'></i>
             </a>
             <span>篩選條件</span>
-            <a href className='href-highlight'>重設</a>
+            <a className='href-highlight'>重設</a>
           </div>
         );
 

@@ -29,19 +29,8 @@
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
-  text-align: right;
-
-  > * {
-    width: 33%;
-  }
-
-  :nth-child(1) {
-    text-align: left;
-  }
-
-  :nth-child(2) {
-    text-align: center;
-  }
+  justify-content: space-between;
+  width: 100%;
 }
 
 .dialog-footer {
