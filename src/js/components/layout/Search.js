@@ -467,14 +467,6 @@ class Search extends React.Component {
             {/* loop Experience component in this line */}
             {/* <Experience /> */}
           </section>
-
-          {/* Filter Panel of mobile version */}
-          <div className='search-filter-panel-mobile-version'>
-            <a className='skeuomorphism-button'>
-              <span>篩選條件</span>
-              <i className='fa fa-sliders' aria-hidden='true'></i>
-            </a>
-          </div>
         </div>
 
         {/* Filter Panel of desktop version */}
@@ -572,6 +564,14 @@ class Search extends React.Component {
             </FilterPicker>
           </div>
         }
+
+        {/* Filter Panel of mobile version */}
+        <div className='search-filter-panel-mobile-version'>
+          <a className='skeuomorphism-button'>
+            <span>篩選條件</span>
+            <i className='fa fa-sliders' aria-hidden='true'></i>
+          </a>
+        </div>
 
         {/* Filter Picker of mobile version */}
         <Filter
