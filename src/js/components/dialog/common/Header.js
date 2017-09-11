@@ -3,6 +3,21 @@ import React from 'react';
 class Header extends React.Component {
   constructor(props) {
     super(props);
+
+    this.closeButtonHandler  = this.closeButtonHandler.bind(this);
+    this.customButtonHandler = this.customButtonHandler.bind(this);
+  }
+
+  customButtonHandler() {
+    const { customButton } = this.props;
+
+    customButton();
+  }
+
+  closeButtonHandler() {
+    const { closeButton } = this.props;
+
+    closeButton();
   }
 
   render() {
@@ -12,11 +27,11 @@ class Header extends React.Component {
       case 'TYPE-2':
         return (
           <div className='dialog-header'>
-            <a className='custom-close-dialog-button'>
+            <a className='custom-close-dialog-button' onClick={ this.closeButtonHandler }>
               <i className='fa fa-times fa-2x' aria-hidden='true'></i>
             </a>
             <span>{ title }</span>
-            <a className='href-highlight'>重設</a>
+            <a className='href-highlight' onClick={ this.customButtonHandler }>重設</a>
           </div>
         );
 
