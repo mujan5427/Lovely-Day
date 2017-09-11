@@ -1,7 +1,7 @@
 import React from 'react';
 import { changeFormState } from '../../helpers/localState';
 import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
-import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType } from '../../actions/action';
+import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType, toggleDisplayDialogFilter } from '../../actions/action';
 import Experience from '../experience/Experience';
 import FilterPicker from '../dialog/FilterPicker';
 import CheckBox from '../form/CheckBox';
@@ -23,6 +23,7 @@ class Search extends React.Component {
     this.updateFilterPickerCache                     = this.updateFilterPickerCache.bind(this);
     this.resetFormDataByFilterPickerCache            = this.resetFormDataByFilterPickerCache.bind(this);
     this.cleanFormData                               = this.cleanFormData.bind(this);
+    this.toggleDialogFilter                          = this.toggleDialogFilter.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -146,6 +147,12 @@ class Search extends React.Component {
     }
   }
 
+  toggleDialogFilter() {
+    const { dispatch } = this.props;
+
+    dispatch(toggleDisplayDialogFilter());
+  }
+
   localStateFromQuerystring(region, category) {
     var updatedRegion = {}, updatedCategory = {}, updatedFormData, updatedFilterPickerCache = {};
     var waitForUpdatedState;
@@ -199,6 +206,7 @@ class Search extends React.Component {
 
   confirmButtonOfFilterPickerOfMobileVersion() {
     this.updateFilterPickerCache();
+    this.toggleDialogFilter();
   }
 
   cancelButtonOfFilterPickerOfDesktopVersion(type) {
@@ -217,6 +225,7 @@ class Search extends React.Component {
 
   cancelButtonOfFilterPickerOfMobileVersion() {
     this.resetFormDataByFilterPickerCache();
+    this.toggleDialogFilter();
   }
 
   resetFormDataByFilterPickerCache() {
@@ -456,7 +465,7 @@ class Search extends React.Component {
   render() {
     const { category_1, category_2, category_3, category_4, category_5, category_6, category_7 } = this.state.formData;
     const { region_1, region_2, region_3, region_4, region_5, region_6, region_7, region_8 } = this.state.formData;
-    const { displayFilterPickerRegion, displayFilterPickerType } = this.props;
+    const { displayFilterPickerRegion, displayFilterPickerType, displayDialogFilter } = this.props;
 
 
     return (
@@ -565,82 +574,88 @@ class Search extends React.Component {
           </div>
         }
 
-        {/* Filter Panel of mobile version */}
-        <div className='search-filter-panel-mobile-version'>
-          <a className='skeuomorphism-button'>
-            <span>篩選條件</span>
-            <i className='fa fa-sliders' aria-hidden='true'></i>
-          </a>
-        </div>
+        { !displayDialogFilter &&
 
-        {/* Filter Picker of mobile version */}
-        <Filter
-          resetButton={ this.cleanFormData }
-          cancelButton={ this.cancelButtonOfFilterPickerOfMobileVersion }
-          confirmButton={ this.confirmButtonOfFilterPickerOfMobileVersion }
-        >
-          <div
-            className='search-filter-picker-dialog-content'
-            onChange={ this.formElementEventHandler }
-            onClick={ this.formElementEventHandler }
-          >
-
-            {/* Filter Picker for region */}
-            <section>
-              <h1>地區</h1>
-              <CheckBox id='region_1' value={ region_1.value } errorMessage={ region_1.errorMessage }>
-                <label htmlFor='region_1' data-element-name='region_1'>大台北</label>
-              </CheckBox>
-              <CheckBox id='region_2' value={ region_2.value } errorMessage={ region_2.errorMessage }>
-                <label htmlFor='region_2' data-element-name='region_2'>桃竹苗</label>
-              </CheckBox>
-              <CheckBox id='region_3' value={ region_3.value } errorMessage={ region_3.errorMessage }>
-                <label htmlFor='region_3' data-element-name='region_3'>宜蘭</label>
-              </CheckBox>
-              <CheckBox id='region_4' value={ region_4.value } errorMessage={ region_4.errorMessage }>
-                <label htmlFor='region_4' data-element-name='region_4'>中彰投</label>
-              </CheckBox>
-              <CheckBox id='region_5' value={ region_5.value } errorMessage={ region_5.errorMessage }>
-                <label htmlFor='region_5' data-element-name='region_5'>雲嘉南</label>
-              </CheckBox>
-              <CheckBox id='region_6' value={ region_6.value } errorMessage={ region_6.errorMessage }>
-                <label htmlFor='region_6' data-element-name='region_6'>高屏</label>
-              </CheckBox>
-              <CheckBox id='region_7' value={ region_7.value } errorMessage={ region_7.errorMessage }>
-                <label htmlFor='region_7' data-element-name='region_7'>花東</label>
-              </CheckBox>
-              <CheckBox id='region_8' value={ region_8.value } errorMessage={ region_8.errorMessage }>
-                <label htmlFor='region_8' data-element-name='region_8'>離島</label>
-              </CheckBox>
-            </section>
-
-            {/* Filter Picker for category */}
-            <section>
-              <h1>類型</h1>
-              <CheckBox id='category_1' value={ category_1.value } errorMessage={ category_1.errorMessage }>
-                <label htmlFor='category_1' data-element-name='category_1'>夏令營專區</label>
-              </CheckBox>
-              <CheckBox id='category_2' value={ category_2.value } errorMessage={ category_2.errorMessage }>
-                <label htmlFor='category_2' data-element-name='category_2'>藝文手作</label>
-              </CheckBox>
-              <CheckBox id='category_3' value={ category_3.value } errorMessage={ category_3.errorMessage }>
-                <label htmlFor='category_3' data-element-name='category_3'>玩樂廚房</label>
-              </CheckBox>
-              <CheckBox id='category_4' value={ category_4.value } errorMessage={ category_4.errorMessage }>
-                <label htmlFor='category_4' data-element-name='category_4'>愛上戶外</label>
-              </CheckBox>
-              <CheckBox id='category_5' value={ category_5.value } errorMessage={ category_5.errorMessage }>
-                <label htmlFor='category_5' data-element-name='category_5'>親子專區</label>
-              </CheckBox>
-              <CheckBox id='category_6' value={ category_6.value } errorMessage={ category_6.errorMessage }>
-                <label htmlFor='category_6' data-element-name='category_6'>團體遊戲</label>
-              </CheckBox>
-              <CheckBox id='category_7' value={ category_7.value } errorMessage={ category_7.errorMessage }>
-                <label htmlFor='category_7' data-element-name='category_7'>情人專區</label>
-              </CheckBox>
-            </section>
+          // Filter Panel of mobile version
+          <div className='search-filter-panel-mobile-version'>
+            <a className='skeuomorphism-button' onClick={ this.toggleDialogFilter }>
+              <span>篩選條件</span>
+              <i className='fa fa-sliders' aria-hidden='true'></i>
+            </a>
           </div>
-        </Filter>
+        }
+
+        { displayDialogFilter &&
+
+          // Filter Picker of mobile version
+          <Filter
+            resetButton={ this.cleanFormData }
+            cancelButton={ this.cancelButtonOfFilterPickerOfMobileVersion }
+            confirmButton={ this.confirmButtonOfFilterPickerOfMobileVersion }
+          >
+            <div
+              className='search-filter-picker-dialog-content'
+              onChange={ this.formElementEventHandler }
+              onClick={ this.formElementEventHandler }
+            >
+
+              {/* Filter Picker for region */}
+              <section>
+                <h1>地區</h1>
+                <CheckBox id='region_1' value={ region_1.value } errorMessage={ region_1.errorMessage }>
+                  <label htmlFor='region_1' data-element-name='region_1'>大台北</label>
+                </CheckBox>
+                <CheckBox id='region_2' value={ region_2.value } errorMessage={ region_2.errorMessage }>
+                  <label htmlFor='region_2' data-element-name='region_2'>桃竹苗</label>
+                </CheckBox>
+                <CheckBox id='region_3' value={ region_3.value } errorMessage={ region_3.errorMessage }>
+                  <label htmlFor='region_3' data-element-name='region_3'>宜蘭</label>
+                </CheckBox>
+                <CheckBox id='region_4' value={ region_4.value } errorMessage={ region_4.errorMessage }>
+                  <label htmlFor='region_4' data-element-name='region_4'>中彰投</label>
+                </CheckBox>
+                <CheckBox id='region_5' value={ region_5.value } errorMessage={ region_5.errorMessage }>
+                  <label htmlFor='region_5' data-element-name='region_5'>雲嘉南</label>
+                </CheckBox>
+                <CheckBox id='region_6' value={ region_6.value } errorMessage={ region_6.errorMessage }>
+                  <label htmlFor='region_6' data-element-name='region_6'>高屏</label>
+                </CheckBox>
+                <CheckBox id='region_7' value={ region_7.value } errorMessage={ region_7.errorMessage }>
+                  <label htmlFor='region_7' data-element-name='region_7'>花東</label>
+                </CheckBox>
+                <CheckBox id='region_8' value={ region_8.value } errorMessage={ region_8.errorMessage }>
+                  <label htmlFor='region_8' data-element-name='region_8'>離島</label>
+                </CheckBox>
+              </section>
+
+              {/* Filter Picker for category */}
+              <section>
+                <h1>類型</h1>
+                <CheckBox id='category_1' value={ category_1.value } errorMessage={ category_1.errorMessage }>
+                  <label htmlFor='category_1' data-element-name='category_1'>夏令營專區</label>
+                </CheckBox>
+                <CheckBox id='category_2' value={ category_2.value } errorMessage={ category_2.errorMessage }>
+                  <label htmlFor='category_2' data-element-name='category_2'>藝文手作</label>
+                </CheckBox>
+                <CheckBox id='category_3' value={ category_3.value } errorMessage={ category_3.errorMessage }>
+                  <label htmlFor='category_3' data-element-name='category_3'>玩樂廚房</label>
+                </CheckBox>
+                <CheckBox id='category_4' value={ category_4.value } errorMessage={ category_4.errorMessage }>
+                  <label htmlFor='category_4' data-element-name='category_4'>愛上戶外</label>
+                </CheckBox>
+                <CheckBox id='category_5' value={ category_5.value } errorMessage={ category_5.errorMessage }>
+                  <label htmlFor='category_5' data-element-name='category_5'>親子專區</label>
+                </CheckBox>
+                <CheckBox id='category_6' value={ category_6.value } errorMessage={ category_6.errorMessage }>
+                  <label htmlFor='category_6' data-element-name='category_6'>團體遊戲</label>
+                </CheckBox>
+                <CheckBox id='category_7' value={ category_7.value } errorMessage={ category_7.errorMessage }>
+                  <label htmlFor='category_7' data-element-name='category_7'>情人專區</label>
+                </CheckBox>
+              </section>
+            </div>
+          </Filter>
+        }
       </div>
     );
   }
