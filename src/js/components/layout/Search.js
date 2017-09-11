@@ -574,7 +574,11 @@ class Search extends React.Component {
         }
 
         {/* Filter Picker of mobile version */}
-        <Filter>
+        <Filter
+          resetButton={ this.cleanFormData }
+          cancelButton={ this.cancelButtonOfFilterPickerOfMobileVersion }
+          confirmButton={ this.confirmButtonOfFilterPickerOfMobileVersion }
+        >
           <div
             className='search-filter-picker-dialog-content'
             onChange={ this.formElementEventHandler }
