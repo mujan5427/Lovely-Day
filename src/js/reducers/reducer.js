@@ -91,13 +91,22 @@ function displaySearch(state = {
     case 'TOGGLE_DISPLAY_FILTERPICKER_REGION':
       return {
         displayFilterPickerRegion: !state.displayFilterPickerRegion,
-        displayFilterPickerType: false
+        displayFilterPickerType: false,
+        displayDialogFilter: false
       };
 
     case 'TOGGLE_DISPLAY_FILTERPICKER_TYPE':
       return {
         displayFilterPickerRegion: false,
-        displayFilterPickerType: !state.displayFilterPickerType
+        displayFilterPickerType: !state.displayFilterPickerType,
+        displayDialogFilter: false
+      };
+
+    case 'TOGGLE_DIALOG_FILTER':
+      return {
+        displayFilterPickerRegion: false,
+        displayFilterPickerType: false,
+        displayDialogFilter: !state.displayDialogFilter
       };
 
     default:

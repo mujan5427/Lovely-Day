@@ -24,6 +24,7 @@ export const RESET_PAGE_INDEX_EXPERIENCE_LIST   = 'RESET_PAGE_INDEX_EXPERIENCE_L
 export const TOGGLE_ENTITY_FAVORITE             = 'TOGGLE_ENTITY_FAVORITE';
 export const TOGGLE_DISPLAY_FILTERPICKER_REGION = 'TOGGLE_DISPLAY_FILTERPICKER_REGION';
 export const TOGGLE_DISPLAY_FILTERPICKER_TYPE   = 'TOGGLE_DISPLAY_FILTERPICKER_TYPE';
+export const TOGGLE_DIALOG_FILTER               = 'TOGGLE_DIALOG_FILTER';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -219,6 +220,12 @@ export function toggleDisplayFilterPickerRegion() {
 export function toggleDisplayFilterPickerType() {
   return {
     type: TOGGLE_DISPLAY_FILTERPICKER_TYPE
+  };
+}
+
+export function toggleDisplayDialogFilter() {
+  return {
+    type: TOGGLE_DIALOG_FILTER
   };
 }
 
