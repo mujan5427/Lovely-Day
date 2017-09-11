@@ -6,7 +6,8 @@ function mapStateToProps(state) {
   return {
     hasLoggedIn: state.hasLoggedIn,
     displayFilterPickerRegion: state.displaySearch.displayFilterPickerRegion,
-    displayFilterPickerType:state.displaySearch.displayFilterPickerType
+    displayFilterPickerType:state.displaySearch.displayFilterPickerType,
+    displayDialogFilter: state.displaySearch.displayDialogFilter
   };
 }
 
