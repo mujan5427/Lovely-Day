@@ -37,6 +37,7 @@ class Search extends React.Component {
      */
 
     this.state = {
+      currentPage : 1,
       formData: {
         region_1   : { value: false, errorMessage: '' },
         region_2   : { value: false, errorMessage: '' },
@@ -307,6 +308,37 @@ class Search extends React.Component {
     cleanedFormData = Object.assign({}, formData, cleanList);
 
     this.setState(Object.assign({}, this.state, {formData: cleanedFormData}));
+  }
+
+  getRequestDataByLocalState(currentPage, region = undefined, category = undefined) {
+    const categoryNameMappingList = ['summer_camp','hand_made','baking',
+                                     'outdoor','play_with_child','group',
+                                     'lover'];
+    var requestDataRegion, requestDataCategory;
+
+
+    // request data of region
+    if(!isEmpty(region) && Array.isArray(region)) {
+      requestDataRegion = region.toString();
+
+    } else {
+      requestDataRegion = 'none';
+    }
+
+    // request data of category
+    if(!isEmpty(category) && Array.isArray(category)) {
+      requestDataCategory = category.map(item => categoryNameMappingList[Number(item) - 1]);
+      requestDataCategory = requestDataCategory.toString();
+
+    } else {
+      requestDataCategory = 'none';
+    }
+
+    return {
+      current_page : currentPage,
+      region       : requestDataRegion,
+      type         : requestDataCategory
+    };
   }
 
   formElementEventHandler(event) {
