@@ -121,6 +121,7 @@ function entityExperiences(state = {}, action) {
         case 'GROUP_PAGE_INDEX_EXPERIENCE_LIST':
         case 'GROUP_HEADER_NAVIGATION':
         case 'GROUP_PAGE_EXPERIENCE_DETAIL':
+        case 'GROUP_PAGE_SEARCH_EXPERIENCE_LIST':
           return {
             experiences: parseExperience(state.experiences, action.entity)
           };
@@ -195,7 +196,7 @@ function pageIndexExperienceList(state = {}, action) {
 
       } else {
         return {
-          experienceList: parsePageIndex(state.experienceList, action.index, action.isThisLastPage)
+          experienceList: parseExperienceList(state.experienceList, action.index, action.isThisLastPage)
         };
 
       }
@@ -285,6 +286,49 @@ function pageExperienceDetail(state = {}, action) {
   }
 }
 
+function pageSearch(state = {}, action) {
+  switch(action.type) {
+    case 'REQUEST_BEGINNING':
+      if (action.group !== 'GROUP_PAGE_SEARCH_EXPERIENCE_LIST') {
+        return state;
+
+      } else {
+        return {
+          experienceList: Object.assign({}, state.experienceList, {isFetching: true, needUpdate: false})
+        };
+
+      }
+
+    case 'REQUEST_SUCCESS':
+      if (action.group !== 'GROUP_PAGE_SEARCH_EXPERIENCE_LIST') {
+        return state;
+
+      } else {
+        return {
+          experienceList: parseExperienceList(state.experienceList, action.index, action.isThisLastPage)
+        };
+
+      }
+
+    case 'REQUEST_UPDATE':
+      if (action.group !== 'GROUP_PAGE_SEARCH_EXPERIENCE_LIST') {
+        return state;
+
+      } else {
+        return {
+          experienceList: Object.assign({}, state.experienceList, {needUpdate: true})
+        };
+
+      }
+
+    case 'RESET_PAGE_SEARCH_EXPERIENCE_LIST':
+      return {};
+
+    default:
+      return state;
+  }
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -292,7 +336,7 @@ function pageExperienceDetail(state = {}, action) {
  *                       *
  * * * * * * * * * * * * */
 
-function parsePageIndex(originalState, index, isThisLastPage) {
+function parseExperienceList(originalState, index, isThisLastPage) {
   var mergedItems;
 
   if(!originalState.hasOwnProperty('items')) {
@@ -375,7 +419,8 @@ const reducer = combineReducers({
   headerNavigation: headerNavigation,
   pageIndex: pageIndexExperienceList,
   pageProfile: pageProfile,
-  pageExperienceDetail: pageExperienceDetail
+  pageExperienceDetail: pageExperienceDetail,
+  pageSearch: pageSearch
 });
 
 export default reducer;
