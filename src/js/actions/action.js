@@ -19,8 +19,10 @@ export const GROUP_PAGE_PROFILE                 = 'GROUP_PAGE_PROFILE';
 export const GROUP_HEADER_NAVIGATION            = 'GROUP_HEADER_NAVIGATION';
 export const GROUP_PAGE_EXPERIENCE_DETAIL       = 'GROUP_PAGE_EXPERIENCE_DETAIL';
 export const GROUP_ENTITY                       = 'GROUP_ENTITY';
+export const GROUP_PAGE_SEARCH_EXPERIENCE_LIST  = 'GROUP_PAGE_SEARCH_EXPERIENCE_LIST';
 export const RESET_ENTITY_EXPERIENCE_FAVORITE   = 'RESET_ENTITY_EXPERIENCE_FAVORITE';
 export const RESET_PAGE_INDEX_EXPERIENCE_LIST   = 'RESET_PAGE_INDEX_EXPERIENCE_LIST';
+export const RESET_PAGE_SEARCH_EXPERIENCE_LIST  = 'RESET_PAGE_SEARCH_EXPERIENCE_LIST';
 export const TOGGLE_ENTITY_FAVORITE             = 'TOGGLE_ENTITY_FAVORITE';
 export const TOGGLE_DISPLAY_FILTERPICKER_REGION = 'TOGGLE_DISPLAY_FILTERPICKER_REGION';
 export const TOGGLE_DISPLAY_FILTERPICKER_TYPE   = 'TOGGLE_DISPLAY_FILTERPICKER_TYPE';
@@ -174,6 +176,19 @@ function requestSuccess(group, responseData) {
         group,
         experienceId: items
       };
+
+    case GROUP_PAGE_SEARCH_EXPERIENCE_LIST:
+      var entity = {};
+
+      items.map(item => Object.assign(entity, {[item.id]: item}));
+
+      return {
+        type: REQUEST_SUCCESS,
+        group,
+        index: items.map(item => Number(item.id)),
+        entity: entity,
+        isThisLastPage: responseData.hasOwnProperty('isThisLastPage') ? true : undefined
+      };
   }
 
 }
@@ -252,6 +267,9 @@ export function toggleDisplayDialogFilter() {
 
          case GROUP_PAGE_EXPERIENCE_DETAIL:
           return dispatch(getExperienceDetail(requestData.experienceId));
+
+         case GROUP_PAGE_SEARCH_EXPERIENCE_LIST:
+          return dispatch(getExperienceList(group, requestData));
        }
      }
    };
@@ -275,6 +293,10 @@ function shouldFetchIfNeeded(group, state) {
 
     case GROUP_PAGE_EXPERIENCE_DETAIL:
       groupState = state.pageExperienceDetail;
+
+    case GROUP_PAGE_SEARCH_EXPERIENCE_LIST:
+      groupState = state.pageSearch.experienceList;
+      break;
   }
 
   if (isEmpty(groupState)) {
