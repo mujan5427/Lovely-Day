@@ -1,11 +1,14 @@
 import React from 'react';
 import { changeFormState } from '../../helpers/localState';
 import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
-import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType, toggleDisplayDialogFilter } from '../../actions/action';
+import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType, toggleDisplayDialogFilter,
+         fetchData, GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
 import Experience from '../experience/Experience';
 import FilterPicker from '../dialog/FilterPicker';
 import CheckBox from '../form/CheckBox';
 import Filter from '../dialog/Filter';
+import ScrollWrapper from '../ScrollWrapper';
+import Footer from './Footer';
 
 
 class Search extends React.Component {
@@ -70,7 +73,7 @@ class Search extends React.Component {
    * * * * * * * * * * * * */
 
   componentDidMount() {
-    const { location } = this.props;
+    const { location, dispatch } = this.props;
 
     // The returned object does not have a prototype by invoking parse function.
     // So, we must create a new object and merge the original value to it.
@@ -78,9 +81,15 @@ class Search extends React.Component {
     const regionOfQuerystring       = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
     const categoryOfQuerystring     = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
     const locatStateFromQuerystring = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
+    var requestData;
+
 
     if(isEmpty(regionOfQuerystring) && isEmpty(categoryOfQuerystring)) {
+
       // fetching data directly without 'region' or 'category' property.
+      requestData = this.getRequestDataByLocalState(this.state.currentPage);
+
+      dispatch(fetchData(GROUP_PAGE_SEARCH_EXPERIENCE_LIST, requestData));
 
     } else {
       this.setState(locatStateFromQuerystring);
@@ -497,18 +506,43 @@ class Search extends React.Component {
   render() {
     const { category_1, category_2, category_3, category_4, category_5, category_6, category_7 } = this.state.formData;
     const { region_1, region_2, region_3, region_4, region_5, region_6, region_7, region_8 } = this.state.formData;
-    const { displayFilterPickerRegion, displayFilterPickerType, displayDialogFilter } = this.props;
+    const { displayFilterPickerRegion, displayFilterPickerType, displayDialogFilter,
+            experienceList, isThisLastPage } = this.props;
 
 
     return (
       <div>
-        <div className='content'>
-          <section className='search-experience-list-panel'>
+        <ScrollWrapper callback={  }>
+          <div className='content'>
+            <section className='search-experience-list-panel'>
 
-            {/* loop Experience component in this line */}
-            {/* <Experience /> */}
-          </section>
-        </div>
+              {/* Experience List */}
+              <div className='experience-list'>
+                { experienceList &&
+                  experienceList.map(item =>
+                    <Experience
+                      key={ item.id }
+                      id={ item.id }
+                      image={ item.image }
+                      title={ item.title }
+                      price={ item.price }
+                      favorited={ item.favorited }
+                      toggleFavorite={  }
+                    />
+                  )
+                }
+              </div>
+            </section>
+
+            {/* You can place Progress Bar component in this line */}
+            {/* and determine whether to show it with `isFetching` props */}
+
+          </div>
+
+          { isThisLastPage &&
+            <Footer />
+          }
+        </ScrollWrapper>
 
         {/* Filter Panel of desktop version */}
         <section className='search-filter-panel-desktop-version'>
