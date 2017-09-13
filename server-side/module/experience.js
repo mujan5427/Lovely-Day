@@ -74,7 +74,7 @@ exports.getAllExperience = function (inputData, total) {
         responseData = {
           status: 'ok',
           dataCount: rows.length,
-          isThisLastPage: currentExperienceListTotal === experienceListTotal ? true : undefined,
+          isThisLastPage: currentExperienceListTotal >= experienceListTotal ? true : undefined,
           items: preparedData
         };
 
