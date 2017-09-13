@@ -286,16 +286,38 @@ function pageExperienceDetail(state = {}, action) {
   }
 }
 
-function pageSearch(state = {}, action) {
+function pageSearch(state, action) {
+  const currentPage    = state !== undefined ? state.currentPage : undefined;
+  const experienceList = state !== undefined ? state.experienceList : undefined;
+
+  return {
+    currentPage    : pageSearchCurrentPage(currentPage, action),
+    experienceList : pageSearchExperienceList(experienceList, action)
+  };
+
+}
+
+function pageSearchCurrentPage(state = 1, action) {
+  switch(action.type) {
+    case 'INCREASE_PAGE_SEARCH_CURRENT_PAGE':
+      return state + 1;
+
+    case 'RESET_PAGE_SEARCH_CURRENT_PAGE':
+      return 1;
+
+    default:
+      return state;
+  }
+}
+
+function pageSearchExperienceList(state = {}, action) {
   switch(action.type) {
     case 'REQUEST_BEGINNING':
       if (action.group !== 'GROUP_PAGE_SEARCH_EXPERIENCE_LIST') {
         return state;
 
       } else {
-        return {
-          experienceList: Object.assign({}, state.experienceList, {isFetching: true, needUpdate: false})
-        };
+        return Object.assign({}, state, {isFetching: true, needUpdate: false});
 
       }
 
@@ -304,9 +326,7 @@ function pageSearch(state = {}, action) {
         return state;
 
       } else {
-        return {
-          experienceList: parseExperienceList(state.experienceList, action.index, action.isThisLastPage)
-        };
+        return parseExperienceList(state, action.index, action.isThisLastPage);
 
       }
 
@@ -315,9 +335,7 @@ function pageSearch(state = {}, action) {
         return state;
 
       } else {
-        return {
-          experienceList: Object.assign({}, state.experienceList, {needUpdate: true})
-        };
+        return Object.assign({}, state, {needUpdate: true});
 
       }
 
