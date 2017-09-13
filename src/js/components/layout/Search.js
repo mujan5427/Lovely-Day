@@ -2,7 +2,7 @@ import React from 'react';
 import { changeFormState } from '../../helpers/localState';
 import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
 import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType, toggleDisplayDialogFilter,
-         fetchData, GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
+         fetchData, requestUpdate, resetPageSearchExperienceList, resetPageSearchCurrentPage, GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
 import Experience from '../experience/Experience';
 import FilterPicker from '../dialog/FilterPicker';
 import CheckBox from '../form/CheckBox';
@@ -27,6 +27,7 @@ class Search extends React.Component {
     this.resetFormDataByFilterPickerCache            = this.resetFormDataByFilterPickerCache.bind(this);
     this.cleanFormData                               = this.cleanFormData.bind(this);
     this.toggleDialogFilter                          = this.toggleDialogFilter.bind(this);
+    this.toggleScrollbarStatus                       = this.toggleScrollbarStatus.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -40,7 +41,6 @@ class Search extends React.Component {
      */
 
     this.state = {
-      currentPage : 1,
       formData: {
         region_1   : { value: false, errorMessage: '' },
         region_2   : { value: false, errorMessage: '' },
@@ -73,7 +73,7 @@ class Search extends React.Component {
    * * * * * * * * * * * * */
 
   componentDidMount() {
-    const { location, dispatch } = this.props;
+    const { location, dispatch, currentPage } = this.props;
 
     // The returned object does not have a prototype by invoking parse function.
     // So, we must create a new object and merge the original value to it.
@@ -87,7 +87,7 @@ class Search extends React.Component {
     if(isEmpty(regionOfQuerystring) && isEmpty(categoryOfQuerystring)) {
 
       // fetching data directly without 'region' or 'category' property.
-      requestData = this.getRequestDataByLocalState(this.state.currentPage);
+      requestData = this.getRequestDataByLocalState(currentPage);
 
       dispatch(fetchData(GROUP_PAGE_SEARCH_EXPERIENCE_LIST, requestData));
 
@@ -98,26 +98,35 @@ class Search extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const { history } = nextProps;
+    const { history, dispatch } = nextProps;
     const previousFilterPickerCache = this.state.filterPickerCache;
     const currentFilterPickerCache  = nextState.filterPickerCache;
-    var needDisplayedQuerystring = '', historyStack;
+    var historyStack, requestData;
 
-    // Note that you cannot call this.setState() here.
+    // receive a request for update `experienceList` of pageSearch of app state
+    if(this.props.needUpdate !== nextProps.needUpdate && nextProps.needUpdate) {
+      requestData = this.getRequestDataByLocalState(nextProps.currentPage,
+                                                    nextState.filterPickerCache.region,
+                                                    nextState.filterPickerCache.category);
 
+      dispatch(fetchData(GROUP_PAGE_SEARCH_EXPERIENCE_LIST, requestData));
+    }
+
+    // `filterPickerCache` is modified
     if(!objectEqual(currentFilterPickerCache, previousFilterPickerCache)) {
-      // fetching data with 'region' or 'category' property.
 
+      // resetting `currentPage` of pageSearch of app state to 1
+      dispatch(resetPageSearchCurrentPage());
 
-      // change history stack here by using `history.push()`.
-      needDisplayedQuerystring = queryString.stringify(
-        {
-          region: !isEmpty(currentFilterPickerCache.region) ? currentFilterPickerCache.region : undefined,
-          category: !isEmpty(currentFilterPickerCache.category) ? currentFilterPickerCache.category : undefined
-        });
+      // resetting `experienceList` of pageSearch of app state to {}
+      dispatch(resetPageSearchExperienceList());
 
-      historyStack = createHistoryStack('search', needDisplayedQuerystring);
+      // request to update `experienceList` of pageSearch of app state
+      dispatch(requestUpdate(GROUP_PAGE_SEARCH_EXPERIENCE_LIST));
 
+      // change history stack here by using `history.push()`
+      historyStack = this.getNeedDisplayedQuerystring(currentFilterPickerCache.region,
+                                                      currentFilterPickerCache.category);
       history.push(historyStack);
     }
   }
@@ -350,6 +359,26 @@ class Search extends React.Component {
     };
   }
 
+  toggleScrollbarStatus() {
+    const { dispatch, isThisLastPage } = this.props;
+
+    if(isEmpty(isThisLastPage)) {
+      dispatch(requestUpdate(GROUP_PAGE_SEARCH_EXPERIENCE_LIST));
+    }
+  }
+
+  getNeedDisplayedQuerystring(region, category) {
+    var needDisplayedQuerystring = '';
+
+    needDisplayedQuerystring = queryString.stringify(
+      {
+        region   : !isEmpty(region) ? region : undefined,
+        category : !isEmpty(category) ? category : undefined
+      });
+
+    return createHistoryStack('search', needDisplayedQuerystring);
+  }
+
   formElementEventHandler(event) {
     const target      = event.target;
     const elementName =
@@ -512,7 +541,7 @@ class Search extends React.Component {
 
     return (
       <div>
-        <ScrollWrapper callback={  }>
+        <ScrollWrapper callback={ this.toggleScrollbarStatus }>
           <div className='content'>
             <section className='search-experience-list-panel'>
 
@@ -527,7 +556,6 @@ class Search extends React.Component {
                       title={ item.title }
                       price={ item.price }
                       favorited={ item.favorited }
-                      toggleFavorite={  }
                     />
                   )
                 }
