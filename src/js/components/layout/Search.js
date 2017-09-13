@@ -2,7 +2,8 @@ import React from 'react';
 import { changeFormState } from '../../helpers/localState';
 import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
 import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType, toggleDisplayDialogFilter,
-         fetchData, requestUpdate, resetPageSearchExperienceList, resetPageSearchCurrentPage, GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
+         fetchData, requestUpdate, resetPageSearchExperienceList, resetPageSearchCurrentPage, getFavourite, addFavourite, deleteFavourite, resetEntityExperienceFavorite,
+         GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
 import Experience from '../experience/Experience';
 import FilterPicker from '../dialog/FilterPicker';
 import CheckBox from '../form/CheckBox';
@@ -28,6 +29,7 @@ class Search extends React.Component {
     this.cleanFormData                               = this.cleanFormData.bind(this);
     this.toggleDialogFilter                          = this.toggleDialogFilter.bind(this);
     this.toggleScrollbarStatus                       = this.toggleScrollbarStatus.bind(this);
+    this.toggleFavorite                              = this.toggleFavorite.bind(this);
 
 
     /* * * * * * * * * * * * *
@@ -99,9 +101,26 @@ class Search extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     const { history, dispatch } = nextProps;
+    const previousProps             = this.props;
+    const currentProps              = nextProps;
     const previousFilterPickerCache = this.state.filterPickerCache;
     const currentFilterPickerCache  = nextState.filterPickerCache;
     var historyStack, requestData;
+
+
+    if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
+      if(currentProps.hasLoggedIn) {
+
+        // update `favorited` of entity experience list of app state
+        dispatch(getFavourite());
+
+      } else {
+
+        // reset `favorited` of entity experience list of app state
+        dispatch(resetEntityExperienceFavorite());
+      }
+
+    }
 
     // receive a request for update `experienceList` of pageSearch of app state
     if(this.props.needUpdate !== nextProps.needUpdate && nextProps.needUpdate) {
@@ -379,6 +398,25 @@ class Search extends React.Component {
     return createHistoryStack('search', needDisplayedQuerystring);
   }
 
+  toggleFavorite(experienceId, favorited) {
+    const { dispatch, hasLoggedIn } = this.props;
+
+    if (!hasLoggedIn) {
+
+      // This can be replace by using Dialog Message component
+      console.log(`此操作需要先登入帳號 !`);
+
+    } else {
+
+      // If `favorited` is `true` executes deleteFavourite，otherwise executes addFavourite
+      if (favorited) {
+        dispatch(deleteFavourite(experienceId));
+      } else {
+        dispatch(addFavourite(experienceId));
+      }
+    }
+  }
+
   formElementEventHandler(event) {
     const target      = event.target;
     const elementName =
@@ -556,6 +594,7 @@ class Search extends React.Component {
                       title={ item.title }
                       price={ item.price }
                       favorited={ item.favorited }
+                      toggleFavorite={ this.toggleFavorite }
                     />
                   )
                 }
