@@ -27,6 +27,8 @@ export const TOGGLE_ENTITY_FAVORITE             = 'TOGGLE_ENTITY_FAVORITE';
 export const TOGGLE_DISPLAY_FILTERPICKER_REGION = 'TOGGLE_DISPLAY_FILTERPICKER_REGION';
 export const TOGGLE_DISPLAY_FILTERPICKER_TYPE   = 'TOGGLE_DISPLAY_FILTERPICKER_TYPE';
 export const TOGGLE_DIALOG_FILTER               = 'TOGGLE_DIALOG_FILTER';
+export const INCREASE_PAGE_SEARCH_CURRENT_PAGE  = 'INCREASE_PAGE_SEARCH_CURRENT_PAGE';
+export const RESET_PAGE_SEARCH_CURRENT_PAGE     = 'RESET_PAGE_SEARCH_CURRENT_PAGE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -244,6 +246,24 @@ export function toggleDisplayDialogFilter() {
   };
 }
 
+export function resetPageSearchExperienceList() {
+  return {
+    type: RESET_PAGE_SEARCH_EXPERIENCE_LIST
+  };
+}
+
+function increasePageSearchCurrentPage() {
+  return {
+    type: INCREASE_PAGE_SEARCH_CURRENT_PAGE
+  };
+}
+
+export function resetPageSearchCurrentPage() {
+  return {
+    type: RESET_PAGE_SEARCH_CURRENT_PAGE
+  };
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -351,7 +371,14 @@ function getExperienceList(group, requestBody) {
       }
 
     })
-    .then(responseData => dispatch(requestSuccess(group, responseData)));
+    .then(responseData => {
+
+      if(group === GROUP_PAGE_SEARCH_EXPERIENCE_LIST) {
+        dispatch(increasePageSearchCurrentPage());
+      }
+
+      return dispatch(requestSuccess(group, responseData))
+    });
   }
 }
 
