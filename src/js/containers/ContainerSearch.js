@@ -29,6 +29,7 @@ function mapStateToProps(state) {
     displayDialogFilter: state.displaySearch.displayDialogFilter,
     needUpdate: !isEmpty(state.pageSearch.experienceList) ? state.pageSearch.experienceList.needUpdate : false,
     isThisLastPage: !isEmpty(state.pageSearch.experienceList) ? state.pageSearch.experienceList.isThisLastPage : undefined,
+    currentPage: state.pageSearch.currentPage,
     experienceList: getExperienceList(state)
   };
 }
