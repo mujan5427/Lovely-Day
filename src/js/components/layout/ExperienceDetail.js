@@ -3,7 +3,7 @@ import Recommendation from '../experience/Recommendation';
 import Carousel from '../carousel/Carousel';
 import Footer from './Footer';
 import { fetchData, requestUpdate, toggleDisplayContent, toggleDisplayBrief,
-         toggleDisplayCancelMethod, resetDisplayExperienceDetail,
+         toggleDisplayCancelMethod, resetDisplayExperienceDetail, resetPageExperienceDetail,
          GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
 
 
@@ -55,7 +55,11 @@ class ExperienceDetail extends React.Component {
   componentWillUnmount() {
     const { dispatch } = this.props;
 
+    // resetting `displayExperienceDetail` of app state
     dispatch(resetDisplayExperienceDetail());
+
+    // resetting `pageExperienceDetail` of app state
+    dispatch(resetPageExperienceDetail());
   }
 
 
