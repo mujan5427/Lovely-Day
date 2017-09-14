@@ -97,7 +97,7 @@ class Index extends React.Component {
   componentWillUnmount() {
     const { dispatch } = this.props;
 
-    // reset `pageIndex` property of app state
+    // resetting `experienceList` of pageIndex of app state
     dispatch(resetPageIndexExperienceList());
   }
 
