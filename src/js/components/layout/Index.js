@@ -96,14 +96,6 @@ class Index extends React.Component {
 
   componentWillUnmount() {
     const { dispatch } = this.props;
-    const defaultValueOfLocalState = {
-      currentPage : 1,
-      region      : 'none',
-      type        : 'none'
-    };
-
-    // reset all of local state
-    this.setState(Object.assign({}, this.state, defaultValueOfLocalState));
 
     // reset `pageIndex` property of app state
     dispatch(resetPageIndexExperienceList());
