@@ -29,6 +29,7 @@ export const TOGGLE_DISPLAY_FILTERPICKER_TYPE   = 'TOGGLE_DISPLAY_FILTERPICKER_T
 export const TOGGLE_DIALOG_FILTER               = 'TOGGLE_DIALOG_FILTER';
 export const INCREASE_PAGE_SEARCH_CURRENT_PAGE  = 'INCREASE_PAGE_SEARCH_CURRENT_PAGE';
 export const RESET_PAGE_SEARCH_CURRENT_PAGE     = 'RESET_PAGE_SEARCH_CURRENT_PAGE';
+export const RESET_PAGE_EXPERIENCE_DETAIL       = 'RESET_PAGE_EXPERIENCE_DETAIL';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -261,6 +262,12 @@ function increasePageSearchCurrentPage() {
 export function resetPageSearchCurrentPage() {
   return {
     type: RESET_PAGE_SEARCH_CURRENT_PAGE
+  };
+}
+
+export function resetPageExperienceDetail() {
+  return {
+    type: RESET_PAGE_EXPERIENCE_DETAIL
   };
 }
 

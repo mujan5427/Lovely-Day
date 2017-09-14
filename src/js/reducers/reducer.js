@@ -281,6 +281,9 @@ function pageExperienceDetail(state = {}, action) {
         return Object.assign({}, state, {needUpdate: true});
       }
 
+    case 'RESET_PAGE_EXPERIENCE_DETAIL':
+      return {};
+
     default:
       return state;
   }
