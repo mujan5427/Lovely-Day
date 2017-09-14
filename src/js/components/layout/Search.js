@@ -150,7 +150,13 @@ class Search extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+
+    // resetting `currentPage` and `experienceList` of pageSearch of app state
+    dispatch(resetPageSearchCurrentPage());
+    dispatch(resetPageSearchExperienceList());
+  }
 
 
   /* * * * * * * * * * * * *
