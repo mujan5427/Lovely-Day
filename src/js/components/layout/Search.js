@@ -30,6 +30,17 @@ class Search extends React.Component {
     this.toggleDialogFilter                          = this.toggleDialogFilter.bind(this);
     this.toggleScrollbarStatus                       = this.toggleScrollbarStatus.bind(this);
     this.toggleFavorite                              = this.toggleFavorite.bind(this);
+    this.autoloadNextPage                            = this.autoloadNextPage.bind(this);
+    this.experienceListOnLoadHandler                 = this.experienceListOnLoadHandler.bind(this);
+
+
+    /* * * * * * * * * * * * *
+     *                       *
+     *    Global Variable    *
+     *                       *
+     * * * * * * * * * * * * */
+
+    this.loadedCountOfExperienceList = 1;
 
 
     /* * * * * * * * * * * * *
@@ -139,6 +150,9 @@ class Search extends React.Component {
 
       // resetting `experienceList` of pageSearch of app state to {}
       dispatch(resetPageSearchExperienceList());
+
+      // resetting loaded count of experience list to 1;
+      this.loadedCountOfExperienceList = 1;
 
       // request to update `experienceList` of pageSearch of app state
       dispatch(requestUpdate(GROUP_PAGE_SEARCH_EXPERIENCE_LIST));
@@ -423,6 +437,32 @@ class Search extends React.Component {
     }
   }
 
+  autoloadNextPage() {
+    const { dispatch } = this.props;
+
+    dispatch(requestUpdate(GROUP_PAGE_SEARCH_EXPERIENCE_LIST));
+  }
+
+  experienceListOnLoadHandler(event) {
+    const { experienceList, isThisLastPage } = this.props;
+    const experienceListCount  = isEmpty(isThisLastPage) ? experienceList.length : 0;
+    const pageLimit            = 6;
+    const experienceListRef    = this.refs.experienceList;
+    const experienceListHeight = experienceListRef.getBoundingClientRect().height;
+    const minimumHeightOfPage  = window.innerHeight * 0.8;
+
+    if(experienceListCount === pageLimit && this.loadedCountOfExperienceList === pageLimit) {
+
+      if(experienceListHeight <= minimumHeightOfPage) {
+
+        this.autoloadNextPage();
+      }
+
+    } else {
+      this.loadedCountOfExperienceList++;
+    }
+  }
+
   formElementEventHandler(event) {
     const target      = event.target;
     const elementName =
@@ -590,7 +630,11 @@ class Search extends React.Component {
             <section className='search-experience-list-panel'>
 
               {/* Experience List */}
-              <div className='experience-list'>
+              <div
+                className='experience-list'
+                onLoad={ this.experienceListOnLoadHandler }
+                ref='experienceList'
+              >
                 { experienceList &&
                   experienceList.map(item =>
                     <Experience
