@@ -5,26 +5,13 @@ import Carousel from '../carousel/Carousel';
 import Experience from '../experience/Experience';
 import Footer from './Footer';
 import { fetchData, requestUpdate, getFavourite, addFavourite, deleteFavourite,
-         resetEntityExperienceFavorite, resetPageIndexExperienceList,
+         resetEntityExperienceFavorite, resetPageIndexExperienceList, resetPageIndexCurrentPage,
          GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../../actions/action';
 
 
 class Index extends React.Component {
   constructor(props) {
     super(props);
-
-
-    /* * * * * * * * * * * * *
-     *                       *
-     *      Local State      *
-     *                       *
-     * * * * * * * * * * * * */
-
-    this.state = {
-      currentPage : 1,
-      region      : 'none',
-      type        : 'none'
-    };
 
 
     /* * * * * * * * * * * * *
@@ -46,11 +33,10 @@ class Index extends React.Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    const { currentPage, region, type } = this.state;
     const requestData = {
-      current_page : currentPage,
-      region       : region,
-      type         : type
+      current_page : this.props.currentPage,
+      region       : 'none',
+      type         : 'none'
     };
 
     dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST, requestData));
@@ -58,16 +44,9 @@ class Index extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { dispatch }  = nextProps;
-    const { currentPage, region, type } = this.state;
-    const previousProps          = this.props;
-    const currentProps           = nextProps;
-    const currentExperienceCount = currentProps.experienceList.length;
-    const currentExperienceTotal = currentPage * 6;
-    const requestData            = {
-      current_page : currentPage,
-      region       : region,
-      type         : type
-    };
+    const previousProps = this.props;
+    const currentProps  = nextProps;
+    var requestData;
 
     if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
       if(currentProps.hasLoggedIn) {
@@ -83,13 +62,13 @@ class Index extends React.Component {
 
     }
 
-    // If experience count of app state is equal expected total (current page * item limit)
-    // update the `currentPage` property of local state
-    if(currentExperienceCount === currentExperienceTotal) {
-      this.setState(Object.assign({}, this.state, { currentPage: currentPage + 1 }));
-    }
-
     if(previousProps.needUpdate !== currentProps.needUpdate) {
+      requestData = {
+        current_page : currentProps.currentPage,
+        region       : 'none',
+        type         : 'none'
+      };
+
       dispatch(fetchData(GROUP_PAGE_INDEX_EXPERIENCE_LIST, requestData));
     }
   }
@@ -97,7 +76,8 @@ class Index extends React.Component {
   componentWillUnmount() {
     const { dispatch } = this.props;
 
-    // resetting `experienceList` of pageIndex of app state
+    // resetting `currentPage` and `experienceList` of pageIndex of app state
+    dispatch(resetPageIndexCurrentPage());
     dispatch(resetPageIndexExperienceList());
   }
 
