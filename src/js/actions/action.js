@@ -30,6 +30,8 @@ export const TOGGLE_DIALOG_FILTER               = 'TOGGLE_DIALOG_FILTER';
 export const INCREASE_PAGE_SEARCH_CURRENT_PAGE  = 'INCREASE_PAGE_SEARCH_CURRENT_PAGE';
 export const RESET_PAGE_SEARCH_CURRENT_PAGE     = 'RESET_PAGE_SEARCH_CURRENT_PAGE';
 export const RESET_PAGE_EXPERIENCE_DETAIL       = 'RESET_PAGE_EXPERIENCE_DETAIL';
+export const INCREASE_PAGE_INDEX_CURRENT_PAGE   = 'INCREASE_PAGE_INDEX_CURRENT_PAGE';
+export const RESET_PAGE_INDEX_CURRENT_PAGE      = 'RESET_PAGE_INDEX_CURRENT_PAGE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -271,6 +273,18 @@ export function resetPageExperienceDetail() {
   };
 }
 
+function increasePageIndexCurrentPage() {
+  return {
+    type: INCREASE_PAGE_INDEX_CURRENT_PAGE
+  };
+}
+
+export function resetPageIndexCurrentPage() {
+  return {
+    type: RESET_PAGE_INDEX_CURRENT_PAGE
+  };
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -382,6 +396,10 @@ function getExperienceList(group, requestBody) {
 
       if(group === GROUP_PAGE_SEARCH_EXPERIENCE_LIST) {
         dispatch(increasePageSearchCurrentPage());
+      }
+
+      if(group === GROUP_PAGE_INDEX_EXPERIENCE_LIST) {
+        dispatch(increasePageIndexCurrentPage());
       }
 
       return dispatch(requestSuccess(group, responseData))
