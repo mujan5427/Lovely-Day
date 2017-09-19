@@ -177,6 +177,30 @@ function headerNavigation(state = {}, action) {
   }
 }
 
+function pageIndex(state, action) {
+  const currentPage    = state !== undefined ? state.currentPage : undefined;
+  const experienceList = state !== undefined ? state.experienceList : undefined;
+
+  return {
+    currentPage    : pageIndexCurrentPage(currentPage, action),
+    experienceList : pageIndexExperienceList(experienceList, action)
+  };
+
+}
+
+function pageIndexCurrentPage(state = 1, action) {
+  switch(action.type) {
+    case 'INCREASE_PAGE_INDEX_CURRENT_PAGE':
+      return state + 1;
+
+    case 'RESET_PAGE_INDEX_CURRENT_PAGE':
+      return 1;
+
+    default:
+      return state;
+  }
+}
+
 function pageIndexExperienceList(state = {}, action) {
   switch(action.type) {
     case 'REQUEST_BEGINNING':
@@ -184,9 +208,7 @@ function pageIndexExperienceList(state = {}, action) {
         return state;
 
       } else {
-        return {
-          experienceList: Object.assign({}, state.experienceList, {isFetching: true, needUpdate: false})
-        };
+        return Object.assign({}, state, {isFetching: true, needUpdate: false});
 
       }
 
@@ -195,9 +217,7 @@ function pageIndexExperienceList(state = {}, action) {
         return state;
 
       } else {
-        return {
-          experienceList: parseExperienceList(state.experienceList, action.index, action.isThisLastPage)
-        };
+        return parseExperienceList(state, action.index, action.isThisLastPage);
 
       }
 
@@ -206,9 +226,7 @@ function pageIndexExperienceList(state = {}, action) {
         return state;
 
       } else {
-        return {
-          experienceList: Object.assign({}, state.experienceList, {needUpdate: true})
-        };
+        return Object.assign({}, state, {needUpdate: true});
 
       }
 
@@ -438,7 +456,7 @@ const reducer = combineReducers({
   displaySearch: displaySearch,
   entities: entityExperiences,
   headerNavigation: headerNavigation,
-  pageIndex: pageIndexExperienceList,
+  pageIndex: pageIndex,
   pageProfile: pageProfile,
   pageExperienceDetail: pageExperienceDetail,
   pageSearch: pageSearch
