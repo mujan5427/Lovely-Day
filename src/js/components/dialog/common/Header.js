@@ -24,6 +24,16 @@ class Header extends React.Component {
     const { type, title, toggleDialogLogin, toggleDialogSignup } = this.props;
 
     switch (type) {
+      case 'TYPE-3':
+        return (
+          <div className='dialog-header dialog-header-type-3'>
+            <a className='custom-close-dialog-button' onClick={ this.closeButtonHandler }>
+              <i className='fa fa-times fa-2x' aria-hidden='true'></i>
+            </a>
+            <span>{ title }</span>
+          </div>
+        );
+
       case 'TYPE-2':
         return (
           <div className='dialog-header'>
