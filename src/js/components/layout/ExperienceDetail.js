@@ -3,8 +3,10 @@ import Recommendation from '../experience/Recommendation';
 import Carousel from '../carousel/Carousel';
 import SingleDatePicker from '../singleDatePicker/SingleDatePicker';
 import Footer from './Footer';
+import Reservation from '../dialog/Reservation';
 import { fetchData, requestUpdate, toggleDisplayContent, toggleDisplayBrief,
-         toggleDisplayCancelMethod, resetDisplayExperienceDetail, resetPageExperienceDetail,
+         toggleDisplayCancelMethod, resetDisplayExperienceDetail,
+         toggleDisplayReservation, resetPageExperienceDetail,
          GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
 
 
@@ -15,6 +17,7 @@ class ExperienceDetail extends React.Component {
     this.toggleArticleContent      = this.toggleArticleContent.bind(this);
     this.toggleArticleBrief        = this.toggleArticleBrief.bind(this);
     this.toggleArticleCancelMethod = this.toggleArticleCancelMethod.bind(this);
+    this.toggleDialogReservation   = this.toggleDialogReservation.bind(this);
   }
 
 
@@ -88,9 +91,16 @@ class ExperienceDetail extends React.Component {
     dispatch(toggleDisplayCancelMethod());
   }
 
+  toggleDialogReservation() {
+    const { dispatch } = this.props;
+
+    dispatch(toggleDisplayReservation());
+  }
+
   render() {
-    const { displayContent, displayBrief, displayCancelMethod, title, price,
-            content, brief, cancelMethod, host, favorited, carousel, recommendationList } = this.props;
+    const { displayContent, displayBrief, displayCancelMethod, displayReservation,
+            title, price, content, brief, cancelMethod, host, favorited, carousel,
+            recommendationList } = this.props;
 
     return (
       <div>
@@ -244,11 +254,20 @@ class ExperienceDetail extends React.Component {
             }
           </span>
           <span>/ 每人</span>
-          <a className='button solid solid-theme-pink'>申請預訂</a>
+          <a className='button solid solid-theme-pink' onClick={ this.toggleDialogReservation }>申請預訂</a>
         </div>
 
         {/* Footer */}
         <Footer />
+
+        {/* Dialog Reservation */}
+        { displayReservation &&
+          <Reservation cancelButton={ this.toggleDialogReservation }>
+            <div>
+              <SingleDatePicker />
+            </div>
+          </Reservation>
+        }
       </div>
     );
   }
