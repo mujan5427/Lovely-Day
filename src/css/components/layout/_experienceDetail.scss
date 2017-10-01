@@ -10,8 +10,8 @@
 
 .experience-detail-body {
   @include mq-medium-up {
-    max-width: 1100px;
     margin: 0 auto;
+    max-width: 1100px;
   }
 }
 
@@ -36,12 +36,27 @@
   }
 
   @include mq-medium-up {
-    background-color: #eeeeee;
+    border-bottom: 1px solid $horizontal-line-color;
+    border-left: 1px solid $horizontal-line-color;
+    border-right: 1px solid $horizontal-line-color;
     float: right;
-    font-size: 2em;
-    height: 700px;
-    text-align: center;
-    width: 40%;
+    margin-left: 50px;
+    padding: 24px 20px;
+    width: calc(40% - 50px);
+  }
+
+  > section {
+    padding-top: 24px;
+
+    &:nth-of-type(1) {
+      border-top: 1px solid $horizontal-line-color;
+      margin-top: 30px;
+    }
+
+    > div:first-child {
+      font-size: 1.3em;
+      text-align: center;
+    }
   }
 }
 
@@ -230,18 +245,18 @@
 }
 
 .article-smoke {
+  align-items: flex-end;
   background: linear-gradient(to top, #ffffff 25%, rgba(255,255,255,0.3) 75%);
   bottom: 0;
-  height: 80%;
-  position: absolute;
-  width: 100%;
   display: inline-flex;
   flex-flow: row nowrap;
+  height: 80%;
   justify-content: flex-start;
-  align-items: flex-end;
+  position: absolute;
+  width: 100%;
 
   > a {
-    padding: 20px 0;
     color: #3b99f0;
+    padding: 20px 0;
   }
 }

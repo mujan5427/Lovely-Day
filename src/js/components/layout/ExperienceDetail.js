@@ -1,6 +1,7 @@
 import React from 'react';
 import Recommendation from '../experience/Recommendation';
 import Carousel from '../carousel/Carousel';
+import SingleDatePicker from '../singleDatePicker/SingleDatePicker';
 import Footer from './Footer';
 import { fetchData, requestUpdate, toggleDisplayContent, toggleDisplayBrief,
          toggleDisplayCancelMethod, resetDisplayExperienceDetail, resetPageExperienceDetail,
@@ -196,7 +197,17 @@ class ExperienceDetail extends React.Component {
 
             {/* Right Panel */}
             <div className='experience-detail-right-panel'>
-              Right Panel
+              <SingleDatePicker />
+
+              { price &&
+                <section>
+                  <div>{ `TWD ${ price.toLocaleString() } / 人` }</div>
+                </section>
+              }
+
+              <section>
+                <a className='button solid solid-theme-pink'>申請預訂</a>
+              </section>
             </div>
           </div>
 
