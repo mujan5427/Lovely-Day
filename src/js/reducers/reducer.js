@@ -59,7 +59,8 @@ function displayMenu(state = {
 function displayExperienceDetail(state = {
   displayContent: false,
   displayBrief: false,
-  displayCancelMethod: false
+  displayCancelMethod: false,
+  displayReservation: false
 }, action) {
   switch(action.type) {
     case 'TOGGLE_DISPLAY_CONTENT':
@@ -71,11 +72,15 @@ function displayExperienceDetail(state = {
     case 'TOGGLE_DISPLAY_CANCEL_METHOD':
       return Object.assign({}, state, { displayCancelMethod: !state.displayCancelMethod });
 
+    case 'TOGGLE_DISPLAY_RESERVATION':
+      return Object.assign({}, state, { displayReservation: !state.displayReservation });
+
     case 'RESET_DISPLAY_EXPERIENCE_DETAIL':
       return {
         displayContent: false,
         displayBrief: false,
-        displayCancelMethod: false
+        displayCancelMethod: false,
+        displayReservation: false
       };
 
     default:

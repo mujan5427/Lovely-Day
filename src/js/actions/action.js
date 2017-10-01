@@ -9,6 +9,7 @@ export const TOGGLE_DISPLAYMENUNAVIGATION       = 'TOGGLE_DISPLAYMENUNAVIGATION'
 export const TOGGLE_DISPLAY_CONTENT             = 'TOGGLE_DISPLAY_CONTENT';
 export const TOGGLE_DISPLAY_BRIEF               = 'TOGGLE_DISPLAY_BRIEF';
 export const TOGGLE_DISPLAY_CANCEL_METHOD       = 'TOGGLE_DISPLAY_CANCEL_METHOD';
+export const TOGGLE_DISPLAY_RESERVATION         = 'TOGGLE_DISPLAY_RESERVATION';
 export const RESET_DISPLAY_EXPERIENCE_DETAIL    = 'RESET_DISPLAY_EXPERIENCE_DETAIL';
 export const MODIFY_NAVIGATION_TYPE             = 'MODIFY_NAVIGATION_TYPE';
 export const REQUEST_BEGINNING                  = 'REQUEST_BEGINNING';
@@ -88,6 +89,12 @@ export function toggleDisplayBrief() {
 export function toggleDisplayCancelMethod() {
   return {
     type: TOGGLE_DISPLAY_CANCEL_METHOD
+  };
+}
+
+export function toggleDisplayReservation() {
+  return {
+    type: TOGGLE_DISPLAY_RESERVATION
   };
 }
 
