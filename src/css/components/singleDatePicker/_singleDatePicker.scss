@@ -1,0 +1,83 @@
+.single-date-picker {
+  > div {
+    width: 100%;
+  }
+}
+
+.single-date-picker-header {
+  align-items: center;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin: 15px 0;
+
+  > h1 {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
+}
+
+.single-date-picker-header-button {
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  color: #aaaaaa;
+
+  // workaround
+  // cross browser compatibility：margins and paddings on flex items can be resolved against either in Firefox
+  display: table;
+  padding-bottom: calc(7.14285715% - 0.5em);
+  padding-top: calc(7.14285715% - 0.5em);
+  text-align: center;
+  width: 14.2857142%;
+
+  &:hover {
+    border-color: #bbbbbb;
+  }
+}
+
+.single-date-picker-content {
+  > div.single-date-picker-week-label,
+    div.single-date-picker-day-label {
+    > label {
+      display: inline-flex;
+      justify-content: center;
+      padding-bottom: calc(7.14285715% - 0.5em);
+      padding-top: calc(7.14285715% - 0.5em);
+      width: 14.2857142%;
+    }
+  }
+}
+
+.single-date-picker-day-label {
+  color: #cccccc;
+
+  > label {
+    font-weight: 400;
+  }
+}
+
+.day-label-activity {
+  color: #484848;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(#cccccc, .4);
+  }
+}
+
+.day-label-selected {
+
+  // official-blue
+  background-color: #3b99f0;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #3b99f0;
+  }
+}
+
+.single-date-picker-footer {
+  font-size: 1.1em;
+  margin-top: 20px;
+  text-align: right;
+}
