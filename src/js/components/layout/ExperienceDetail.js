@@ -6,7 +6,8 @@ import Footer from './Footer';
 import Reservation from '../dialog/Reservation';
 import { fetchData, requestUpdate, toggleDisplayContent, toggleDisplayBrief,
          toggleDisplayCancelMethod, resetDisplayExperienceDetail,
-         toggleDisplayReservation, resetPageExperienceDetail,
+         toggleDisplayReservation, resetPageExperienceDetail, deleteFavourite,
+         addFavourite, resetEntityFavourite,
          GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
 
 
@@ -18,6 +19,7 @@ class ExperienceDetail extends React.Component {
     this.toggleArticleBrief        = this.toggleArticleBrief.bind(this);
     this.toggleArticleCancelMethod = this.toggleArticleCancelMethod.bind(this);
     this.toggleDialogReservation   = this.toggleDialogReservation.bind(this);
+    this.toggleFavorite            = this.toggleFavorite.bind(this);
   }
 
 
@@ -51,8 +53,14 @@ class ExperienceDetail extends React.Component {
     }
 
     if(previousProps.hasLoggedIn !== currentProps.hasLoggedIn) {
-      dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
-      dispatch(fetchData(GROUP_PAGE_EXPERIENCE_DETAIL, {experienceId: urlExperienceId}));
+      if(currentProps.hasLoggedIn) {
+        dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
+        dispatch(fetchData(GROUP_PAGE_EXPERIENCE_DETAIL, {experienceId: urlExperienceId}));
+
+      } else {
+        dispatch(resetEntityFavourite(urlExperienceId));
+
+      }
     }
   }
 
@@ -97,6 +105,25 @@ class ExperienceDetail extends React.Component {
     dispatch(toggleDisplayReservation());
   }
 
+  toggleFavorite() {
+    const { dispatch, hasLoggedIn, selectedExperienceId: experienceId, favorited } = this.props;
+
+    if (!hasLoggedIn) {
+
+      // This can be replace by using Dialog Message component
+      console.log(`此操作需要先登入帳號 !`);
+
+    } else {
+
+      // If `favorited` is `true` executes deleteFavourite，otherwise executes addFavourite
+      if (favorited) {
+        dispatch(deleteFavourite(experienceId));
+      } else {
+        dispatch(addFavourite(experienceId));
+      }
+    }
+  }
+
   render() {
     const { displayContent, displayBrief, displayCancelMethod, displayReservation,
             title, price, content, brief, cancelMethod, host, favorited, carousel,
@@ -106,8 +133,20 @@ class ExperienceDetail extends React.Component {
       <div>
         <div className='content'>
 
-          {/* Carousel */}
-          <div className='experience-detail-carousel'>
+          {/* Header Panel */}
+          <div className='experience-detail-header'>
+
+            {/* Favorited */}
+            <div className='experience-detail-favorited'>
+              <a
+                className={ favorited ? 'experience-favorite-active' : 'experience-favorite' }
+                onClick={ this.toggleFavorite }
+              >
+                <i className='fa fa-heart-o' aria-hidden='true'></i>
+              </a>
+            </div>
+
+            {/* Carousel */}
             { carousel &&
               <Carousel useDashboard={ false }>
                 {
