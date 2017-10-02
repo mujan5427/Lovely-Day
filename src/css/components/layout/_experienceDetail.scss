@@ -1,6 +1,16 @@
-.experience-detail-carousel {
-  @include mq-medium-up {
-    overflow: hidden;
+.experience-detail-header {
+  position: relative;
+}
+
+.experience-detail-favorited {
+  position: absolute;
+  right: 20px;
+  top: 25px;
+  z-index: 2;
+
+  & i {
+    color: #ffffff;
+    font-size: 1.8em;
   }
 }
 
