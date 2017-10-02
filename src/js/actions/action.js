@@ -33,6 +33,7 @@ export const RESET_PAGE_SEARCH_CURRENT_PAGE     = 'RESET_PAGE_SEARCH_CURRENT_PAG
 export const RESET_PAGE_EXPERIENCE_DETAIL       = 'RESET_PAGE_EXPERIENCE_DETAIL';
 export const INCREASE_PAGE_INDEX_CURRENT_PAGE   = 'INCREASE_PAGE_INDEX_CURRENT_PAGE';
 export const RESET_PAGE_INDEX_CURRENT_PAGE      = 'RESET_PAGE_INDEX_CURRENT_PAGE';
+export const RESET_ENTITY_FAVORITE              = 'RESET_ENTITY_FAVORITE';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -292,6 +293,13 @@ export function resetPageIndexCurrentPage() {
   };
 }
 
+export function resetEntityFavourite(experienceId) {
+  return {
+    type: RESET_ENTITY_FAVORITE,
+    experienceId
+  };
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -458,7 +466,6 @@ export function logout() {
   return dispatch => {
     deleteCookie();
     dispatch(toggleHasLoggedIn());
-    dispatch(requestUpdate(GROUP_PAGE_EXPERIENCE_DETAIL));
   }
 };
 

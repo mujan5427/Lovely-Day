@@ -150,6 +150,11 @@ function entityExperiences(state = {}, action) {
         experiences: toggleSpecifiedEntityFavorited(state.experiences, action.experienceId)
       };
 
+    case 'RESET_ENTITY_FAVORITE':
+      return {
+        experiences: resetSpecifiedEntityFavorited(state.experiences, action.experienceId)
+      };
+
     default:
       return state;
   }
@@ -423,6 +428,12 @@ function refreshAllEntityFavorited(originalState, experienceId = undefined) {
 
 function toggleSpecifiedEntityFavorited(originalState, experienceId) {
   const specifiedEntity = Object.assign({}, originalState[experienceId], {favorited: !originalState[experienceId].favorited});
+
+  return Object.assign({}, originalState, {[experienceId]: specifiedEntity});
+}
+
+function resetSpecifiedEntityFavorited(originalState, experienceId) {
+  const specifiedEntity = Object.assign({}, originalState[experienceId], {favorited: false});
 
   return Object.assign({}, originalState, {[experienceId]: specifiedEntity});
 }
