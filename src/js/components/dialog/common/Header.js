@@ -36,7 +36,7 @@ class Header extends React.Component {
 
       case 'TYPE-2':
         return (
-          <div className='dialog-header'>
+          <div className='dialog-header dialog-header-type-2'>
             <a className='custom-close-dialog-button' onClick={ this.closeButtonHandler }>
               <i className='fa fa-times fa-2x' aria-hidden='true'></i>
             </a>

@@ -26,14 +26,22 @@
 }
 
 .dialog-header {
+  width: 100%;
+}
+
+.dialog-header-type-2 {
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  width: 100%;
 }
 
 .dialog-header-type-3 {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
   > span {
     margin-left: -25.16px;
     text-align: center;
