@@ -5,7 +5,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 9999;
 
   @include mq-medium-up {
     display: none;
@@ -21,7 +21,7 @@
   top: 0;
   transition: left .4s ease;
   width: 85%;
-  z-index: 2;
+  z-index: 9999;
 
   @include mq-medium-up {
     display: none;
