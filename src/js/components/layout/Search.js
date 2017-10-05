@@ -93,10 +93,10 @@ class Search extends React.Component {
 
     // The returned object does not have a prototype by invoking parse function.
     // So, we must create a new object and merge the original value to it.
-    const parsedQueryString         = Object.assign({}, queryString.parse(location.search));
-    const regionOfQuerystring       = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
-    const categoryOfQuerystring     = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
-    const locatStateFromQuerystring = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
+    const parsedQueryString        = Object.assign({}, queryString.parse(location.search));
+    const regionOfQuerystring      = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
+    const categoryOfQuerystring    = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
+    const waitForUpdatedLocalState = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
     var requestData;
 
 
@@ -108,23 +108,23 @@ class Search extends React.Component {
       dispatch(fetchData(GROUP_PAGE_SEARCH_EXPERIENCE_LIST, requestData));
 
     } else {
-      this.setState(locatStateFromQuerystring);
+      this.setState(waitForUpdatedLocalState);
 
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { location } = nextProps;
-    const previousProps             = this.props;
-    const currentProps              = nextProps;
-    const parsedQueryString         = Object.assign({}, queryString.parse(location.search));
-    const regionOfQuerystring       = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
-    const categoryOfQuerystring     = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
-    const locatStateFromQuerystring = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
+    const previousProps            = this.props;
+    const currentProps             = nextProps;
+    const parsedQueryString        = Object.assign({}, queryString.parse(location.search));
+    const regionOfQuerystring      = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
+    const categoryOfQuerystring    = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
+    const waitForUpdatedLocalState = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
 
     if(previousProps.location.search !== currentProps.location.search &&
        !isEmpty(currentProps.location.search)) {
-      this.setState(locatStateFromQuerystring);
+      this.setState(waitForUpdatedLocalState);
     }
   }
 
