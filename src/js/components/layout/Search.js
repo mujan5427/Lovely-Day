@@ -76,6 +76,9 @@ class Search extends React.Component {
         category : []
       }
     };
+
+    // read only
+    this.localStateDefaultValue = JSON.parse(JSON.stringify(this.state));
   }
 
 
@@ -107,6 +110,21 @@ class Search extends React.Component {
     } else {
       this.setState(locatStateFromQuerystring);
 
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { location } = nextProps;
+    const previousProps             = this.props;
+    const currentProps              = nextProps;
+    const parsedQueryString         = Object.assign({}, queryString.parse(location.search));
+    const regionOfQuerystring       = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'region');
+    const categoryOfQuerystring     = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
+    const locatStateFromQuerystring = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
+
+    if(previousProps.location.search !== currentProps.location.search &&
+       !isEmpty(currentProps.location.search)) {
+      this.setState(locatStateFromQuerystring);
     }
   }
 
@@ -235,11 +253,11 @@ class Search extends React.Component {
 
     // merge `formData` of local state with data of querystring
     updatedFormData          = Object.assign({}, updatedRegion, updatedCategory);
-    updatedFormData          = Object.assign({}, this.state.formData, updatedFormData);
+    updatedFormData          = Object.assign({}, this.localStateDefaultValue.formData, updatedFormData);
 
     // merge `filterPickerCache` of local state with data of querystring
     updatedFilterPickerCache = Object.assign({}, updatedFilterPickerCache);
-    updatedFilterPickerCache = Object.assign({}, this.state.filterPickerCache, updatedFilterPickerCache);
+    updatedFilterPickerCache = Object.assign({}, this.localStateDefaultValue.filterPickerCache, updatedFilterPickerCache);
 
     // merge updated `formData` with updated `filterPickerCache` as new local state
     waitForUpdatedState      = Object.assign({}, {formData: updatedFormData}, {filterPickerCache: updatedFilterPickerCache});
