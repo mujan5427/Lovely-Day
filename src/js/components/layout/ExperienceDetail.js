@@ -180,7 +180,7 @@ class ExperienceDetail extends React.Component {
               <section className='experience-detail-section'>
                 <div className='experience-detail-host-information-panel'>
                   <div>
-                    <h2>體驗達人：</h2>
+                    <h2>體驗達人</h2>
                     <div>
                       { (host && host.name) &&
                         host.name
