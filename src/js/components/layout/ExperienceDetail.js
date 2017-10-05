@@ -285,14 +285,13 @@ class ExperienceDetail extends React.Component {
 
         </div>
 
-        {/* Experience Detail Footer */}
-        <div className='experience-detail-footer'>
-          <span>
-            { price &&
-              `TWD ${ price.toLocaleString() }`
-            }
-          </span>
-          <span>/ 每人</span>
+        {/* Experience Detail Dashboard Of Mobile Version */}
+        <div className='experience-detail-dashboard-of-mobile-version'>
+          { price &&
+            <span>
+              { `TWD ${ price.toLocaleString() } / 人` }
+            </span>
+          }
           <a className='button solid solid-theme-pink' onClick={ this.toggleDialogReservation }>申請預訂</a>
         </div>
 

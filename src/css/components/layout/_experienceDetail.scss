@@ -223,34 +223,28 @@
   }
 }
 
-.experience-detail-footer {
+.experience-detail-dashboard-of-mobile-version {
   align-items: center;
   background-color: #ffffff;
   border-top: 1px solid $horizontal-line-color;
   bottom: 0;
   display: flex;
   flex-flow: row nowrap;
-  padding: 10px;
+  justify-content: space-between;
+  padding: 10px 20px;
   position: fixed;
-  text-align: center;
   width: 100%;
 
   @include mq-medium-up {
     display: none;
   }
 
-  > *:nth-child(1) {
+  > *:first-child {
     font-size: 1.3em;
-    width: 40%;
-  }
-
-  > *:nth-child(2) {
-    font-size: 1.3em;
-    width: 30%;
   }
 
   > *:last-child {
-    width: 30%;
+    width: 35%;
   }
 }
 
