@@ -12,6 +12,8 @@
 @import 'dialog/common';
 @import 'dialog/filterPicker';
 
+@import 'alert/alert';
+
 
 .content {
   @include mq-medium {

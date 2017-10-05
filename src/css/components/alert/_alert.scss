@@ -1,0 +1,24 @@
+.alert {
+  align-items: center;
+  background-color: #ff7a00;
+  border-radius: 6px;
+  display: flex;
+  flex-flow: row nowrap;
+
+  > i {
+    color: #ffffff;
+    font-size: 1.3em;
+    padding: 10px;
+  }
+
+  > label {
+    background-color: #ffffff;
+    border-color: $horizontal-line-color;
+    border-radius: 0 6px 6px 0;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    line-height: 1.4em;
+    padding: 12px;
+    width: 100%;
+  }
+}
