@@ -656,7 +656,7 @@ export function signup(requestData) {
 
     fetch(apiPath, apiOption)
     .then(responseData => {
-      if (responseData.status === 200) {
+      if (responseData.status === 200 || responseData.status === 400) {
         return responseData.json();
 
       } else {
@@ -665,12 +665,14 @@ export function signup(requestData) {
 
     })
     .then(responseData => {
-      dispatch(toggleDisplayDialogSignup());
-
       if (responseData.status === 'ok') {
+
         // You can dispatch Welcome Dialog at this line. If you need
+
+        dispatch(toggleDisplayDialogSignup());
+
       } else {
-        throw {message: 'API Error'};
+        dispatch(enableDisplayAlert(responseData.message));
       }
 
     })
