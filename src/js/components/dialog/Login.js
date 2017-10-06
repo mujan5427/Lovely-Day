@@ -1,10 +1,12 @@
 import React from 'react';
 import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login } from '../../actions/action';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, login,
+         resetDisplayAlert } from '../../actions/action';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
 import InputBox from '../form/InputBox';
+import Alert from '../alert/Alert';
 
 
 class Login extends React.Component {
@@ -63,7 +65,10 @@ class Login extends React.Component {
    * * * * * * * * * * * * */
 
   componentWillUnmount() {
+    const { dispatch } = this.props;
+
     this.resetLocalState();
+    dispatch(resetDisplayAlert());
   }
 
 
@@ -186,7 +191,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { displayDialogAccount } = this.props;
+    const { displayDialogAccount, displayAlert, alertMessage } = this.props;
     const { email, password } = this.state.formData;
 
     return (
@@ -201,6 +206,10 @@ class Login extends React.Component {
           onChange={ this.formElementEventHandler }
           onClick={ this.formElementEventHandler }
         >
+          { displayAlert &&
+            <Alert message={ alertMessage } />
+          }
+
           <div>
             <InputBox
               type='email'
