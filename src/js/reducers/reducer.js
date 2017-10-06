@@ -119,6 +119,28 @@ function displaySearch(state = {
   }
 }
 
+function alert(state = {
+  displayAlert: false,
+  message: ''
+}, action) {
+  switch(action.type) {
+    case 'ENABLE_DISPLAY_ALERT':
+      return {
+        displayAlert: true,
+        message: action.message
+      };
+
+    case 'RESET_DISPLAY_ALERT':
+      return {
+        displayAlert: false,
+        message: ''
+      };
+
+    default:
+      return state;
+  }
+}
+
 function entityExperiences(state = {}, action) {
   switch(action.type) {
     case 'REQUEST_SUCCESS':
@@ -470,6 +492,7 @@ const reducer = combineReducers({
   displayMenu: displayMenu,
   displayExperienceDetail: displayExperienceDetail,
   displaySearch: displaySearch,
+  alert: alert,
   entities: entityExperiences,
   headerNavigation: headerNavigation,
   pageIndex: pageIndex,
