@@ -34,6 +34,8 @@ export const RESET_PAGE_EXPERIENCE_DETAIL       = 'RESET_PAGE_EXPERIENCE_DETAIL'
 export const INCREASE_PAGE_INDEX_CURRENT_PAGE   = 'INCREASE_PAGE_INDEX_CURRENT_PAGE';
 export const RESET_PAGE_INDEX_CURRENT_PAGE      = 'RESET_PAGE_INDEX_CURRENT_PAGE';
 export const RESET_ENTITY_FAVORITE              = 'RESET_ENTITY_FAVORITE';
+export const ENABLE_DISPLAY_ALERT               = 'ENABLE_DISPLAY_ALERT';
+export const RESET_DISPLAY_ALERT                = 'RESET_DISPLAY_ALERT';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -300,6 +302,19 @@ export function resetEntityFavourite(experienceId) {
   };
 }
 
+function enableDisplayAlert(message) {
+  return {
+    type: ENABLE_DISPLAY_ALERT,
+    message
+  };
+}
+
+export function resetDisplayAlert() {
+  return {
+    type: RESET_DISPLAY_ALERT
+  };
+}
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -432,7 +447,7 @@ export function login(requestData) {
     // You can dispatch Progress Bar at this line. If you needed
     fetch(apiPath)
     .then(responseData => {
-      if (responseData.status === 200) {
+      if (responseData.status === 200 || responseData.status === 400) {
         return responseData.json();
 
       } else {
@@ -441,24 +456,29 @@ export function login(requestData) {
 
     })
     .then(responseData => {
-      var memberInfo     = responseData;
-      var currentDate    = new Date();
-      var expirationDate = null;
+      if(responseData.status === 'ok') {
+        var memberInfo     = responseData;
+        var currentDate    = new Date();
+        var expirationDate = null;
 
-      delete memberInfo.status;
+        delete memberInfo.status;
 
-      if(rememberMe) {
-        currentDate.setUTCDate(currentDate.getUTCDate() + NINETY_DAYS);
-        expirationDate = currentDate.toUTCString();
+        if(rememberMe) {
+          currentDate.setUTCDate(currentDate.getUTCDate() + NINETY_DAYS);
+          expirationDate = currentDate.toUTCString();
+        }
+
+        setCookie(memberInfo, expirationDate);
+        dispatch(toggleDisplayDialogLogin());
+        dispatch(toggleHasLoggedIn());
+        dispatch(getProfile());
+        // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
+
+      } else {
+        dispatch(enableDisplayAlert(responseData.message));
       }
-
-      setCookie(memberInfo, expirationDate);
-      dispatch(toggleDisplayDialogLogin());
-      dispatch(toggleHasLoggedIn());
-      dispatch(getProfile());
-      // 後面沒有 then()，因此不需要透過 return 傳遞任何值，給它
     })
-    .catch(err => {console.log(`Error : ${err}`)});
+    .catch(err => {console.log(`Error : ${ JSON.stringify(err) }`)});
   }
 };
 
