@@ -1,11 +1,13 @@
 import React from 'react';
 import { verifyRequiredField, verifyNeedToVerifiedField } from '../../helpers/verification';
 import { changeFormState, hasErrorMessage } from '../../helpers/localState';
-import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, signup } from '../../actions/action';
+import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, signup,
+         resetDisplayAlert } from '../../actions/action';
 import Wrapper from './common/Wrapper';
 import Header from './common/Header';
 import SelectBox from '../form/SelectBox';
 import InputBox from '../form/InputBox';
+import Alert from '../alert/Alert';
 
 
 class Signup extends React.Component {
@@ -90,7 +92,10 @@ class Signup extends React.Component {
    * * * * * * * * * * * * */
 
   componentWillUnmount() {
+    const { dispatch } = this.props;
+
     this.resetLocalState();
+    dispatch(resetDisplayAlert());
   }
 
 
@@ -285,7 +290,7 @@ class Signup extends React.Component {
   }
 
   render() {
-    const { displayDialogAccount } = this.props;
+    const { displayDialogAccount, displayAlert, alertMessage } = this.props;
     const { email, firstname, lastname, password, month, day, year, iAgree } = this.state.formData;
 
     return (
@@ -300,6 +305,10 @@ class Signup extends React.Component {
           onChange={ this.formElementEventHandler }
           onClick={ this.formElementEventHandler }
         >
+          { displayAlert &&
+            <Alert message={ alertMessage } />
+          }
+
           <div>
             <InputBox
               type='email'
