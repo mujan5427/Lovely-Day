@@ -2,7 +2,7 @@ import React from 'react';
 import { changeFormState } from '../../helpers/localState';
 import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
 import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType, toggleDisplayDialogFilter,
-         fetchData, requestUpdate, resetPageSearchExperienceList, resetPageSearchCurrentPage, getFavourite, addFavourite, deleteFavourite, resetEntityExperienceFavorite,
+         fetchData, requestUpdate, resetPageSearchExperienceList, resetPageSearchCurrentPage, getFavourite, addFavourite, deleteFavourite, resetEntityExperienceFavorite, toggleDisplayDialogLogin,
          GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
 import Experience from '../experience/Experience';
 import FilterPicker from '../dialog/FilterPicker';
@@ -442,7 +442,7 @@ class Search extends React.Component {
     if (!hasLoggedIn) {
 
       // This can be replace by using Dialog Message component
-      console.log(`此操作需要先登入帳號 !`);
+      dispatch(toggleDisplayDialogLogin());
 
     } else {
 
