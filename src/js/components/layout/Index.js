@@ -6,7 +6,7 @@ import Experience from '../experience/Experience';
 import Footer from './Footer';
 import { fetchData, requestUpdate, getFavourite, addFavourite, deleteFavourite,
          resetEntityExperienceFavorite, resetPageIndexExperienceList, resetPageIndexCurrentPage,
-         GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../../actions/action';
+         toggleDisplayDialogLogin, GROUP_PAGE_INDEX_EXPERIENCE_LIST } from '../../actions/action';
 
 
 class Index extends React.Component {
@@ -94,7 +94,7 @@ class Index extends React.Component {
     if (!hasLoggedIn) {
 
       // This can be replace by using Dialog Message component
-      console.log(`此操作需要先登入帳號 !`);
+      dispatch(toggleDisplayDialogLogin());
 
     } else {
 
