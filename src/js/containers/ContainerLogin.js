@@ -4,7 +4,9 @@ import Login from '../components/dialog/Login';
 
 function mapStateToProps(state) {
   return {
-    displayDialogAccount: state.displayDialogAccount
+    displayDialogAccount: state.displayDialogAccount,
+    displayAlert: state.alert.displayAlert,
+    alertMessage: state.alert.message
   };
 }
 
