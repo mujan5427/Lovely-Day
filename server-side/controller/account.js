@@ -61,7 +61,8 @@ exports.signup = function(req, res) {
 
   try {
     verification.verifyColumnIsExist(columnName, inputData);
-    account.add(inputData)
+    account.checkEmail(inputData)
+    .then(value => account.add(inputData))
     .then(value => res.json(value))
     .catch(err => { error.analysisErrorObject(err, res) });
 
