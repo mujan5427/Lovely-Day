@@ -66,11 +66,10 @@ exports.delete = function (inputData) {
 };
 
 exports.get = function (inputData) {
-  const sqlStatement = `SELECT experience_id FROM \`favorite\` WHERE account_id = ?`;
-
-  const memberId     = Number(inputData.member_id);
-
+  const sqlStatement   = `SELECT experience_id FROM \`favorite\` WHERE account_id = ?`;
+  const memberId       = Number(inputData.member_id);
   const sqlPlaceholder = [memberId];
+  var responseData;
 
   return new Promise(function(resolve, reject) {
     db.singleQuery.query(sqlStatement, sqlPlaceholder, (error, rows) => {
@@ -79,8 +78,7 @@ exports.get = function (inputData) {
       }
 
       if (rows.length > 0) {
-
-        var responseData = {
+        responseData = {
           status: 'ok',
           items: rows.map(row => row.experience_id)
         };
@@ -88,7 +86,12 @@ exports.get = function (inputData) {
         resolve(responseData);
 
       } else {
-        reject({type: 'client', message: errorConfig.client[5].message});
+        responseData = {
+          status: 'ok',
+          items: []
+        };
+
+        resolve(responseData);
 
       }
     });
