@@ -243,7 +243,7 @@ class Login extends React.Component {
               <input id='rememberme' type='checkbox' checked={ this.state.formData.rememberMe.value } />
               <label htmlFor='rememberme' data-element-name='rememberMe'>記住我</label>
             </div>
-            <a href className='href-highlight'>忘記密碼?</a>
+            <a className='href-highlight'>忘記密碼?</a>
           </div>
 
           <a className='button solid solid-theme-pink' onClick={ this.loginButton }>登入</a>

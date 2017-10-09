@@ -392,9 +392,9 @@ class Signup extends React.Component {
               <input id='iAgree' type='checkbox' checked={ iAgree.value } />
               <label htmlFor='iAgree' data-element-name='iAgree'>
                 我同意 Lovely Day 的
-                <a className='href-highlight' href>服務條款</a>
+                <a className='href-highlight'>服務條款</a>
                 、
-                <a className='href-highlight' href>隱私政策</a>
+                <a className='href-highlight'>隱私政策</a>
               </label>
             </div>
 
