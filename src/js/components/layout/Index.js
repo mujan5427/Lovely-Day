@@ -119,23 +119,23 @@ class Index extends React.Component {
     const carousel = [
       {
         image: '/assets/carousel1.jpg',
-        href: '/profile'
+        href: '/experiences/4'
       },
       {
         image: '/assets/carousel2.jpg',
-        href: '/profile'
+        href: '/experiences/42'
       },
       {
         image: '/assets/carousel3.jpg',
-        href: '/profile'
+        href: '/experiences/11'
       },
       {
         image: '/assets/carousel4.jpg',
-        href: '/profile'
+        href: '/experiences/16'
       },
       {
         image: '/assets/carousel5.jpg',
-        href: '/profile'
+        href: '/experiences/12'
       }
     ];
     const { experienceList, isThisLastPage } = this.props;
