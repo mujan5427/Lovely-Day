@@ -1,9 +1,11 @@
-const webpack     = require('webpack');
-const gulp        = require('gulp');
-const babel       = require('gulp-babel');
-const gulpWebpack = require('webpack-stream');
-const sass        = require('gulp-sass');
-const del         = require('del');
+const webpack      = require('webpack');
+const gulp         = require('gulp');
+const babel        = require('gulp-babel');
+const gulpWebpack  = require('webpack-stream');
+const sass         = require('gulp-sass');
+const del          = require('del');
+const autoprefixer = require('autoprefixer');
+const postcss      = require('gulp-postcss');
 
 
 /* * * * * * * * * * * * *
@@ -60,6 +62,7 @@ gulp.task('copy', () => {
 gulp.task('scss', ['cleanForSCSS'], () => {
   return gulp.src(sourcePaths.scss)
           .pipe(sass({outputStyle: 'compressed'}))
+          .pipe(postcss([autoprefixer({browsers: ['last 5 version']})]))
           .pipe(gulp.dest(distributionPaths.scss));
 });
 

@@ -11,6 +11,7 @@
   "author": "Justin Ho",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^7.1.5",
     "babel-cli": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.4.0",
@@ -23,6 +24,7 @@
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-postcss": "^7.0.0",
     "gulp-sass": "^3.1.0",
     "is-empty": "^1.2.0",
     "isomorphic-fetch": "^2.2.1",
