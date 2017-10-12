@@ -280,7 +280,7 @@ class Carousel extends React.Component {
   }
 
   render() {
-    const { useDashboard = true, children } = this.props;
+    const { useDashboard = true, children, content } = this.props;
     const childrenCount  = children.length;
     var animationArguments;
 
@@ -308,7 +308,7 @@ class Carousel extends React.Component {
 
               {/* Content Placeholder Start */}
               { children &&
-                <div
+                <a
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
                   onMouseDown={ this.recordMouseDownCoordinate }
@@ -316,34 +316,35 @@ class Carousel extends React.Component {
                   onLoad={ this.contentDataLoaded }
                 >
                   { children[childrenCount - 1] }
-                </div>
+                </a>
               }
 
               {/* Content Data */}
               { children &&
                 children.map((item, index) => {
-                  return (<div
+                  return (<a
                     key={ index }
+                    href={ content[index].hasOwnProperty('href') ? content[index].href : null }
                     onDragStart={ this.preventDefaultBehavior }
                     onClick={ this.preventUnexpectedEventTriggered }
                     onMouseDown={ this.recordMouseDownCoordinate }
                     onMouseUp={ this.recordMouseUpCoordinate }
                   >
                     { children[index] }
-                  </div>)
+                  </a>)
                 })
               }
 
               {/* Content Placeholder End */}
               { children &&
-                <div
+                <a
                   onDragStart={ this.preventDefaultBehavior }
                   onClick={ this.preventUnexpectedEventTriggered }
                   onMouseDown={ this.recordMouseDownCoordinate }
                   onMouseUp={ this.recordMouseUpCoordinate }
                 >
                   { children[0] }
-                </div>
+                </a>
               }
             </div>
 
