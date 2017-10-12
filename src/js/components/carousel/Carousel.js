@@ -50,6 +50,7 @@ class Carousel extends React.Component {
     this.preventUnexpectedEventTriggered = this.preventUnexpectedEventTriggered.bind(this);
     this.recordMouseDownCoordinate       = this.recordMouseDownCoordinate.bind(this);
     this.recordMouseUpCoordinate         = this.recordMouseUpCoordinate.bind(this);
+    this.generateHyperlinkPath           = this.generateHyperlinkPath.bind(this);
 
     window.addEventListener('resize', this.updateCarouselWidth);
 
@@ -279,6 +280,18 @@ class Carousel extends React.Component {
     this.MOUSE_UP_COORDINATE = event.clientX;
   }
 
+  generateHyperlinkPath(carouselItemIndex) {
+    const { content } = this.props;
+
+    if(!isEmpty(content) && content[carouselItemIndex].hasOwnProperty('href')) {
+      return content[carouselItemIndex].href;
+
+    } else {
+      return undefined;
+
+    }
+  }
+
   render() {
     const { useDashboard = true, children, content } = this.props;
     const childrenCount  = children.length;
@@ -324,7 +337,7 @@ class Carousel extends React.Component {
                 children.map((item, index) => {
                   return (<a
                     key={ index }
-                    href={ content[index].hasOwnProperty('href') ? content[index].href : null }
+                    href={ this.generateHyperlinkPath(index) }
                     onDragStart={ this.preventDefaultBehavior }
                     onClick={ this.preventUnexpectedEventTriggered }
                     onMouseDown={ this.recordMouseDownCoordinate }
