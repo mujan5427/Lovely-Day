@@ -116,7 +116,7 @@ class Index extends React.Component {
   }
 
   render() {
-    const carousel = [
+    const carouselItemContent = [
       {
         image: '/assets/carousel1.jpg',
         href: '/experiences/4'
@@ -146,13 +146,11 @@ class Index extends React.Component {
 
           {/* Carousel */}
           <section className='index-carousel'>
-            <Carousel useAutomaticLoop={ true } >
+            <Carousel content={ carouselItemContent } useAutomaticLoop={ true } >
               {
-                carousel.map(item => {
+                carouselItemContent.map(item => {
                   return (
-                    <Link to={ item.href }>
-                      <img src={ item.image } />
-                    </Link>
+                    <img src={ item.image } />
                   );
                 })
               }
