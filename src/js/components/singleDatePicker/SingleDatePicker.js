@@ -39,6 +39,8 @@ class SingleDatePicker extends React.Component {
     this.nextMonthButtonHandler = this.nextMonthButtonHandler.bind(this);
     this.generateQuotaList      = this.generateQuotaList.bind(this);
     this.selectDayLabelHandler  = this.selectDayLabelHandler.bind(this);
+    this.resetLocalState        = this.resetLocalState.bind(this);
+    this.initialization         = this.initialization.bind(this);
   }
 
 
@@ -49,6 +51,31 @@ class SingleDatePicker extends React.Component {
    * * * * * * * * * * * * */
 
   componentDidMount() {
+    this.initialization();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const current  = nextProps;
+    const previous = this.props;
+
+    // If `currentPage` props is changed, reset the local state.
+    if(previous.currentPage !== current.currentPage) {
+      this.resetLocalState();
+    }
+
+    if(this.localStateIsReseted(this.state)) {
+      this.initialization();
+    }
+  }
+
+
+  /* * * * * * * * * * * * *
+   *                       *
+   *    Private Methods    *
+   *                       *
+   * * * * * * * * * * * * */
+
+  initialization() {
     const year  = this.currentDate.getUTCFullYear();
     const month = this.currentDate.getUTCMonth();
     var needToBeModifiedState;
@@ -60,12 +87,23 @@ class SingleDatePicker extends React.Component {
     this.setState(needToBeModifiedState);
   }
 
+  resetLocalState() {
+    const defaultValueOfLocalState = {
+      selectedDay         : undefined,
+      openDaysOfThisMonth : {}
+    };
 
-  /* * * * * * * * * * * * *
-   *                       *
-   *    Private Methods    *
-   *                       *
-   * * * * * * * * * * * * */
+    this.setState(defaultValueOfLocalState);
+  }
+
+  localStateIsReseted(currentLocalState) {
+    const defaultValueOfLocalState = {
+      selectedDay         : undefined,
+      openDaysOfThisMonth : {}
+    };
+
+    return objectEqual(currentLocalState, defaultValueOfLocalState)
+  }
 
   generateDayLabelList() {
     const { selectedDay, openDaysOfThisMonth } = this.state;
