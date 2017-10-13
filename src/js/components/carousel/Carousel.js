@@ -51,6 +51,7 @@ class Carousel extends React.Component {
     this.recordMouseDownCoordinate       = this.recordMouseDownCoordinate.bind(this);
     this.recordMouseUpCoordinate         = this.recordMouseUpCoordinate.bind(this);
     this.generateHyperlinkPath           = this.generateHyperlinkPath.bind(this);
+    this.resetLocalState                 = this.resetLocalState.bind(this);
 
     window.addEventListener('resize', this.updateCarouselWidth);
 
@@ -78,6 +79,17 @@ class Carousel extends React.Component {
   componentDidMount() {
     if (this.USE_AUTOMATIC_LOOP) {
       this.startCarouselTimer();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const current  = nextProps;
+    const previous = this.props;
+
+    // If `currentPage` props is changed, reset the local state.
+    if(previous.hasOwnProperty('currentPage') && current.hasOwnProperty('currentPage') &&
+       previous.currentPage !== current.currentPage) {
+      this.resetLocalState();
     }
   }
 
@@ -290,6 +302,16 @@ class Carousel extends React.Component {
       return undefined;
 
     }
+  }
+
+  resetLocalState() {
+    const defaultValueOfLocalState = {
+      index        : 1,
+      coordinate   : 0,
+      useAnimation : true
+    };
+
+    this.setState(defaultValueOfLocalState);
   }
 
   render() {
