@@ -128,6 +128,7 @@ class ExperienceDetail extends React.Component {
     const { displayContent, displayBrief, displayCancelMethod, displayReservation,
             title, price, content, brief, cancelMethod, host, favorited, carousel,
             recommendationList } = this.props;
+    const currentPage = Number(this.props.match.params.id);
 
     return (
       <div>
@@ -148,7 +149,7 @@ class ExperienceDetail extends React.Component {
 
             {/* Carousel */}
             { carousel &&
-              <Carousel useDashboard={ false }>
+              <Carousel currentPage={ currentPage } useDashboard={ false }>
                 {
                   carousel.map(item => {
                     return (
@@ -246,7 +247,7 @@ class ExperienceDetail extends React.Component {
 
             {/* Right Panel */}
             <div className='experience-detail-right-panel'>
-              <SingleDatePicker />
+              <SingleDatePicker currentPage={ currentPage } />
 
               { price &&
                 <section>
