@@ -58,9 +58,10 @@ class SingleDatePicker extends React.Component {
     const current  = nextProps;
     const previous = this.props;
 
-    // If `currentPage` props is changed, reset the local state.
+    // If `currentPage` props is changed, reset the local state and global variable.
     if(previous.currentPage !== current.currentPage) {
       this.resetLocalState();
+      this.currentDate = new Date();
     }
 
     if(this.localStateIsReseted(this.state)) {
