@@ -7,7 +7,7 @@ import Reservation from '../dialog/Reservation';
 import { fetchData, requestUpdate, toggleDisplayContent, toggleDisplayBrief,
          toggleDisplayCancelMethod, resetDisplayExperienceDetail,
          toggleDisplayReservation, resetPageExperienceDetail, deleteFavourite,
-         addFavourite, resetEntityFavourite,
+         addFavourite, resetEntityFavourite, toggleDisplayDialogLogin,
          GROUP_PAGE_EXPERIENCE_DETAIL } from '../../actions/action';
 
 
@@ -111,7 +111,7 @@ class ExperienceDetail extends React.Component {
     if (!hasLoggedIn) {
 
       // This can be replace by using Dialog Message component
-      console.log(`此操作需要先登入帳號 !`);
+      dispatch(toggleDisplayDialogLogin());
 
     } else {
 
