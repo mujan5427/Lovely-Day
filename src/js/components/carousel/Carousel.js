@@ -305,9 +305,10 @@ class Carousel extends React.Component {
   }
 
   resetLocalState() {
+    const index = 1;
     const defaultValueOfLocalState = {
-      index        : 1,
-      coordinate   : 0,
+      index        : index,
+      coordinate   : (-this.CAROUSEL_WIDTH * index),
       useAnimation : true
     };
 
