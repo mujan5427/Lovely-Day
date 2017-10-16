@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 window.isEmpty     = require('is-empty');
 window.browserInfo = require('detect-browser');
 window.queryString = require('query-string');
