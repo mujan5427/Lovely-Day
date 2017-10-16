@@ -398,7 +398,8 @@ function getExperienceList(group, requestBody) {
 
     apiOption = {
       headers: {
-        'content-type': 'application/json;charset=UTF-8'
+        'content-type': 'application/json;charset=UTF-8',
+        'If-Modified-Since': '0'
       }
     };
 
@@ -500,7 +501,8 @@ export function getFavourite() {
 
     apiOption = {
       headers: {
-        'content-type': 'application/json;charset=UTF-8'
+        'content-type': 'application/json;charset=UTF-8',
+        'If-Modified-Since': '0'
       }
     };
 
@@ -696,7 +698,8 @@ function getProfile() {
 
     apiOption = {
       headers: {
-        'content-type': 'application/json;charset=UTF-8'
+        'content-type': 'application/json;charset=UTF-8',
+        'If-Modified-Since': '0'
       }
     };
 
@@ -787,7 +790,8 @@ function getNavigationList() {
 
     apiOption = {
       headers: {
-        'content-type': 'application/json;charset=UTF-8'
+        'content-type': 'application/json;charset=UTF-8',
+        'If-Modified-Since': '0'
       }
     };
 
@@ -819,7 +823,8 @@ function getExperienceDetail(experienceId) {
 
     apiOption = {
       headers: {
-        'content-type': 'application/json;charset=UTF-8'
+        'content-type': 'application/json;charset=UTF-8',
+        'If-Modified-Since': '0'
       }
     };
 
