@@ -443,10 +443,21 @@ export function login(requestData) {
     const email      = requestData.email;
     const password   = requestData.password;
     const rememberMe = requestData.rememberMe;
-    const apiPath    = `http://${apiServerUrl}/api/${apiVersion}/token?email=${email}&password=${password}`;
+    var apiPath      = `http://${apiServerUrl}/api/${apiVersion}/token`;
+    var queryString  = `?email=${email}&password=${password}`;
+    var apiOption    = {};
+
+    apiPath = apiPath + queryString;
+
+    apiOption = {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8',
+        'If-Modified-Since': '0'
+      }
+    };
 
     // You can dispatch Progress Bar at this line. If you needed
-    fetch(apiPath)
+    fetch(apiPath, apiOption)
     .then(responseData => {
       if (responseData.status === 200 || responseData.status === 400) {
         return responseData.json();
