@@ -3,7 +3,7 @@ export const NINETY_DAYS = 90;
 export function setCookie(memberInfo, expirationDate = null) {
   var property;
 
-  if(memberInfo.hasOwnProperty('member_id') && !isEmpty(memberInfo.member_id)) {
+  if(memberInfo.hasOwnProperty('member_id') && !isEmpty(memberInfo.member_id) && !isEmpty(expirationDate)) {
     memberInfo.expiration_date = expirationDate;
   }
 
