@@ -1,8 +1,8 @@
-@import "base/reset";
+@import 'base/reset';
 
 // Make sure @fa-font-path or $fa-font-path variable in font-awesome/scss/_variables.scss
 // to point to your font directory.
-@import "../../node_modules/font-awesome/scss/font-awesome";
+@import '../../node_modules/font-awesome/scss/font-awesome';
 @import 'helpers/variables';
 @import 'helpers/mixins';
 @import 'base/base';
