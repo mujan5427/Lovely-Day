@@ -15,6 +15,8 @@
   border: 1px solid $horizontal-line-color;
   border-radius: 4px;
   box-shadow: 0 14px 36px 2px rgba(0, 0, 0, 0.15);
+  height: 100%;
+  max-height: 309px;
   max-width: 500px;
   padding: 30px;
 
@@ -22,8 +24,9 @@
     display: flex;
     flex-flow: column wrap;
     font-size: 1.3em;
+    height: 100%;
     margin-bottom: 10px;
-    max-height: 250px;
+    max-height: 221px;
 
     > div.checkbox {
       margin-bottom: 20px;
