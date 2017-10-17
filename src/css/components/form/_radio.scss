@@ -10,9 +10,6 @@
   }
 
   > input[type=radio]:checked + label::after {
-    -moz-border-radius: .8em;
-    -webkit-border-radius: .8em;
-    -webkit-transform: scale(.65);
     background-color: $official-blue;
     border: 2px solid $official-blue;
     border-radius: .8em;
@@ -34,8 +31,6 @@
     position: relative;
 
     &::before {
-      -moz-border-radius: 1em;
-      -webkit-border-radius: 1em;
       border: 2px solid;
       border-color: inherit;
       border-radius: 1em;
