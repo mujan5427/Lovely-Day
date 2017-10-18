@@ -26,6 +26,11 @@
       display: none;
     }
 
+    &::-ms-value {
+      background-color: inherit;
+      color: inherit;
+    }
+
     &:focus {
       border: 1px solid $official-blue;
       outline: none;
