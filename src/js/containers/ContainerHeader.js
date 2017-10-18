@@ -49,6 +49,8 @@ function mapStateToProps(state) {
     userName: getUsername(),
     displayDialogAccount: state.displayDialogAccount,
     displayMenu: state.displayMenu,
+    dropDownMenuNavigation: state.dropDownMenu.displayNavigation,
+    dropDownMenuPersonalInformation: state.dropDownMenu.displayPersonalInformation,
     selectedNavigationList: getSelectedNavigationList(state),
     selectedNavigationType: getSelectedNavigationType(state)
   };
