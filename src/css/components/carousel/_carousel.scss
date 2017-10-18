@@ -8,11 +8,13 @@
     /* Enable Hardware Acceleration
      *
      * Using `translate3d` pushes CSS animations into hardware acceleration
-     * And fix unexpected flicker issue by using `backface-visibility` and `perspective`.
+     * And fix unexpected flicker issue by using `-webkit-backface-visibility` and `-webkit-perspective`.
+     *
+     * source: https://davidwalsh.name/translate3d
      */
     transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-	  perspective: 1000;
+    -webkit-backface-visibility: hidden;
+	  -webkit-perspective: 1000;
     transition: transform .5s ease;
     width: 100%;
 
