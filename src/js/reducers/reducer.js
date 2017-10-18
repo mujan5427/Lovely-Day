@@ -141,6 +141,40 @@ function alert(state = {
   }
 }
 
+function dropDownMenu(state = {
+  displayNavigation: false,
+  displayPersonalInformation: false
+}, action) {
+  switch(action.type) {
+    case 'ENABLE_DISPLAY_NAVIGATION':
+      return {
+        displayNavigation: true,
+        displayPersonalInformation: false
+      };
+
+    case 'DISABLE_DISPLAY_NAVIGATION':
+      return {
+        displayNavigation: false,
+        displayPersonalInformation: false
+      };
+
+    case 'ENABLE_DISPLAY_PERSONAL_INFORMATION':
+      return {
+        displayNavigation: false,
+        displayPersonalInformation: true
+      };
+
+    case 'DISABLE_DISPLAY_PERSONAL_INFORMATION':
+      return {
+        displayNavigation: false,
+        displayPersonalInformation: false
+      };
+
+    default:
+      return state;
+  }
+}
+
 function entityExperiences(state = {}, action) {
   switch(action.type) {
     case 'REQUEST_SUCCESS':
@@ -493,6 +527,7 @@ const reducer = combineReducers({
   displayExperienceDetail: displayExperienceDetail,
   displaySearch: displaySearch,
   alert: alert,
+  dropDownMenu: dropDownMenu,
   entities: entityExperiences,
   headerNavigation: headerNavigation,
   pageIndex: pageIndex,
