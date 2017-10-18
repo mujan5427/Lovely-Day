@@ -275,7 +275,7 @@ class Carousel extends React.Component {
   }
 
   preventUnexpectedEventTriggered(event) {
-    if (this.MOUSE_DOWN_COORDINATE !== this.MOUSE_UP_COORDINATE && window.browserInfo.name === 'firefox') {
+    if (this.MOUSE_DOWN_COORDINATE !== this.MOUSE_UP_COORDINATE) {
       event.preventDefault();
     }
   }
