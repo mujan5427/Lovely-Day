@@ -48,8 +48,8 @@ class Header extends React.Component {
       case 'TYPE-1':
       default:
         return (
-          <div className='dialog-header' onClick={ toggleDialogLogin || toggleDialogSignup }>
-            <a className='custom-close-dialog-button'>
+          <div className='dialog-header'>
+            <a className='custom-close-dialog-button' onClick={ toggleDialogLogin || toggleDialogSignup }>
               <i className='fa fa-times fa-2x' aria-hidden='true'></i>
             </a>
           </div>
