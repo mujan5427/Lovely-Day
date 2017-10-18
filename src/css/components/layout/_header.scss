@@ -85,22 +85,10 @@
   top: 70px;
   color: #484848;
   line-height: normal;
-  display: none;
-
-  &:hover {
-    display: inline-block;
-  }
-}
-
-.header-menu-main:hover ~ .drop-down-menu-type-1 {
   display: inline-block;
 }
 
-.header-menu-navigation:hover ~ .drop-down-menu-type-2 {
-  display: inline-block;
-}
-
-// TYPE-1 : Main
+// TYPE-1 : Personal Information
 .drop-down-menu-type-1 {
   right: 0;
   color: #999999;
