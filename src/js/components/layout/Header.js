@@ -14,7 +14,6 @@ class Header extends React.Component {
     this.logoutButton                          = this.logoutButton.bind(this);
     this.toggleDialogLogin                     = this.toggleDialogLogin.bind(this)
     this.toggleDialogSignup                    = this.toggleDialogSignup.bind(this);
-    this.toggleMenuMain                        = this.toggleMenuMain.bind(this);
     this.getNavigationTitle                    = this.getNavigationTitle.bind(this);
     this.mouseEnterHandler                     = this.mouseEnterHandler.bind(this);
     this.showDropDownMenuNavigation            = this.showDropDownMenuNavigation.bind(this);
@@ -50,12 +49,6 @@ class Header extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(toggleDisplayDialogSignup());
-  }
-
-  toggleMenuMain() {
-    const { dispatch } = this.props;
-
-    dispatch(toggleDisplayMenuMain());
   }
 
   getNavigationTitle() {
@@ -124,7 +117,6 @@ class Header extends React.Component {
   render() {
     const { hasLoggedIn = false, userName = 'user name', selectedNavigationList,
             dropDownMenuNavigation, dropDownMenuPersonalInformation } = this.props;
-    const { displayMenuMain } = this.props.displayMenu;
 
     return (
       <header className='layout-header'>
@@ -141,14 +133,14 @@ class Header extends React.Component {
 
           <nav>
             <Link to='/search'><i className='fa fa-search fa-fw' aria-hidden='true'></i></Link>
-            { !displayMenuMain &&
-              <a onClick={ this.toggleMenuMain }>
+            { !dropDownMenuPersonalInformation &&
+              <a onClick={ this.showDropDownMenuPersonalInformation }>
                 <i className='fa fa-user-circle-o fa-fw' aria-hidden='true'></i>
               </a>
             }
 
-            { displayMenuMain &&
-              <a onClick={ this.toggleMenuMain }>
+            { dropDownMenuPersonalInformation &&
+              <a onClick={ this.hiddenDropDownMenuPersonalInformation }>
                 <i className='fa fa-times fa-fw' aria-hidden='true'></i>
               </a>
             }
