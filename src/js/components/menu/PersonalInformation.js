@@ -6,7 +6,7 @@ disableDisplayDropDownMenuPersonalInformation
  } from '../../actions/action';
 
 
-class Main extends React.Component {
+class PersonalInformation extends React.Component {
   constructor(props) {
     super(props);
 
@@ -98,4 +98,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+export default PersonalInformation;
