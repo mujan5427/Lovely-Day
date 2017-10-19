@@ -4,7 +4,7 @@ import Navigation from '../components/menu/Navigation';
 
 function mapStateToProps(state) {
   return {
-    displayMenu: state.displayMenu
+    dropDownMenuNavigation: state.dropDownMenu.displayNavigation
   };
 }
 
