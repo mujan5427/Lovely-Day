@@ -4,8 +4,6 @@ import { setCookie, getCookie, deleteCookie, verifyCookie, NINETY_DAYS } from '.
 export const TOGGLE_HASLOGGEDIN                   = 'TOGGLE_HASLOGGEDIN';
 export const TOGGLE_DISPLAYDIALOGLOGIN            = 'TOGGLE_DISPLAYDIALOGLOGIN';
 export const TOGGLE_DISPLAYDIALOGSIGNUP           = 'TOGGLE_DISPLAYDIALOGSIGNUP';
-export const TOGGLE_DISPLAYMENUMAIN               = 'TOGGLE_DISPLAYMENUMAIN';
-export const TOGGLE_DISPLAYMENUNAVIGATION         = 'TOGGLE_DISPLAYMENUNAVIGATION';
 export const TOGGLE_DISPLAY_CONTENT               = 'TOGGLE_DISPLAY_CONTENT';
 export const TOGGLE_DISPLAY_BRIEF                 = 'TOGGLE_DISPLAY_BRIEF';
 export const TOGGLE_DISPLAY_CANCEL_METHOD         = 'TOGGLE_DISPLAY_CANCEL_METHOD';
@@ -66,18 +64,6 @@ export function toggleDisplayDialogLogin() {
 export function toggleDisplayDialogSignup() {
   return {
     type: TOGGLE_DISPLAYDIALOGSIGNUP
-  };
-}
-
-export function toggleDisplayMenuMain() {
-  return {
-    type: TOGGLE_DISPLAYMENUMAIN
-  };
-}
-
-export function toggleDisplayMenuNavigation() {
-  return {
-    type: TOGGLE_DISPLAYMENUNAVIGATION
   };
 }
 
