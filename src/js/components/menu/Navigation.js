@@ -1,67 +1,63 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { toggleDisplayMenuNavigation } from '../../actions/action';
+import { disableDisplayDropDownMenuNavigation } from '../../actions/action';
 
 
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
 
-    this.hiddenMenu = this.hiddenMenu.bind(this);
+    this.hiddenMenuNavigation = this.hiddenMenuNavigation.bind(this);
   }
 
-  hiddenMenu(event) {
+  hiddenMenuNavigation() {
     const { dispatch } = this.props;
 
-    if (event.target.hasAttribute('data-can-be-triggered-element')) {
-      dispatch(toggleDisplayMenuNavigation());
-    }
+    dispatch(disableDisplayDropDownMenuNavigation());
   }
 
   render() {
-    const { displayMenuNavigation } = this.props.displayMenu;
+    const { dropDownMenuNavigation } = this.props;
 
     return (
       <div>
         <div
-          className='menu-box-background'
-          style={ displayMenuNavigation ? {display: 'block'} : null }
-          onClick={ this.hiddenMenu }
-          data-can-be-triggered-element
+          className={ dropDownMenuNavigation ? 'menu-box-background-active' : 'menu-box-background' }
+          onClick={ this.hiddenMenuNavigation }
         ></div>
 
-        <div className='menu-box' style={ displayMenuNavigation ? {left: '0'} : null }>
+        <div className={ dropDownMenuNavigation ? 'menu-box-active' : 'menu-box' }>
           <header className='menu-header'>
             <h1>Lovely Day</h1>
             <div>Book Amazing Activities, Tours, and more</div>
           </header>
 
-          <section className='menu-list menu-item-theme-navigation' onClick={ this.hiddenMenu }>
-            <Link to='/search?category=1' data-can-be-triggered-element>
+          <section className='menu-list menu-item-theme-navigation' onClick={ this.hiddenMenuNavigation }>
+            <Link to='/search?category=1'>
               <i className='fa fa-flag-checkered  fa-fw' aria-hidden='true'></i>
               <label>夏令營專區</label>
             </Link>
-            <Link to='/search?category=2' data-can-be-triggered-element>
+            <Link to='/search?category=2'>
               <i className='fa fa-american-sign-language-interpreting fa-fw' aria-hidden='true'></i>
               <label>藝文手作</label>
             </Link>
-            <Link to='/search?category=3' data-can-be-triggered-element>
+            <Link to='/search?category=3'>
               <i className='fa fa-cutlery fa-fw' aria-hidden='true'></i>
               <label>玩樂廚房</label>
             </Link>
-            <Link to='/search?category=4' data-can-be-triggered-element>
+            <Link to='/search?category=4'>
               <i className='fa fa-tree fa-fw' aria-hidden='true'></i>
               <label>愛上戶外</label>
             </Link>
-            <Link to='/search?category=5' data-can-be-triggered-element>
+            <Link to='/search?category=5'>
               <i className='fa fa-child fa-fw' aria-hidden='true'></i>
               <label>親子專區</label>
             </Link>
-            <Link to='/search?category=6' data-can-be-triggered-element>
+            <Link to='/search?category=6'>
               <i className='fa fa-users fa-fw' aria-hidden='true'></i>
               <label>團體遊戲</label>
             </Link>
-            <Link to='/search?category=7' data-can-be-triggered-element>
+            <Link to='/search?category=7'>
               <i className='fa fa-heart fa-fw' aria-hidden='true'></i>
               <label>情人專區</label>
             </Link>
