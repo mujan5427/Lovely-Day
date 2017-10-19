@@ -15,7 +15,6 @@ class Header extends React.Component {
     this.toggleDialogLogin                     = this.toggleDialogLogin.bind(this)
     this.toggleDialogSignup                    = this.toggleDialogSignup.bind(this);
     this.toggleMenuMain                        = this.toggleMenuMain.bind(this);
-    this.toggleMenuNavigation                  = this.toggleMenuNavigation.bind(this);
     this.getNavigationTitle                    = this.getNavigationTitle.bind(this);
     this.mouseEnterHandler                     = this.mouseEnterHandler.bind(this);
     this.showDropDownMenuNavigation            = this.showDropDownMenuNavigation.bind(this);
@@ -57,12 +56,6 @@ class Header extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(toggleDisplayMenuMain());
-  }
-
-  toggleMenuNavigation() {
-    const { dispatch } = this.props;
-
-    dispatch(toggleDisplayMenuNavigation());
   }
 
   getNavigationTitle() {
@@ -139,7 +132,7 @@ class Header extends React.Component {
         {/* Mobile Version */}
         <section className='header-mobile-version'>
           <nav>
-            <a onClick={ this.toggleMenuNavigation }>
+            <a onClick={ this.showDropDownMenuNavigation }>
               <i className='fa fa-reorder fa-fw' aria-hidden='true'></i>
             </a>
           </nav>
