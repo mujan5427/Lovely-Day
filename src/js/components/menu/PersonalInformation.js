@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { deleteCookie } from '../../helpers/cookie';
 import { toggleDisplayDialogSignup, toggleDisplayDialogLogin, logout,
-disableDisplayDropDownMenuPersonalInformation
- } from '../../actions/action';
+disableDisplayDropDownMenuPersonalInformation } from '../../actions/action';
 
 
 class PersonalInformation extends React.Component {
@@ -53,7 +52,7 @@ class PersonalInformation extends React.Component {
             <div>
 
               {/* has logged in */}
-              <section className='menu-list menu-item-theme-main'>
+              <section className='menu-list menu-item-theme-personal-information'>
                 <Link to='/profile' onClick={ this.hiddenMenuPersonalInformation }>
                   <label>個人資料</label>
                   <i className='fa fa-user-o fa-fw' aria-hidden='true'></i>
@@ -68,7 +67,7 @@ class PersonalInformation extends React.Component {
                 </a>
               </section>
 
-              <section className='menu-list menu-item-theme-main'>
+              <section className='menu-list menu-item-theme-personal-information'>
                 <a>幫助</a>
                 <a onClick={ this.logoutButton }>登出</a>
               </section>
@@ -79,12 +78,12 @@ class PersonalInformation extends React.Component {
             <div>
 
               {/* has logged out */}
-              <section className='menu-list menu-item-theme-main'>
+              <section className='menu-list menu-item-theme-personal-information'>
                 <a onClick={ this.toggleDialogSignup }>註冊</a>
                 <a onClick={ this.toggleDialogLogin }>登入</a>
               </section>
 
-              <section className='menu-list menu-item-theme-main'>
+              <section className='menu-list menu-item-theme-personal-information'>
                 <a>幫助</a>
               </section>
             </div>
