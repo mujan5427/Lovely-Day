@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCookie, verifyCookie } from '../../helpers/cookie';
-import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin, toggleDisplayMenuMain, toggleDisplayMenuNavigation, logout, fetchData, modifyNavigationType,
-enableDisplayDropDownMenuNavigation, disableDisplayDropDownMenuNavigation,
-enableDisplayDropDownMenuPersonalInformation, disableDisplayDropDownMenuPersonalInformation,
+import { toggleHasLoggedIn, toggleDisplayDialogSignup, toggleDisplayDialogLogin,
+logout, fetchData, modifyNavigationType, enableDisplayDropDownMenuNavigation, disableDisplayDropDownMenuNavigation, enableDisplayDropDownMenuPersonalInformation, disableDisplayDropDownMenuPersonalInformation,
 GROUP_HEADER_NAVIGATION } from '../../actions/action';
 
 
