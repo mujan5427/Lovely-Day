@@ -34,28 +34,6 @@ function displayDialogAccount(state = {
   }
 }
 
-function displayMenu(state = {
-  displayMenuMain: false,
-  displayMenuNavigation: false,
-}, action) {
-  switch(action.type) {
-    case 'TOGGLE_DISPLAYMENUMAIN':
-      return {
-        displayMenuMain: !state.displayMenuMain,
-        displayMenuNavigation: false,
-      };
-
-    case 'TOGGLE_DISPLAYMENUNAVIGATION':
-      return {
-        displayMenuMain: false,
-        displayMenuNavigation: !state.displayMenuNavigation,
-      };
-
-    default:
-      return state;
-  }
-}
-
 function displayExperienceDetail(state = {
   displayContent: false,
   displayBrief: false,
@@ -523,7 +501,6 @@ function parsePageExperienceDetail(selected) {
 const reducer = combineReducers({
   hasLoggedIn: hasLoggedIn,
   displayDialogAccount: displayDialogAccount,
-  displayMenu: displayMenu,
   displayExperienceDetail: displayExperienceDetail,
   displaySearch: displaySearch,
   alert: alert,
