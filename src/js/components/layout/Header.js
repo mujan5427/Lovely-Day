@@ -158,7 +158,7 @@ class Header extends React.Component {
               <i className='fa fa-search' aria-hidden='true'></i>
             </Link>
             <a
-              className='header-menu-navigation hasIcon'
+              className='header-navigation-bar-item-has-icon'
               onMouseEnter={ this.showDropDownMenuNavigation }
               onMouseLeave={ this.hiddenDropDownMenuNavigation }
             >
@@ -216,7 +216,6 @@ class Header extends React.Component {
             {/* has logged in */}
             { hasLoggedIn &&
               <a
-                className='header-menu-main'
                 onMouseEnter={ this.showDropDownMenuPersonalInformation }
                 onMouseLeave={ this.hiddenDropDownMenuPersonalInformation }
               >
