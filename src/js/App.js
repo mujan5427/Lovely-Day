@@ -20,7 +20,7 @@ import reducer from './reducers/reducer';
   * * * * * * * * * * * * * * * */
 
 import ContainerHeader from './containers/ContainerHeader';
-import ContainerMain from './containers/ContainerMain';
+import ContainerPersonalInformation from './containers/ContainerPersonalInformation';
 import ContainerNavigation from './containers/ContainerNavigation';
 import ContainerExperienceDetail from './containers/ContainerExperienceDetail';
 import ContainerDialogWrapper from './containers/ContainerDialogWrapper';
@@ -40,7 +40,7 @@ ReactDOM.render(
         <Route path='/search' component={ ContainerSearch } />
         <Route path='/profile' component={ContainerRedirectWrapper} />
         <Route path='/experiences/:id' component={ ContainerExperienceDetail } />
-        <ContainerMain />
+        <ContainerPersonalInformation />
         <ContainerNavigation />
         <ContainerDialogWrapper />
       </div>
