@@ -5,8 +5,7 @@ import Main from '../components/menu/Main';
 function mapStateToProps(state) {
   return {
     hasLoggedIn: state.hasLoggedIn,
-    displayDialogAccount: state.displayDialogAccount,
-    displayMenu: state.displayMenu
+    dropDownMenuPersonalInformation: state.dropDownMenu.displayPersonalInformation
   };
 }
 
