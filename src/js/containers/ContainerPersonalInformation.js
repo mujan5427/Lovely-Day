@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Main from '../components/menu/Main';
+import PersonalInformation from '../components/menu/PersonalInformation';
 
 
 function mapStateToProps(state) {
@@ -11,6 +11,6 @@ function mapStateToProps(state) {
 
 const ContainerMain = connect(
   mapStateToProps
-)(Main);
+)(PersonalInformation);
 
 export default ContainerMain;
