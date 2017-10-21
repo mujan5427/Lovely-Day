@@ -15,6 +15,11 @@
     font-size: inherit;
     outline: none;
     width: 100%;
+
+    // Remove the default additional button of specified type input element in IE 10.
+    &::-ms-clear {
+      display: none;
+    }
   }
 }
 
