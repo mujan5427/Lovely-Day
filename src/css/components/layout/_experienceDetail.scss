@@ -162,13 +162,17 @@
     display: inline-block;
 
     @include mq-medium-up {
-      max-width: calc(33.33% - 20px);
+      width: calc(33.33% - 20px);
     }
 
     &:nth-child(3n+2) {
       @include mq-medium-up {
         margin: 0 calc(20px * 3 / 2);
       }
+    }
+
+    > a {
+      width: 100%;
     }
   }
 }
