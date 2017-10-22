@@ -1,4 +1,5 @@
 import React from 'react';
+import { getDecimalCurrencyFormat } from '../../helpers/number';
 import Recommendation from '../experience/Recommendation';
 import Carousel from '../carousel/Carousel';
 import SingleDatePicker from '../singleDatePicker/SingleDatePicker';
@@ -251,7 +252,7 @@ class ExperienceDetail extends React.Component {
 
               { price &&
                 <section>
-                  <div>{ `TWD ${ price.toLocaleString() } / 人` }</div>
+                  <div>{ `TWD ${ getDecimalCurrencyFormat(price) } / 人` }</div>
                 </section>
               }
 
@@ -276,7 +277,7 @@ class ExperienceDetail extends React.Component {
                       id={ item.id }
                       imagePath={ item.images[0] }
                       title={ item.title }
-                      price={ item.price.toLocaleString() }
+                      price={ getDecimalCurrencyFormat(item.price) }
                     />
                   );
                 })
@@ -290,7 +291,7 @@ class ExperienceDetail extends React.Component {
         <div className='experience-detail-dashboard-of-mobile-version'>
           { price &&
             <span>
-              { `TWD ${ price.toLocaleString() } / 人` }
+              { `TWD ${ getDecimalCurrencyFormat(price) } / 人` }
             </span>
           }
           <a className='button solid solid-theme-pink' onClick={ this.toggleDialogReservation }>申請預訂</a>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getDecimalCurrencyFormat } from '../../helpers/number';
 
 class Experience extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Experience extends React.Component {
           <img className='experience-image' src={ image } />
           <figcaption className='experience-title'>{ title }</figcaption>
           <div className='experience-description'>
-            <span>TWD { price.toLocaleString() }</span>
+            <span>TWD { getDecimalCurrencyFormat(price) }</span>
           </div>
         </Link>
       </div>
