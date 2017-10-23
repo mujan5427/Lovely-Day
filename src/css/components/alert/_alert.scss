@@ -1,24 +1,27 @@
 .alert {
-  align-items: center;
-  background-color: #ff7a00;
+  align-items: stretch;
+  border: 1px solid $horizontal-line-color;
   border-radius: 6px;
   display: flex;
   flex-flow: row nowrap;
+  overflow: hidden;
+}
+
+.alert-icon {
+  align-items: center;
+  background-color: #ff7a00;
+  display: flex;
+  justify-content: center;
+  width: 10%;
 
   > i {
     color: #ffffff;
     font-size: 1.3em;
-    padding: 10px;
   }
+}
 
-  > label {
-    background-color: #ffffff;
-    border-color: $horizontal-line-color;
-    border-radius: 0 6px 6px 0;
-    border-style: solid;
-    border-width: 1px 1px 1px 0;
-    line-height: 1.4em;
-    padding: 12px;
-    width: 100%;
-  }
+.alert-message {
+  line-height: 1.4em;
+  padding: 12px;
+  width: 90%;
 }

@@ -11,8 +11,8 @@ class Alert extends React.Component {
 
     return (
       <div className='alert'>
-        <i className='fa fa-exclamation-circle' aria-hidden='true'></i>
-        <label>{ message }</label>
+        <div className='alert-icon'><i className='fa fa-exclamation-circle' aria-hidden='true'></i></div>
+        <div className='alert-message'>{ message }</div>
       </div>
     );
   }
