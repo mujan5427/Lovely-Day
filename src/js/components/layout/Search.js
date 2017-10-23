@@ -3,7 +3,7 @@ import { changeFormState } from '../../helpers/localState';
 import { getSpecifiedPropertyOfQuerystring, isLegal, createHistoryStack } from '../../helpers/querystring';
 import { toggleDisplayFilterPickerRegion, toggleDisplayFilterPickerType, toggleDisplayDialogFilter,
          fetchData, requestUpdate, resetPageSearchExperienceList, resetPageSearchCurrentPage, getFavourite, addFavourite, deleteFavourite, resetEntityExperienceFavorite, toggleDisplayDialogLogin,
-         GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
+         resetDisplaySearch, GROUP_PAGE_SEARCH_EXPERIENCE_LIST } from '../../actions/action';
 import Experience from '../experience/Experience';
 import FilterPicker from '../dialog/FilterPicker';
 import CheckBox from '../form/CheckBox';
@@ -188,6 +188,9 @@ class Search extends React.Component {
     // resetting `currentPage` and `experienceList` of pageSearch of app state
     dispatch(resetPageSearchCurrentPage());
     dispatch(resetPageSearchExperienceList());
+
+    // resetting `displaySearch` of app state
+    dispatch(resetDisplaySearch());
   }
 
 
