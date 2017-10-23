@@ -122,8 +122,7 @@ class Search extends React.Component {
     const categoryOfQuerystring    = getSpecifiedPropertyOfQuerystring(parsedQueryString, 'category');
     const waitForUpdatedLocalState = this.localStateFromQuerystring(regionOfQuerystring, categoryOfQuerystring);
 
-    if(previousProps.location.search !== currentProps.location.search &&
-       !isEmpty(currentProps.location.search)) {
+    if(previousProps.location.search !== currentProps.location.search) {
       this.setState(waitForUpdatedLocalState);
     }
   }
