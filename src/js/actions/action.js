@@ -38,6 +38,7 @@ export const ENABLE_DISPLAY_NAVIGATION            = 'ENABLE_DISPLAY_NAVIGATION';
 export const DISABLE_DISPLAY_NAVIGATION           = 'DISABLE_DISPLAY_NAVIGATION';
 export const ENABLE_DISPLAY_PERSONAL_INFORMATION  = 'ENABLE_DISPLAY_PERSONAL_INFORMATION';
 export const DISABLE_DISPLAY_PERSONAL_INFORMATION = 'DISABLE_DISPLAY_PERSONAL_INFORMATION';
+export const RESET_DISPLAY_SEARCH                 = 'RESET_DISPLAY_SEARCH';
 
 const apiServerUrl = 'localhost:3000';
 const apiVersion   = '1.0';
@@ -326,6 +327,12 @@ export function enableDisplayDropDownMenuPersonalInformation() {
 export function disableDisplayDropDownMenuPersonalInformation() {
   return {
     type: DISABLE_DISPLAY_PERSONAL_INFORMATION
+  };
+}
+
+export function resetDisplaySearch() {
+  return {
+    type: RESET_DISPLAY_SEARCH
   };
 }
 

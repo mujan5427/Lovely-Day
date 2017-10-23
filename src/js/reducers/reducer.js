@@ -68,7 +68,8 @@ function displayExperienceDetail(state = {
 
 function displaySearch(state = {
   displayFilterPickerRegion: false,
-  displayFilterPickerType: false
+  displayFilterPickerType: false,
+  displayDialogFilter: false
 }, action) {
   switch(action.type) {
     case 'TOGGLE_DISPLAY_FILTERPICKER_REGION':
@@ -90,6 +91,13 @@ function displaySearch(state = {
         displayFilterPickerRegion: false,
         displayFilterPickerType: false,
         displayDialogFilter: !state.displayDialogFilter
+      };
+
+    case 'RESET_DISPLAY_SEARCH':
+      return {
+        displayFilterPickerRegion: false,
+        displayFilterPickerType: false,
+        displayDialogFilter: false
       };
 
     default:
