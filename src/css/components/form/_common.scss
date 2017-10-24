@@ -10,6 +10,10 @@
   color: #484848;
   font-weight: inherit;
 
+  & > input, select {
+    background-color: #ffffff;
+  }
+
   i {
     color: #9c9c9c;
     font-size: 1.3em;
@@ -22,6 +26,10 @@
   color: #484848;
   font-weight: inherit;
 
+  & > input, select {
+    background-color: #fff8f6;
+  }
+
   i {
     color: #9c9c9c;
     font-size: 1.3em;
@@ -33,6 +41,10 @@
   border: 1px solid $horizontal-line-color;
   color: #aaaaaa;
   font-weight: inherit;
+
+  & > input, select {
+    background-color: #efefef;
+  }
 
   i {
     color: #9c9c9c;
