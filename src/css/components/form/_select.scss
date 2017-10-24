@@ -35,6 +35,12 @@
       border: 1px solid $official-blue;
       outline: none;
     }
+
+    // Remove dotted border of <select> element in Firefox.
+    &:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #484848;
+    }
   }
 }
 
