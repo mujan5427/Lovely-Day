@@ -17,6 +17,9 @@ a {
   color: inherit;
   cursor: pointer;
   display: inline-block;
+
+  // Remove dotted border of <a> element in Firefox.
+  outline: none;
   text-decoration: none;
 }
 
