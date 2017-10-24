@@ -40,12 +40,15 @@
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+
+  > a {
+    margin-right: calc(33.33% - 2.28571em);
+  }
 
   > span {
-    margin-left: -25.16px;
     text-align: center;
-    width: 100%;
+    width: 33.33%;
   }
 }
 

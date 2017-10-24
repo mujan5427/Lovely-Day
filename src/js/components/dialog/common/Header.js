@@ -28,7 +28,7 @@ class Header extends React.Component {
         return (
           <div className='dialog-header dialog-header-type-3'>
             <a className='custom-close-dialog-button' onClick={ this.closeButtonHandler }>
-              <i className='fa fa-times fa-2x' aria-hidden='true'></i>
+              <i className='fa fa-times fa-2x fa-fw' aria-hidden='true'></i>
             </a>
             <span>{ title }</span>
           </div>
