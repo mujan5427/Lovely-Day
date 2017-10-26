@@ -382,6 +382,7 @@ class Profile extends React.Component {
                 <div className='form-error-message'>{ firstname.errorMessage }</div>
               }
 
+              <div className='profile-form-component-description'>您的公開個人資料僅會顯示您的名字。</div>
             </div>
 
             <div>
@@ -392,7 +393,6 @@ class Profile extends React.Component {
                 <div className='form-error-message'>{ lastname.errorMessage }</div>
               }
 
-              <div className='profile-form-component-description'>您的公開個人資料僅會顯示您的名字。</div>
             </div>
 
             <div>
@@ -425,7 +425,7 @@ class Profile extends React.Component {
                 value={ email }
                 disabled={ true }
               />
-              <div className='profile-form-component-description'>我們不會向其他 Levely Day 用戶透露您的個人電子郵件地址。</div>
+              <div className='profile-form-component-description'>我們不會向其他 Lovely Day 用戶透露您的個人電子郵件地址。</div>
             </div>
 
             <div>
